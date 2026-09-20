@@ -72,3 +72,57 @@ app = App(
     root_agent=root_agent,
     name="app",
 )
+
+# ==============================================================================
+# MAUI Agent Bundle Initialization (Matching agent/python/__main__.py logic)
+# ==============================================================================
+from agent import MAUIAgent
+from agent_config import AgentConfig, FallbackMode
+from agent_with_grounding import MAUIAgentWithGrounding
+from agent_with_templates import MAUIAgentWithTemplates
+from app.agent_executor import MAUIAgentExecutor
+
+def create_maui_bundle(base_url: str = "http://127.0.0.1:8000"):
+    """Initializes and returns the MAUI agents and executor matching a2ui-samples."""
+    default_agent_name = os.getenv("A2UI_DEFAULT_AGENT", "TEMPLATE")
+    fallback_mode_env = os.getenv("A2UI_FALLBACK_MODE")
+    if fallback_mode_env:
+        config = AgentConfig(fallback_mode=FallbackMode(fallback_mode_env))
+    else:
+        config = AgentConfig()
+
+    ui_agent = MAUIAgent(base_url=base_url)
+    grounding_agent = MAUIAgentWithGrounding(base_url=base_url)
+    template_agent = MAUIAgentWithTemplates(base_url=base_url, config=config)
+
+    agent_map = {
+        "MAUIAGENT": ui_agent,
+        "BASE": ui_agent,
+        "MAUIAGENTWITHGROUNDING": grounding_agent,
+        "GROUNDING": grounding_agent,
+        "MAUIAGENTWITHTEMPLATES": template_agent,
+        "TEMPLATE": template_agent,
+    }
+
+    normalized_agent = default_agent_name.upper()
+    if normalized_agent not in agent_map:
+        raise ValueError(
+            f"Unknown agent: {default_agent_name}. Expected one of {list(agent_map.keys())}"
+        )
+
+    default_agent = agent_map[normalized_agent]
+
+    agent_executor = MAUIAgentExecutor(
+        default_agent=default_agent,
+        grounding_agent=grounding_agent,
+        template_agent=template_agent,
+    )
+
+    return {
+        "default_agent": default_agent,
+        "ui_agent": ui_agent,
+        "grounding_agent": grounding_agent,
+        "template_agent": template_agent,
+        "agent_executor": agent_executor,
+    }
+
