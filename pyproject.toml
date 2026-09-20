@@ -11,7 +11,7 @@ dependencies = [
     "google-adk[gcp,otel-gcp]>=2.6.0,<3.0.0",
     "opentelemetry-resourcedetector-gcp<=1.12.0a0",
     "gcsfs>=2024.11.0",
-    "a2a-sdk[http-server]>=1.0,<2",
+    "a2a-sdk[http-server]>=0.3.0,<2",
     "aiohttp>=3.13.4",
     "google-cloud-logging>=3.12.0,<4.0.0",
     "asyncpg>=0.30.0,<1.0.0",
@@ -20,8 +20,12 @@ dependencies = [
     "python-multipart>=0.0.20,<1.0.0",
     "sqlalchemy>=2,<3",
     "uvicorn~=0.34.0",
+    "maui-a2ui-python",
+    "a2ui-agent-sdk>=0.2.4",
+    "jsonschema>=4.0.0",
+    "mcp>=1.2.0,<2.0.0",
 ]
-requires-python = ">=3.11,<3.14"
+requires-python = ">=3.12,<3.14"
 
 
 [dependency-groups]
@@ -96,6 +100,9 @@ build-backend = "hatchling.build"
 [tool.pytest.ini_options]
 pythonpath = "."
 asyncio_default_fixture_loop_scope = "session"
+
+[tool.uv.sources]
+maui-a2ui-python = { path = "../a2ui/agent/python_agent", editable = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["app","frontend"]
