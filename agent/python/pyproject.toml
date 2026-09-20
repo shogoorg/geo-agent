@@ -25,4 +25,4 @@ dev = [
 ]
 
 [tool.uv.sources]
-maui-a2ui-python = { path = "/home/shogo/GitHub/a2ui/agent/python_agent", editable = true}
+maui-a2ui-python = { path = "../../../a2ui/agent/python_agent", editable = true}

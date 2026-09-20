@@ -68,7 +68,7 @@ requires-dist = [
     { name = "google-adk", extras = ["a2a", "extensions", "mcp"], specifier = ">=2.0.0" },
     { name = "google-genai", specifier = ">=2.0.0" },
     { name = "jsonschema", specifier = ">=4.0.0" },
-    { name = "maui-a2ui-python", editable = "../../a2ui/agent/python_agent" },
+    { name = "maui-a2ui-python", editable = "../../../a2ui/agent/python_agent" },
 ]
 
 [package.metadata.requires-dev]
@@ -1916,7 +1916,7 @@ wheels = [
 [[package]]
 name = "maui-a2ui-python"
 version = "0.1.0"
-source = { editable = "../../a2ui/agent/python_agent" }
+source = { editable = "../../../a2ui/agent/python_agent" }
 dependencies = [
     { name = "a2a-sdk" },
     { name = "a2ui-agent-sdk" },
