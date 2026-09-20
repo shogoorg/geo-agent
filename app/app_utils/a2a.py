@@ -26,11 +26,11 @@ import os
 from typing import TYPE_CHECKING
 
 from a2a.server.request_handlers import DefaultRequestHandler
-from a2a.server.routes import (
-    add_a2a_routes_to_fastapi,
-    create_agent_card_routes,
-    create_jsonrpc_routes,
-)
+# from a2a.server.routes import (
+#     add_a2a_routes_to_fastapi,
+#     create_agent_card_routes,
+#     create_jsonrpc_routes,
+# )
 from a2a.server.tasks import TaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentExtension, AgentInterface
 from a2a.utils.constants import AGENT_CARD_WELL_KNOWN_PATH
@@ -128,3 +128,30 @@ async def attach_a2a_routes(
             enable_v0_3_compat=True,
         ),
     )
+
+
+def attach_maui_a2a_routes(
+    app: FastAPI,
+    *,
+    default_agent: Any,
+    agent_executor: Any,
+    task_store: TaskStore,
+    rpc_path: str,
+) -> None:
+    """Attach MAUI A2UI Agent Executor routes to FastAPI matching agent/python/__main__.py."""
+    from a2a.server.apps.jsonrpc.fastapi_app import A2AFastAPIApplication
+
+    request_handler = DefaultRequestHandler(
+        agent_executor=agent_executor,
+        task_store=task_store,
+    )
+    server = A2AFastAPIApplication(
+        agent_card=default_agent.agent_card,
+        http_handler=request_handler,
+    )
+    server.add_routes_to_app(
+        app,
+        agent_card_url=f"{rpc_path}{AGENT_CARD_WELL_KNOWN_PATH}",
+        rpc_url=rpc_path,
+    )
+
