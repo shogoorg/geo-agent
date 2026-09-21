@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: 'Feature Request'
-description: 'Suggest an idea for this project'
+description: 'Suggest an idea for geo-agent'
 labels: ['status/need-triage', 'type/feature']
 body:
   - type: 'markdown'
@@ -22,7 +22,19 @@ body:
         > [!IMPORTANT]
         > Thanks for taking the time to suggest an enhancement!
         >
-        > Please search **[existing issues](https://github.com/google/agents-cli/issues)** to see if a similar feature has already been requested.
+        > Please search **[existing issues](https://github.com/shogoorg/geo-agent/issues)** to see if a similar feature has already been requested.
+
+  - type: 'dropdown'
+    id: 'component'
+    attributes:
+      label: 'Component'
+      description: 'Which part of the project does this feature apply to?'
+      options:
+        - 'Backend (FastAPI / Agent / Python)'
+        - 'Frontend (React / Web UI)'
+        - 'Other'
+    validations:
+      required: true
 
   - type: 'textarea'
     id: 'feature'
@@ -44,6 +56,6 @@ body:
     id: 'additional-context'
     attributes:
       label: 'Additional context'
-      description: 'Add any other context or screenshots about the feature request here.'
+      description: 'Add any other context, screenshots, or mockups here.'
     validations:
       required: false
