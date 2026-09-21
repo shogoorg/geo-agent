@@ -24,6 +24,7 @@ Before you begin, ensure you have:
 - **uv**: Python package manager (used for all dependency management in this project) - [Install](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
 - **agents-cli**: Agents CLI - Install with `uv tool install google-agents-cli`
 - **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
+- **a2ui repository**: Cloned at `../a2ui` (or path in `A2UI_REPO_DIR`) if syncing vendor code with `./scripts/sync-a2ui.sh [tag]`.
 
 
 ## Quick Start
@@ -47,6 +48,23 @@ agents-cli playground
 ```
 
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
+
+Evaluate agent behavior
+
+```bash
+agents-cli eval run
+```
+
+```bash
+cd agent/python
+A2UI_DEFAULT_AGENT=TEMPLATE uv run . --host 127.0.0.1
+```
+
+```bash
+cd client/web/react
+npm run dev
+```
+
 
 ## Commands
 
@@ -89,14 +107,12 @@ gcloud run services add-iam-policy-binding geo-agent \
 ```
 
 ```bash
-agents-cli deploy --list --project  <your-project-id>
-gcloud run services describe <your-service-name> --region <your-regsion> --project <your-project-id>
-```
-
-```bash
-BASE_URL=$(gcloud run services describe <your-service-name> --region <your-regsion> --project <your-project-id> --format="value(status.url)")
-echo "Agent Card URL: ${BASE_URL}/a2a/app/.well-known/agent-card.json"
-echo "A2A Endpoint:   ${BASE_URL}/a2a/app"
+cd client/web/react
+gcloud run deploy geo-agent-web \
+  --source . \
+  --project  <your-project-id> \
+  --region  <your-region> \
+  --allow-unauthenticated
 ```
 
 To add CI/CD and Terraform, run `agents-cli scaffold enhance`.
