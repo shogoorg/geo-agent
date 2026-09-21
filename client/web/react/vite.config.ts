@@ -14,25 +14,31 @@
  limitations under the License.
  */
 
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: './',
-  plugins: [
-    react(),
-    {
-      name: "html-transform",
-      transformIndexHtml(html) {
-        return html.replace(
-          "$GOOGLE_MAPS_API_KEY",
-          process.env.GOOGLE_MAPS_API_KEY || "$GOOGLE_MAPS_API_KEY"
-        ).replace(
-          "$SERVER_URL",
-          process.env.SERVER_URL || "http://localhost:10002"
-        );
-      },
-    }
-  ],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  const apiKey = env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_API_KEY || "$GOOGLE_MAPS_API_KEY"
+  const serverUrl = env.SERVER_URL || process.env.SERVER_URL || "http://localhost:10002"
+
+  return {
+    base: './',
+    plugins: [
+      react(),
+      {
+        name: "html-transform",
+        transformIndexHtml(html) {
+          return html.replace(
+            "$GOOGLE_MAPS_API_KEY",
+            apiKey
+          ).replace(
+            "$SERVER_URL",
+            serverUrl
+          );
+        },
+      }
+    ],
+  }
 })

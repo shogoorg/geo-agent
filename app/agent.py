@@ -12,6 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
+
 
 import datetime
 from zoneinfo import ZoneInfo
@@ -82,8 +84,12 @@ from agent_with_grounding import MAUIAgentWithGrounding
 from agent_with_templates import MAUIAgentWithTemplates
 from app.agent_executor import MAUIAgentExecutor
 
-def create_maui_bundle(base_url: str = "http://127.0.0.1:8000"):
+def create_maui_bundle(base_url: str | None = None):
     """Initializes and returns the MAUI agents and executor matching a2ui-samples."""
+    default_app_url = os.getenv("APP_URL", "http://127.0.0.1:8000")
+    if not default_app_url.endswith("/a2a/app"):
+        default_app_url = f"{default_app_url.rstrip('/')}/a2a/app"
+    resolved_base_url = base_url or default_app_url
     default_agent_name = os.getenv("A2UI_DEFAULT_AGENT", "TEMPLATE")
     fallback_mode_env = os.getenv("A2UI_FALLBACK_MODE")
     if fallback_mode_env:
@@ -91,9 +97,9 @@ def create_maui_bundle(base_url: str = "http://127.0.0.1:8000"):
     else:
         config = AgentConfig()
 
-    ui_agent = MAUIAgent(base_url=base_url)
-    grounding_agent = MAUIAgentWithGrounding(base_url=base_url)
-    template_agent = MAUIAgentWithTemplates(base_url=base_url, config=config)
+    ui_agent = MAUIAgent(base_url=resolved_base_url)
+    grounding_agent = MAUIAgentWithGrounding(base_url=resolved_base_url)
+    template_agent = MAUIAgentWithTemplates(base_url=resolved_base_url, config=config)
 
     agent_map = {
         "MAUIAGENT": ui_agent,

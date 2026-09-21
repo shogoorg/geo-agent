@@ -102,7 +102,7 @@ pythonpath = "."
 asyncio_default_fixture_loop_scope = "session"
 
 [tool.uv.sources]
-maui-a2ui-python = { path = "../a2ui/agent/python_agent", editable = true }
+maui-a2ui-python = { path = "./vendor/maui-a2ui-python", editable = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["app","frontend"]

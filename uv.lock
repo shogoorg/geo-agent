@@ -760,7 +760,7 @@ requires-dist = [
     { name = "google-cloud-aiplatform", extras = ["evaluation"], marker = "extra == 'eval'", specifier = ">=1.156.0,<2.0.0" },
     { name = "google-cloud-logging", specifier = ">=3.12.0,<4.0.0" },
     { name = "jsonschema", specifier = ">=4.0.0" },
-    { name = "maui-a2ui-python", editable = "../a2ui/agent/python_agent" },
+    { name = "maui-a2ui-python", editable = "vendor/maui-a2ui-python" },
     { name = "mcp", specifier = ">=1.2.0,<2.0.0" },
     { name = "opentelemetry-resourcedetector-gcp", specifier = "<=1.12.0a0" },
     { name = "python-multipart", specifier = ">=0.0.20,<1.0.0" },
@@ -2241,7 +2241,7 @@ wheels = [
 [[package]]
 name = "maui-a2ui-python"
 version = "0.1.0"
-source = { editable = "../a2ui/agent/python_agent" }
+source = { editable = "vendor/maui-a2ui-python" }
 dependencies = [
     { name = "a2a-sdk" },
     { name = "a2ui-agent-sdk" },

@@ -27,7 +27,7 @@ from app.app_utils.a2a import attach_a2a_routes
 
 load_dotenv()
 allow_origins = (
-    os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else None
+    os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else ["*"]
 )
 otel_to_cloud = True
 
@@ -71,6 +71,17 @@ app: FastAPI = get_fast_api_app(
 )
 app.title = "geo-agent"
 app.description = "API for interacting with the Agent geo-agent"
+
+# Enable CORS for browser web clients (React frontend, etc.)
+from starlette.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # Main execution

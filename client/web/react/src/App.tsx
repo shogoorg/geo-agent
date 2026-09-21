@@ -23,7 +23,11 @@ function App() {
 
   // --- A2UI Integration Refs ---
   // A2UIClient handles communication with the A2A agent
-  const clientRef = useRef(new A2UIClient());
+  const serverUrl =
+    import.meta.env.VITE_A2A_SERVER_URL ||
+    (import.meta as any).env.SERVER_URL ||
+    "http://localhost:10002";
+  const clientRef = useRef(new A2UIClient(serverUrl));
   // A2UIRenderer manages the local state of A2UI surfaces and message processing
   const rendererRef = useRef(new A2UIRenderer());
 
