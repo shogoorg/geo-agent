@@ -1,5 +1,10 @@
 # geo-agent
 
+Built with agents-cli, googlemaps/a2ui, and googlemaps-samples/a2ui:
+- **[agents-cli](https://github.com/google/agents-cli)**: The CLI and skills that turn any coding assistant into an expert at creating, evaluating, and deploying AI agents on Google Cloud.
+- **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)**: The A2UI implementation for the Maps Agentic UI Toolkit.
+- **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)**: Samples for the A2UI implementation for the Maps Agentic UI Toolkit.
+
 Simple ReAct agent
 Agent generated with `agents-cli` version `1.5.0`
 
@@ -7,13 +12,22 @@ Agent generated with `agents-cli` version `1.5.0`
 
 ```
 geo-agent/
-├── app/         # Core agent code
-│   ├── agent.py               # Main agent logic
-│   ├── fast_api_app.py        # FastAPI Backend server
-│   └── app_utils/             # App utilities and helpers
-├── tests/                     # Unit, integration, and load tests
+├── app/                       # Core agent backend (FastAPI & Google ADK)
+│   ├── agent.py               # Main agent logic & MAUI bundle definition
+│   ├── agent_executor.py      # MAUI agent executor integration
+│   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
+│   └── app_utils/             # App utilities, A2A endpoints, and services
+├── client/                    # Client applications
+│   ├── web/react/             # React web client with A2UI renderer
+│   ├── android/               # Android client
+│   └── ios/                   # iOS client
+├── deployment/                # Deployment infrastructure (Terraform)
+├── scripts/                   # Utility scripts (e.g., sync-a2ui.sh)
+├── tests/                     # Unit, integration, and evaluation datasets
+├── vendor/                    # Vendored dependencies (maui-a2ui-python)
+├── Dockerfile                 # Backend container definition for Cloud Run
 ├── GEMINI.md                  # AI-assisted development guide
-└── pyproject.toml             # Project dependencies
+└── pyproject.toml             # Project dependencies and packaging
 ```
 
 > 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
@@ -24,7 +38,6 @@ Before you begin, ensure you have:
 - **uv**: Python package manager (used for all dependency management in this project) - [Install](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
 - **agents-cli**: Agents CLI - Install with `uv tool install google-agents-cli`
 - **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
-- **a2ui repository**: Cloned at `../a2ui` (or path in `A2UI_REPO_DIR`) if syncing vendor code with `./scripts/sync-a2ui.sh [tag]`.
 
 
 ## Quick Start
@@ -49,21 +62,28 @@ agents-cli playground
 
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
 
-Evaluate agent behavior
+Evaluate agent behavior:
 
 ```bash
 agents-cli eval run
 ```
+
+Start the MAUI agent backend:
 
 ```bash
 cd agent/python
 A2UI_DEFAULT_AGENT=TEMPLATE uv run . --host 127.0.0.1
 ```
 
+Start the React web client:
+
 ```bash
 cd client/web/react
 npm run dev
 ```
+
+> 💡 **Syncing Vendor Code (Optional):**
+> If you need to re-sync or update the vendored `a2ui` package with `./scripts/sync-a2ui.sh [tag]`, ensure the [a2ui repository](https://github.com/googlemaps/a2ui) is cloned at `../a2ui` (or specify the path via `A2UI_REPO_DIR`).
 
 
 ## Commands
