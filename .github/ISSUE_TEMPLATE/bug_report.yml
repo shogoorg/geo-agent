@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: 'Bug Report'
-description: 'Report a bug to help us improve Agents CLI'
+description: 'Report a bug to help us improve geo-agent'
 labels: ['status/need-triage', 'type/bug']
 body:
   - type: 'markdown'
@@ -22,7 +22,19 @@ body:
         > [!IMPORTANT]
         > Thanks for taking the time to fill out this bug report!
         >
-        > Please search **[existing issues](https://github.com/google/agents-cli/issues)** to see if an issue already exists for the bug you encountered.
+        > Please search **[existing issues](https://github.com/shogoorg/geo-agent/issues)** to see if an issue already exists for the bug you encountered.
+
+  - type: 'dropdown'
+    id: 'component'
+    attributes:
+      label: 'Component'
+      description: 'Which part of the project is affected?'
+      options:
+        - 'Backend (FastAPI / Agent / Python)'
+        - 'Frontend (React / Web UI)'
+        - 'Other'
+    validations:
+      required: true
 
   - type: 'textarea'
     id: 'problem'
@@ -38,9 +50,9 @@ body:
       label: 'Steps to Reproduce'
       description: 'Please provide the exact steps to reproduce the behavior.'
       placeholder: |-
-        1. Run `agents-cli create my-agent`
-        2. Modify `...`
-        3. Run `agents-cli deploy`
+        1. Run backend with `uv run python -m app.fast_api_app`
+        2. Open the web UI at `http://localhost:5173`
+        3. Send a prompt `...`
         4. See error `...`
     validations:
       required: true
@@ -53,25 +65,24 @@ body:
       required: true
 
   - type: 'textarea'
-    id: 'info'
+    id: 'environment'
     attributes:
-      label: 'Client information'
-      description: 'Please paste the full text from `agents-cli info`.'
-      value: |-
-        <details>
-        <summary>Client Information</summary>
-
-        Run `agents-cli info` to output debugging information about your client.
-
-        </details>
+      label: 'Environment'
+      description: 'Please provide your environment details (OS, Python/uv version, Node.js version, browser, etc.).'
+      placeholder: |-
+        - OS: [e.g. Ubuntu 24.04 / macOS 14 / Windows 11]
+        - Python version: [e.g. 3.11]
+        - uv version: [e.g. 0.5.x]
+        - Node.js version (if frontend): [e.g. v20.x]
+        - Browser (if frontend): [e.g. Chrome 120]
     validations:
-      required: true
+      required: false
 
   - type: 'textarea'
     id: 'logs'
     attributes:
-      label: 'Command Output / Logs'
-      description: 'Paste the full output of the command that failed. If possible, run with `--verbose`.'
+      label: 'Command Output / Logs / Console Output'
+      description: 'Paste any relevant terminal or browser console logs here.'
     validations:
       required: false
 
@@ -79,4 +90,4 @@ body:
     id: 'additional-context'
     attributes:
       label: 'Anything else we need to know?'
-      description: 'Add any other context about the problem here.'
+      description: 'Add any other context, screenshots, or information here.'
