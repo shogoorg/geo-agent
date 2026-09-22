@@ -71,15 +71,14 @@ agents-cli eval run
 Start the MAUI agent backend:
 
 ```bash
-cd agent/python
-A2UI_DEFAULT_AGENT=TEMPLATE uv run . --host 127.0.0.1
+A2UI_DEFAULT_AGENT=TEMPLATE uv run python -m app.fast_api_app
 ```
 
 Start the React web client:
 
 ```bash
 cd client/web/react
-npm run dev
+VITE_A2A_SERVER_URL="http://127.0.0.1:8000/a2a/app" npm run dev
 ```
 
 > 💡 **Syncing Vendor Code (Optional):**
