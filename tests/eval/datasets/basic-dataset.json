@@ -1,12 +1,64 @@
 {
   "eval_cases": [
     {
-      "eval_case_id": "restaurants_in_new_york",
+      "eval_case_id": "coffee_shops_seattle",
       "prompt": {
         "role": "user",
-        "parts": [{"text": "restaurants in New York"}]
+        "parts": [
+          {
+            "text": "Show me 5 coffee shops near South Lake Union in Seattle"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "edgewater_hotel",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the Edgewater Hotel in Seattle a good hotel?"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "kirkland_commute",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How long will it take to commute to Google Kirkland office from downtown Redmond during my morning rush hour commute?"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "salad_lunch_and_directions",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Show me 5 lunch restaurants with Salads in South Lake Union. Give me directions to the 2nd one (starting from the Google South Lake Union WLK building)"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "london_itinerary",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to London"
+          }
+        ]
       }
     }
   ]
 }
+
+
+
+
 
