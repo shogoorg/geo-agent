@@ -210,7 +210,7 @@ function App() {
               onClick={() => importDialogRef.current?.showModal()}
               style={{
                 background: 'var(--accent)',
-                color: 'var(--text-h, #ffffff)',
+                color: '#ffffff',
                 border: '1px solid var(--border)',
                 padding: '10px 24px',
                 borderRadius: '9999px',
@@ -246,14 +246,16 @@ function App() {
         <div
           className="dialog-content"
           style={{
-            background: 'white',
+            background: 'var(--bg)',
+            border: '1px solid var(--border)',
+            color: 'var(--text-h)',
             padding: '24px',
             borderRadius: '16px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600}}>
+          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
             Import A2UI JSON
           </h2>
           <textarea
@@ -266,6 +268,10 @@ function App() {
               fontFamily: 'monospace',
               boxSizing: 'border-box',
               padding: '12px',
+              background: 'var(--code-bg)',
+              color: 'var(--text-h)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
             }}></textarea>
           <div
             className="dialog-footer"
@@ -317,7 +323,7 @@ function ResponseViewer({json}: {json: string}) {
         onClick={() => dialogRef.current?.showModal()}
         style={{
           background: 'var(--accent)',
-          color: 'var(--text-h, #ffffff)',
+          color: '#ffffff',
           border: '1px solid var(--border)',
           padding: '10px 24px',
           borderRadius: '9999px',
@@ -343,19 +349,23 @@ function ResponseViewer({json}: {json: string}) {
         <div
           className="dialog-content"
           style={{
-            background: 'white',
+            background: 'var(--bg)',
+            border: '1px solid var(--border)',
+            color: 'var(--text-h)',
             padding: '24px',
             borderRadius: '16px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600}}>
+          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
             Last A2UI Response
           </h2>
           <pre
             style={{
-              background: 'rgba(0,0,0,0.05)',
+              background: 'var(--code-bg)',
+              color: 'var(--text-h)',
+              border: '1px solid var(--border)',
               padding: '12px',
               borderRadius: '8px',
               overflowX: 'auto',
