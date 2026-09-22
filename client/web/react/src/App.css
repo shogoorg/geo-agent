@@ -220,15 +220,3 @@
   }
 }
 
-/* --- Full Chat Centered Layout Override --- */
-.app-container {
-  justify-content: center;
-}
-
-.chat-panel {
-  width: 100%;
-  max-width: 960px;
-  border-right: 1px solid var(--border);
-  box-shadow: none;
-}
-
