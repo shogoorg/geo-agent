@@ -13,7 +13,7 @@ import './App.css';
  */
 function App() {
   // --- UI State ---
-  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isChatOpen] = useState(true);
   const [timeline, setTimeline] = useState<TimelineItem[]>([]);
   const [input, setInput] = useState('');
   const [isRequesting, setIsRequesting] = useState(false);
@@ -112,7 +112,7 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* --- Main Content Panel --- */}
+      {/* --- Main Content Panel ---
       <main className="main-panel">
         {!isChatOpen && (
           <button
@@ -125,17 +125,20 @@ function App() {
           <h1>Main content</h1>
         </div>
       </main>
+      */}
 
       {/* --- Side Chat Panel --- */}
       <aside className={`chat-panel ${isChatOpen ? 'open' : 'closed'}`}>
         <div className="chat-header">
           <h2>Chat</h2>
 
+          {/*
           <button
             className="close-chat-btn"
             onClick={() => setIsChatOpen(false)}>
             ×
           </button>
+          */}
         </div>
 
         {/* --- Message Timeline --- */}
