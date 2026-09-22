@@ -83,9 +83,18 @@ You are an expert location and navigation assistant with access to Google Maps t
 class MAUIAgentWithTemplates(MAUIAgent):
   """MAUI Agent extending base with server-side layout templates and query intent routing."""
 
-  def __init__(self, base_url: str, config: AgentConfig | None = None) -> None:
+  def __init__(
+      self,
+      base_url: str,
+      config: AgentConfig | None = None,
+      plugins: list[Any] | None = None,
+  ) -> None:
     self.config = config or AgentConfig()
-    super().__init__(base_url=base_url, model_name=self.config.generic_model)
+    super().__init__(
+        base_url=base_url,
+        model_name=self.config.generic_model,
+        plugins=plugins,
+    )
     self.router_client = LiteLlm(model=self.config.router_model)
     self.extractor_client = LiteLlm(model=self.config.template_model)
     self.fallback_client = LiteLlm(model=self.config.generic_model)

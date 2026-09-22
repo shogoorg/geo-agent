@@ -153,10 +153,12 @@ class MAUIAgent:
       base_url: str,
       agent_name: str = "MAUI Agent",
       model_name: str = "gemini/gemini-3-flash-preview",
+      plugins: list[Any] | None = None,
   ) -> None:
     self.base_url = base_url
     self._agent_name = agent_name
     self._model_name = model_name
+    self._plugins = plugins or []
     self._user_id = "remote_agent"
     self._shared_session_service = InMemorySessionService()
     self._text_runner: Runner | None = self._build_runner(
@@ -265,6 +267,7 @@ class MAUIAgent:
         artifact_service=InMemoryArtifactService(),
         session_service=self._shared_session_service,
         memory_service=InMemoryMemoryService(),
+        plugins=self._plugins,
     )
 
   def get_processing_message(self) -> str:
