@@ -206,9 +206,9 @@ function App() {
               className="import-btn-input"
               onClick={() => importDialogRef.current?.showModal()}
               style={{
-                background: 'transparent',
-                color: 'var(--accent, #1a73e8)',
-                border: '1px solid var(--accent, #1a73e8)',
+                background: 'var(--accent)',
+                color: 'var(--text-h, #ffffff)',
+                border: '1px solid var(--border)',
                 padding: '10px 24px',
                 borderRadius: '9999px',
                 fontWeight: 500,
@@ -313,9 +313,9 @@ function ResponseViewer({json}: {json: string}) {
         className="view-response-btn"
         onClick={() => dialogRef.current?.showModal()}
         style={{
-          background: 'transparent',
-          color: 'var(--accent, #1a73e8)',
-          border: '1px solid var(--accent, #1a73e8)',
+          background: 'var(--accent)',
+          color: 'var(--text-h, #ffffff)',
+          border: '1px solid var(--border)',
           padding: '10px 24px',
           borderRadius: '9999px',
           fontWeight: 500,
