@@ -29,7 +29,7 @@ load_dotenv()
 allow_origins = (
     os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else ["*"]
 )
-otel_to_cloud = True
+otel_to_cloud = os.getenv("OTEL_TO_CLOUD", "false").lower() == "true"
 
 AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
