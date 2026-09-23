@@ -30,6 +30,10 @@ geo-agent/
 └── pyproject.toml             # Project dependencies and packaging
 ```
 
+### Upstream References
+* **`app/`**: Implements the agent backend referencing **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)** (`agent/python/agent_executor.py`, etc.).
+* **`vendor/`**: Contains `maui-a2ui-python` synced directly from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
+
 > 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
 
 ## Requirements
@@ -137,25 +141,67 @@ Edit your agent logic in `app/agent.py` and test with `agents-cli playground` - 
 
 ## Deployment
 
+#### 1. Configure the Production Agent (`.env` or Deploy Flag)
+
+Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your root `.env` file during deployment:
+
 ```bash
+# Option 1: Template Agent (Recommended for low-latency local search & directions)
+A2UI_DEFAULT_AGENT=TEMPLATE
+
+# Option 2: Grounding Agent (Vertex AI Maps Grounding)
+# A2UI_DEFAULT_AGENT=GROUNDING
+
+# Option 3: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
+# A2UI_DEFAULT_AGENT=BASE
+```
+
+> 💡 **Tip (Overriding Agent Mode at Deploy Time):**
+> You can override the agent mode at deploy time without modifying `.env` using `--update-env-vars`:
+> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=GROUNDING` ➔ Deploy as Grounding Agent
+> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=TEMPLATE` ➔ Deploy as Template Agent
+
+#### 2. Deploy the MAUI Agent Backend (`geo-agent`)
+
+```bash
+# Set your GCP project
 gcloud config set project <your-project-id>
+
+# Deploy using agents-cli (inherits .env settings automatically)
 agents-cli deploy --project <your-project-id>
 ```
 
+Allow public invocation (required for client access):
+
 ```bash
 gcloud run services add-iam-policy-binding geo-agent \
-  --region  <your-region> \
-  --project  <your-project-id> \
+  --region <your-region> \
+  --project <your-project-id> \
   --member="allUsers" \
   --role="roles/run.invoker"
 ```
 
+> 💡 Take note of the deployed Service URL (e.g. `https://geo-agent-xxxx.run.app`). The backend endpoint will be `https://geo-agent-xxxx.run.app/a2a/app`.
+
+#### 3. Deploy the React Web Client (`geo-agent-web`)
+
+Configure `client/web/react/.env.production` with your deployed backend URL and Maps API Key:
+
+```properties
+GOOGLE_MAPS_API_KEY=<your-google-maps-api-key>
+VITE_A2A_SERVER_URL=https://<your-backend-url>.run.app/a2a/app
+SERVER_URL=https://<your-backend-url>.run.app/a2a/app
+```
+
+Deploy the web client to Cloud Run:
+
 ```bash
 cd client/web/react
+
 gcloud run deploy geo-agent-web \
   --source . \
-  --project  <your-project-id> \
-  --region  <your-region> \
+  --project <your-project-id> \
+  --region <your-region> \
   --allow-unauthenticated
 ```
 
