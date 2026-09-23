@@ -63,6 +63,12 @@ resource "google_cloud_run_v2_service" "app" {
         name  = "OTEL_SERVICE_NAME"
         value = "geo-agent"
       }
+      env {
+        name  = "OTEL_TO_CLOUD"
+        value = "true"
+      }
+
+
 
       env {
         name  = "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT"

@@ -17,7 +17,7 @@
 import logging
 import os
 import pathlib
-from typing import Optional
+from typing import Any, Optional
 
 from google import genai
 from google.adk import skills as adk_skills
@@ -208,11 +208,13 @@ class MAUIAgentWithGrounding(MAUIAgent):
       self,
       base_url: str,
       model_name: str = "gemini/gemini-3-flash-preview",
+      plugins: list[Any] | None = None,
   ):
     super().__init__(
         base_url,
         agent_name="MAUI Agent with Grounding",
         model_name=model_name,
+        plugins=plugins,
     )
 
   async def query_vertex_map(self, query: str) -> str:

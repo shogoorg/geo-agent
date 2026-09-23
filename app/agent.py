@@ -17,11 +17,28 @@ import os
 from google.adk.agents import Agent
 from google.adk.apps import App
 from google.adk.models import Gemini
+from google.adk.plugins.bigquery_agent_analytics_plugin import BigQueryAgentAnalyticsPlugin
 from google.genai import types
 
 
 MODEL = "gemini-3.7-flash"
 
+# BigQuery Agent Analytics Plugin
+analytics_plugin = None
+bq_dataset_id = os.getenv("BQ_ANALYTICS_DATASET_ID")
+gcp_project = os.getenv("GOOGLE_CLOUD_PROJECT")
+
+if bq_dataset_id and gcp_project:
+    analytics_kwargs = {
+        "project_id": gcp_project,
+        "dataset_id": bq_dataset_id,
+    }
+    if table_id := os.getenv("BQ_ANALYTICS_TABLE_ID"):
+        analytics_kwargs["table_id"] = table_id
+    if location := os.getenv("BQ_ANALYTICS_LOCATION") or os.getenv("GOOGLE_CLOUD_LOCATION"):
+        analytics_kwargs["location"] = location
+
+    analytics_plugin = BigQueryAgentAnalyticsPlugin(**analytics_kwargs)
 
 root_agent = Agent(
     name="geo_agent",
@@ -36,6 +53,7 @@ root_agent = Agent(
 app = App(
     root_agent=root_agent,
     name="app",
+    plugins=[analytics_plugin] if analytics_plugin else [],
 )
 
 # ==============================================================================
@@ -60,9 +78,11 @@ def create_maui_bundle(base_url: str | None = None):
     else:
         config = AgentConfig()
 
-    ui_agent = MAUIAgent(base_url=resolved_base_url)
-    grounding_agent = MAUIAgentWithGrounding(base_url=resolved_base_url)
-    template_agent = MAUIAgentWithTemplates(base_url=resolved_base_url, config=config)
+    plugins = [analytics_plugin] if analytics_plugin else []
+
+    ui_agent = MAUIAgent(base_url=resolved_base_url, plugins=plugins)
+    grounding_agent = MAUIAgentWithGrounding(base_url=resolved_base_url, plugins=plugins)
+    template_agent = MAUIAgentWithTemplates(base_url=resolved_base_url, config=config, plugins=plugins)
 
     agent_map = {
         "MAUIAGENT": ui_agent,

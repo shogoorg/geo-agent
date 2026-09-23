@@ -69,7 +69,8 @@
   margin-bottom: 12px;
   max-width: 85%;
   word-wrap: break-word;
-  box-shadow: 0 2px 8px var(--accent-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .bot-message {
@@ -146,7 +147,7 @@
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent-border);
     box-shadow: 0 0 0 3px var(--accent-bg);
   }
 }
@@ -159,18 +160,18 @@
 .send-button {
   background: var(--accent);
   color: #fff;
-  border: none;
+  border: 1px solid var(--border);
   padding: 10px 24px;
   border-radius: 9999px;
   font-weight: 500;
   cursor: pointer;
   transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px var(--accent-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.85;
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px var(--accent-bg);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
   }
 
   &:active {
@@ -192,9 +193,9 @@
   transition: all 0.2s;
 
   &:hover {
-    background: var(--accent-bg);
+    background: var(--social-bg);
     border-color: var(--accent-border);
-    color: var(--accent);
+    color: var(--text-h);
   }
 }
 
@@ -218,3 +219,4 @@
     color: var(--text-h);
   }
 }
+
