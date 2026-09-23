@@ -68,18 +68,43 @@ Evaluate agent behavior:
 agents-cli eval run
 ```
 
-Start the MAUI agent backend:
+### Agent Configuration & Local Development
+
+#### 1. Configure the Default Agent (`.env`)
+
+Set `A2UI_DEFAULT_AGENT` in `.env` to choose your default agent mode:
 
 ```bash
-A2UI_DEFAULT_AGENT=TEMPLATE uv run python -m app.fast_api_app
+# Option 1: Template Agent (Recommended for low-latency local search & directions)
+A2UI_DEFAULT_AGENT=TEMPLATE
+
+# Option 2: Grounding Agent (Vertex AI Maps Grounding)
+# A2UI_DEFAULT_AGENT=GROUNDING
+
+# Option 3: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
+# A2UI_DEFAULT_AGENT=BASE
 ```
 
-Start the React web client:
+> 💡 **Tip (Per-Query Switching without restart):**
+> You can test different agent implementations against the running server by prefixing your prompt:
+> * `[GROUNDING] <query>` ➔ Routes directly to `MAUIAgentWithGrounding`
+> * `[TEMPLATE] <query>` ➔ Routes directly to `MAUIAgentWithTemplates`
+> * `<query>` (no prefix) ➔ Routes to your configured default agent
+
+#### 2. Start the MAUI Agent Backend
+
+```bash
+uv run python -m app.fast_api_app
+```
+
+#### 3. Start the React Web Client
 
 ```bash
 cd client/web/react
-VITE_A2A_SERVER_URL="http://127.0.0.1:8000/a2a/app" npm run dev
+npm run dev
 ```
+
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
 
 > 💡 **Syncing Vendor Code (Optional):**
 > If you need to re-sync or update the vendored `a2ui` package with `./scripts/sync-a2ui.sh [tag]`, ensure the [a2ui repository](https://github.com/googlemaps/a2ui) is cloned at `../a2ui` (or specify the path via `A2UI_REPO_DIR`).
