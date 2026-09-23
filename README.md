@@ -163,13 +163,34 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 
 #### 2. Deploy the MAUI Agent Backend (`geo-agent`)
 
+##### 2.1 Set Up Infrastructure (Terraform)
+
+Provision the Google Cloud infrastructure (Cloud Run, GCS telemetry logs bucket, BigQuery dataset/views, and IAM roles) using Terraform via `agents-cli`:
+
 ```bash
 # Set your GCP project
 gcloud config set project <your-project-id>
 
+# Provision single-project infrastructure (Terraform)
+agents-cli infra single-project --apply --project <your-project-id>
+```
+
+To view the provisioned infrastructure status:
+
+```bash
+agents-cli infra show
+```
+
+##### 2.2 Deploy Agent Application
+
+Deploy the application container and code:
+
+```bash
 # Deploy using agents-cli (inherits .env settings automatically)
 agents-cli deploy --project <your-project-id>
 ```
+
+##### 2.3 Allow Public Invocation
 
 Allow public invocation (required for client access):
 
@@ -212,11 +233,72 @@ To set up your production infrastructure, run `agents-cli infra cicd`.
 
 Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
 
+### 1. Cloud Trace & Prompt-Response Logging (`completions`)
+
+Prompt-response completions are exported via OpenTelemetry to Cloud Storage and exposed as external tables in BigQuery:
+
 ```bash
-agents-cli infra single-project --apply -project YOUR_DEV_PROJECT_ID
+PROJECT_ID="your-dev-project-id"
+PROJECT_NAME="your-project-name"
+
+# Check for telemetry files in GCS
+gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
+
+# Query completions telemetry in BigQuery
+bq query --use_legacy_sql=false \
+  "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
 ```
-```bash
-agents-cli infra show
+
+### 2. BigQuery Agent Analytics (`agent_events`)
+
+When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
+
+#### 1. Recent Events
+```sql
+SELECT
+  timestamp,
+  event_type,
+  agent,
+  user_id,
+  status
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+ORDER BY
+  timestamp DESC
+LIMIT 100;
+```
+
+#### 2. Tool Calls and Errors
+```sql
+SELECT
+  timestamp,
+  JSON_VALUE(content, '$.tool') AS tool_name,
+  JSON_VALUE(content, '$.args') AS tool_args,
+  status,
+  error_message
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+WHERE
+  event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
+ORDER BY
+  timestamp DESC;
+```
+
+#### 3. LLM Token Usage by Agent and Model
+```sql
+SELECT
+  agent,
+  JSON_VALUE(attributes, '$.model_version') AS model,
+  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') AS INT64)) AS total_prompt_tokens,
+  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.candidates_token_count') AS INT64)) AS total_completion_tokens,
+  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.total_token_count') AS INT64)) AS grand_total_tokens
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+WHERE
+  event_type = 'LLM_RESPONSE'
+  AND JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') IS NOT NULL
+GROUP BY
+  agent, model;
 ```
 
 ## A2A Inspector
