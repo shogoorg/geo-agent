@@ -17,28 +17,36 @@ import os
 from google.adk.agents import Agent
 from google.adk.apps import App
 from google.adk.models import Gemini
-from google.adk.plugins.bigquery_agent_analytics_plugin import BigQueryAgentAnalyticsPlugin
+from google.adk.plugins.bigquery_agent_analytics_plugin import (
+    BigQueryAgentAnalyticsPlugin,
+    BigQueryLoggerConfig,
+)
 from google.genai import types
 
 
 MODEL = "gemini-3.7-flash"
 
-# BigQuery Agent Analytics Plugin
+# BigQuery Agent Analytics Plugin (agents-cli guide compliant)
 analytics_plugin = None
 bq_dataset_id = os.getenv("BQ_ANALYTICS_DATASET_ID")
 gcp_project = os.getenv("GOOGLE_CLOUD_PROJECT")
 
 if bq_dataset_id and gcp_project:
-    analytics_kwargs = {
-        "project_id": gcp_project,
-        "dataset_id": bq_dataset_id,
-    }
-    if table_id := os.getenv("BQ_ANALYTICS_TABLE_ID"):
-        analytics_kwargs["table_id"] = table_id
-    if location := os.getenv("BQ_ANALYTICS_LOCATION") or os.getenv("GOOGLE_CLOUD_LOCATION"):
-        analytics_kwargs["location"] = location
-
-    analytics_plugin = BigQueryAgentAnalyticsPlugin(**analytics_kwargs)
+    bq_config = BigQueryLoggerConfig(
+        enabled=True,
+        gcs_bucket_name=os.getenv("BQ_ANALYTICS_GCS_BUCKET"),
+        connection_id=os.getenv("BQ_ANALYTICS_CONNECTION_ID"),
+        log_multi_modal_content=True,
+        max_content_length=500 * 1024,
+        table_id=os.getenv("BQ_ANALYTICS_TABLE_ID", "agent_events"),
+    )
+    analytics_plugin = BigQueryAgentAnalyticsPlugin(
+        project_id=gcp_project,
+        dataset_id=bq_dataset_id,
+        table_id=bq_config.table_id,
+        config=bq_config,
+        location=os.getenv("BQ_ANALYTICS_LOCATION") or os.getenv("GOOGLE_CLOUD_LOCATION", "US"),
+    )
 
 root_agent = Agent(
     name="geo_agent",
@@ -64,6 +72,17 @@ from agent_config import AgentConfig, FallbackMode
 from agent_with_grounding import MAUIAgentWithGrounding
 from agent_with_templates import MAUIAgentWithTemplates
 from app.agent_executor import MAUIAgentExecutor
+# Inject analytics plugin into MAUIAgent's Runner factory without modifying upstream package
+if analytics_plugin:
+    _original_build_runner = MAUIAgent._build_runner
+
+    def _build_runner_with_analytics(self, agent):
+        runner = _original_build_runner(self, agent)
+        if hasattr(runner, "plugin_manager"):
+            runner.plugin_manager.register_plugin(analytics_plugin)
+        return runner
+
+    MAUIAgent._build_runner = _build_runner_with_analytics
 
 def create_maui_bundle(base_url: str | None = None):
     """Initializes and returns the MAUI agents and executor matching a2ui-samples."""
