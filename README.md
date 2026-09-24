@@ -22,9 +22,7 @@ geo-agent/
 │   ├── android/               # Android client
 │   └── ios/                   # iOS client
 ├── deployment/                # Deployment infrastructure (Terraform)
-├── scripts/                   # Utility scripts (e.g., sync-a2ui.sh)
 ├── tests/                     # Unit, integration, and evaluation datasets
-├── vendor/                    # Vendored dependencies (maui-a2ui-python)
 ├── Dockerfile                 # Backend container definition for Cloud Run
 ├── GEMINI.md                  # AI-assisted development guide
 └── pyproject.toml             # Project dependencies and packaging
@@ -32,7 +30,7 @@ geo-agent/
 
 ### Upstream References
 * **`app/`**: Implements the agent backend referencing **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)** (`agent/python/agent_executor.py`, etc.).
-* **`vendor/`**: Contains `maui-a2ui-python` synced directly from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
+* **`maui-a2ui-python`**: Tracked via `pyproject.toml` from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
 
 > 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
 
@@ -101,6 +99,12 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 uv run python -m app.fast_api_app
 ```
 
+> 💡 **Note on Local OpenTelemetry Logs (`Failed to export metrics batch: 400`):**
+> If `OTEL_TO_CLOUD=true` is enabled in your `.env` during local development, you may see background warnings like:
+> `Failed to export metrics batch code: 400, reason: Bad Request`
+> * **Impact:** None. This only indicates that the background OpenTelemetry exporter cannot find GCP resource metadata on your local machine. Agent reasoning, tools, and API responses function normally.
+> * **Solution:** To suppress these logs locally, set `OTEL_TO_CLOUD=false` in your `.env`. (Keep `OTEL_TO_CLOUD=true` for Cloud Run deployments).
+
 #### 3. Start the React Web Client
 
 ```bash
@@ -110,8 +114,8 @@ npm run dev
 
 Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
 
-> 💡 **Syncing Vendor Code (Optional):**
-> If you need to re-sync or update the vendored `a2ui` package with `./scripts/sync-a2ui.sh [tag]`, ensure the [a2ui repository](https://github.com/googlemaps/a2ui) is cloned at `../a2ui` (or specify the path via `A2UI_REPO_DIR`).
+> 💡 **Upstream a2ui Version:**
+> The upstream `a2ui` package (`maui-a2ui-python`) is tracked directly from GitHub in `pyproject.toml` under `[tool.uv.sources]`. To change or update versions, simply update the `tag` or `rev` in `pyproject.toml` and run `uv lock`.
 
 
 ## Commands

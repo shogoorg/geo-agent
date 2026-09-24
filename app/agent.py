@@ -78,11 +78,9 @@ def create_maui_bundle(base_url: str | None = None):
     else:
         config = AgentConfig()
 
-    plugins = [analytics_plugin] if analytics_plugin else []
-
-    ui_agent = MAUIAgent(base_url=resolved_base_url, plugins=plugins)
-    grounding_agent = MAUIAgentWithGrounding(base_url=resolved_base_url, plugins=plugins)
-    template_agent = MAUIAgentWithTemplates(base_url=resolved_base_url, config=config, plugins=plugins)
+    ui_agent = MAUIAgent(base_url=resolved_base_url)
+    grounding_agent = MAUIAgentWithGrounding(base_url=resolved_base_url)
+    template_agent = MAUIAgentWithTemplates(base_url=resolved_base_url, config=config)
 
     agent_map = {
         "MAUIAGENT": ui_agent,

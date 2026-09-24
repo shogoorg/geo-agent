@@ -763,7 +763,7 @@ requires-dist = [
     { name = "google-cloud-bigquery-storage", specifier = ">=2.41.0" },
     { name = "google-cloud-logging", specifier = ">=3.12.0,<4.0.0" },
     { name = "jsonschema", specifier = ">=4.0.0" },
-    { name = "maui-a2ui-python", editable = "vendor/maui-a2ui-python" },
+    { name = "maui-a2ui-python", git = "https://github.com/googlemaps/a2ui.git?subdirectory=agent%2Fpython_agent&tag=v0.1.8" },
     { name = "mcp", specifier = ">=1.2.0,<2.0.0" },
     { name = "opentelemetry-resourcedetector-gcp", specifier = "<=1.12.0a0" },
     { name = "pyarrow", specifier = ">=25.0.1" },
@@ -2252,7 +2252,7 @@ wheels = [
 [[package]]
 name = "maui-a2ui-python"
 version = "0.1.0"
-source = { editable = "vendor/maui-a2ui-python" }
+source = { git = "https://github.com/googlemaps/a2ui.git?subdirectory=agent%2Fpython_agent&tag=v0.1.8#f4b298b8132713217efa5c7c2399e8c13fe9cd43" }
 dependencies = [
     { name = "a2a-sdk" },
     { name = "a2ui-agent-sdk" },
@@ -2260,22 +2260,6 @@ dependencies = [
     { name = "google-genai" },
     { name = "jsonschema" },
     { name = "pydantic" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "a2a-sdk", specifier = ">=0.3.0,<1.0.0" },
-    { name = "a2ui-agent-sdk", specifier = ">=0.2.1,<=0.2.4" },
-    { name = "google-adk", extras = ["extensions", "mcp"], specifier = ">=2.0.0" },
-    { name = "google-genai", specifier = ">=1.64.0" },
-    { name = "jsonschema", specifier = ">=4.0.0" },
-    { name = "pydantic", specifier = ">=2.0.0" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pyright", specifier = ">=1.1.391" },
-    { name = "ruff", specifier = ">=0.9.1" },
 ]
 
 [[package]]
