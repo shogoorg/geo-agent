@@ -22,9 +22,7 @@ geo-agent/
 │   ├── android/               # Android client
 │   └── ios/                   # iOS client
 ├── deployment/                # Deployment infrastructure (Terraform)
-├── scripts/                   # Utility scripts (e.g., sync-a2ui.sh)
 ├── tests/                     # Unit, integration, and evaluation datasets
-├── vendor/                    # Vendored dependencies (maui-a2ui-python)
 ├── Dockerfile                 # Backend container definition for Cloud Run
 ├── GEMINI.md                  # AI-assisted development guide
 └── pyproject.toml             # Project dependencies and packaging
@@ -32,7 +30,7 @@ geo-agent/
 
 ### Upstream References
 * **`app/`**: Implements the agent backend referencing **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)** (`agent/python/agent_executor.py`, etc.).
-* **`vendor/`**: Contains `maui-a2ui-python` synced directly from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
+* **`maui-a2ui-python`**: Tracked via `pyproject.toml` from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
 
 > 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
 
@@ -101,6 +99,12 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 uv run python -m app.fast_api_app
 ```
 
+> 💡 **Note on Local OpenTelemetry Logs (`Failed to export metrics batch: 400`):**
+> If `OTEL_TO_CLOUD=true` is enabled in your `.env` during local development, you may see background warnings like:
+> `Failed to export metrics batch code: 400, reason: Bad Request`
+> * **Impact:** None. This only indicates that the background OpenTelemetry exporter cannot find GCP resource metadata on your local machine. Agent reasoning, tools, and API responses function normally.
+> * **Solution:** To suppress these logs locally, set `OTEL_TO_CLOUD=false` in your `.env`. (Keep `OTEL_TO_CLOUD=true` for Cloud Run deployments).
+
 #### 3. Start the React Web Client
 
 ```bash
@@ -110,8 +114,8 @@ npm run dev
 
 Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
 
-> 💡 **Syncing Vendor Code (Optional):**
-> If you need to re-sync or update the vendored `a2ui` package with `./scripts/sync-a2ui.sh [tag]`, ensure the [a2ui repository](https://github.com/googlemaps/a2ui) is cloned at `../a2ui` (or specify the path via `A2UI_REPO_DIR`).
+> 💡 **Upstream a2ui Version:**
+> The upstream `a2ui` package (`maui-a2ui-python`) is tracked directly from GitHub in `pyproject.toml` under `[tool.uv.sources]`. To change or update versions, simply update the `tag` or `rev` in `pyproject.toml` and run `uv lock`.
 
 
 ## Commands
@@ -253,6 +257,8 @@ bq query --use_legacy_sql=false \
 
 When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
 
+*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset, e.g. `shogoorg-geo-agent.geo_agent_telemetry`)*
+
 #### 1. Recent Events
 ```sql
 SELECT
@@ -262,13 +268,69 @@ SELECT
   user_id,
   status
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 ORDER BY
   timestamp DESC
 LIMIT 100;
 ```
 
-#### 2. Tool Calls and Errors
+#### 2. Conversation QA Pairs (User Question ➔ Agent Answer)
+```sql
+WITH paired_events AS (
+  SELECT
+    timestamp,
+    session_id,
+    event_type,
+    LAST_VALUE(IF(event_type = 'USER_MESSAGE_RECEIVED', content, NULL) IGNORE NULLS) 
+      OVER (
+        PARTITION BY session_id 
+        ORDER BY timestamp 
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+      ) AS user_question,
+    JSON_VALUE(content, '$.response') AS agent_answer
+  FROM
+    `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  WHERE
+    event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
+)
+SELECT
+  timestamp,
+  session_id,
+  user_question AS question,
+  agent_answer   AS answer
+FROM
+  paired_events
+WHERE
+  event_type = 'AGENT_RESPONSE'
+  AND agent_answer IS NOT NULL
+ORDER BY
+  timestamp DESC
+LIMIT 20;
+```
+
+#### 3. Conversation Timeline (Chronological Chat History)
+```sql
+SELECT
+  timestamp,
+  session_id,
+  CASE
+    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN 'User (Question)'
+    WHEN event_type = 'AGENT_RESPONSE'         THEN 'Agent (Answer)'
+  END AS speaker,
+  CASE
+    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN content
+    WHEN event_type = 'AGENT_RESPONSE'         THEN JSON_VALUE(content, '$.response')
+  END AS message_text
+FROM
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+WHERE
+  event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
+ORDER BY
+  timestamp ASC
+LIMIT 50;
+```
+
+#### 4. Tool Calls and Errors
 ```sql
 SELECT
   timestamp,
@@ -277,14 +339,14 @@ SELECT
   status,
   error_message
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 WHERE
   event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
 ORDER BY
   timestamp DESC;
 ```
 
-#### 3. LLM Token Usage by Agent and Model
+#### 5. LLM Token Usage by Agent and Model
 ```sql
 SELECT
   agent,
@@ -293,7 +355,7 @@ SELECT
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.candidates_token_count') AS INT64)) AS total_completion_tokens,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.total_token_count') AS INT64)) AS grand_total_tokens
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 WHERE
   event_type = 'LLM_RESPONSE'
   AND JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') IS NOT NULL

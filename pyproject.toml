@@ -104,7 +104,7 @@ pythonpath = "."
 asyncio_default_fixture_loop_scope = "session"
 
 [tool.uv.sources]
-maui-a2ui-python = { path = "./vendor/maui-a2ui-python", editable = true }
+maui-a2ui-python = { git = "https://github.com/googlemaps/a2ui.git", tag = "v0.1.8", subdirectory = "agent/python_agent" }
 
 [tool.hatch.build.targets.wheel]
 packages = ["app","frontend"]
