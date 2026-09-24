@@ -257,6 +257,8 @@ bq query --use_legacy_sql=false \
 
 When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
 
+*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset, e.g. `shogoorg-geo-agent.geo_agent_telemetry`)*
+
 #### 1. Recent Events
 ```sql
 SELECT
@@ -266,13 +268,69 @@ SELECT
   user_id,
   status
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 ORDER BY
   timestamp DESC
 LIMIT 100;
 ```
 
-#### 2. Tool Calls and Errors
+#### 2. Conversation QA Pairs (User Question ➔ Agent Answer)
+```sql
+WITH paired_events AS (
+  SELECT
+    timestamp,
+    session_id,
+    event_type,
+    LAST_VALUE(IF(event_type = 'USER_MESSAGE_RECEIVED', content, NULL) IGNORE NULLS) 
+      OVER (
+        PARTITION BY session_id 
+        ORDER BY timestamp 
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+      ) AS user_question,
+    JSON_VALUE(content, '$.response') AS agent_answer
+  FROM
+    `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  WHERE
+    event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
+)
+SELECT
+  timestamp,
+  session_id,
+  user_question AS question,
+  agent_answer   AS answer
+FROM
+  paired_events
+WHERE
+  event_type = 'AGENT_RESPONSE'
+  AND agent_answer IS NOT NULL
+ORDER BY
+  timestamp DESC
+LIMIT 20;
+```
+
+#### 3. Conversation Timeline (Chronological Chat History)
+```sql
+SELECT
+  timestamp,
+  session_id,
+  CASE
+    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN 'User (Question)'
+    WHEN event_type = 'AGENT_RESPONSE'         THEN 'Agent (Answer)'
+  END AS speaker,
+  CASE
+    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN content
+    WHEN event_type = 'AGENT_RESPONSE'         THEN JSON_VALUE(content, '$.response')
+  END AS message_text
+FROM
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+WHERE
+  event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
+ORDER BY
+  timestamp ASC
+LIMIT 50;
+```
+
+#### 4. Tool Calls and Errors
 ```sql
 SELECT
   timestamp,
@@ -281,14 +339,14 @@ SELECT
   status,
   error_message
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 WHERE
   event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
 ORDER BY
   timestamp DESC;
 ```
 
-#### 3. LLM Token Usage by Agent and Model
+#### 5. LLM Token Usage by Agent and Model
 ```sql
 SELECT
   agent,
@@ -297,7 +355,7 @@ SELECT
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.candidates_token_count') AS INT64)) AS total_completion_tokens,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.total_token_count') AS INT64)) AS grand_total_tokens
 FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
 WHERE
   event_type = 'LLM_RESPONSE'
   AND JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') IS NOT NULL
