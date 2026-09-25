@@ -67,11 +67,45 @@ app = App(
 # ==============================================================================
 # MAUI Agent Bundle Initialization (Matching agent/python/__main__.py logic)
 # ==============================================================================
+from google.adk.models.llm_request import LlmRequest
+import agent
 from agent import MAUIAgent
+import agent_config
 from agent_config import AgentConfig, FallbackMode
+import agent_with_grounding
 from agent_with_grounding import MAUIAgentWithGrounding
+import agent_with_templates
 from agent_with_templates import MAUIAgentWithTemplates
 from app.agent_executor import MAUIAgentExecutor
+
+
+class GeminiAdapter(Gemini):
+    """Adapter to route LiteLlm calls through ADK's native Gemini model (google.genai.Client)
+    using MODEL ('gemini-3.7-flash') so that OpenTelemetry Prompt-Response logging
+    (GoogleGenAiSdkInstrumentor) instruments all client/A2A calls."""
+
+    def __init__(self, model: str = MODEL, **kwargs):
+        kwargs.pop("model", None)
+        super().__init__(
+            model=MODEL,
+            retry_options=types.HttpRetryOptions(attempts=3),
+            **kwargs,
+        )
+
+    async def generate_content_async(
+        self, llm_request: LlmRequest, stream: bool = False
+    ):
+        if llm_request.model is None:
+            llm_request.model = self.model
+        async for item in super().generate_content_async(llm_request, stream=stream):
+            yield item
+
+
+# Replace LiteLlm in upstream MAUI agent modules with GeminiAdapter
+agent.LiteLlm = GeminiAdapter
+agent_with_templates.LiteLlm = GeminiAdapter
+agent_with_grounding.LiteLlm = GeminiAdapter
+
 # Inject analytics plugin into MAUIAgent's Runner factory without modifying upstream package
 if analytics_plugin:
     _original_build_runner = MAUIAgent._build_runner
