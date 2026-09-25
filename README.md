@@ -237,27 +237,80 @@ To set up your production infrastructure, run `agents-cli infra cicd`.
 
 Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
 
-### 1. Cloud Trace & Prompt-Response Logging (`completions`)
+### 1. Cloud Trace & Prompt-Response Logging (`completions` / `completions_view`)
 
-Prompt-response completions are exported via OpenTelemetry to Cloud Storage and exposed as external tables in BigQuery:
+Prompt-response completions are exported via OpenTelemetry to Cloud Storage and joined with Cloud Logging in BigQuery via the pre-built `completions_view`:
 
 ```bash
-PROJECT_ID="your-dev-project-id"
+PROJECT_ID="your-project-id"
 PROJECT_NAME="your-project-name"
 
 # Check for telemetry files in GCS
 gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
+```
 
-# Query completions telemetry in BigQuery
-bq query --use_legacy_sql=false \
-  "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
+*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset name)*
+
+#### 1. Recent Prompt-Response Turn History (Recommended)
+Combines Cloud Logging inference metadata with GCS prompt/response text in chronological order:
+
+```sql
+SELECT
+  timestamp,
+  role,               -- 'user' or 'assistant'
+  message_type,       -- 'input' or 'output'
+  content,            -- Prompt or model response text
+  tool_name,          -- Tool name if invoked (e.g. search_places, set_model_response)
+  tool_args           -- Tool arguments (JSON)
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions_view`
+ORDER BY
+  timestamp DESC
+LIMIT 50;
+```
+
+#### 2. Tool Invocations and Generated UI Cards
+Track tool executions, Maps grounding searches, and synthesized A2UI response payloads:
+
+```sql
+SELECT
+  timestamp,
+  conversation_id,
+  tool_name,
+  tool_args,
+  tool_response
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions_view`
+WHERE
+  tool_name IS NOT NULL
+ORDER BY
+  timestamp DESC
+LIMIT 20;
+```
+
+#### 3. Raw Completions Table
+Direct external table over GCS NDJSON files:
+
+```sql
+SELECT
+  _FILE_NAME AS file_name,
+  c.role,
+  c.index AS message_index,
+  p.type AS part_type,
+  p.content AS message_text,
+  p.name AS function_name,
+  p.arguments AS function_args
+FROM
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions` c,
+  UNNEST(c.parts) AS p
+LIMIT 50;
 ```
 
 ### 2. BigQuery Agent Analytics (`agent_events`)
 
 When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
 
-*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset, e.g. `shogoorg-geo-agent.geo_agent_telemetry`)*
+*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset name)*
 
 #### 1. Recent Events
 ```sql
@@ -268,7 +321,7 @@ SELECT
   user_id,
   status
 FROM
-  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
 ORDER BY
   timestamp DESC
 LIMIT 100;
@@ -289,7 +342,7 @@ WITH paired_events AS (
       ) AS user_question,
     JSON_VALUE(content, '$.response') AS agent_answer
   FROM
-    `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+    `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
   WHERE
     event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
 )
@@ -322,7 +375,7 @@ SELECT
     WHEN event_type = 'AGENT_RESPONSE'         THEN JSON_VALUE(content, '$.response')
   END AS message_text
 FROM
-  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
 WHERE
   event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
 ORDER BY
@@ -339,7 +392,7 @@ SELECT
   status,
   error_message
 FROM
-  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
 WHERE
   event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
 ORDER BY
@@ -355,7 +408,7 @@ SELECT
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.candidates_token_count') AS INT64)) AS total_completion_tokens,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.total_token_count') AS INT64)) AS grand_total_tokens
 FROM
-  `shogoorg-geo-agent.geo_agent_telemetry.agent_events`
+  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
 WHERE
   event_type = 'LLM_RESPONSE'
   AND JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') IS NOT NULL
