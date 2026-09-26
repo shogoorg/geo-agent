@@ -35,7 +35,7 @@ from google.adk.plugins.bigquery_agent_analytics_plugin import (
 from google.cloud import bigquery
 
 
-MODEL = "gemini-3.7-flash"
+MODEL = "gemini-3-flash-preview"
 
 
 def get_weather(query: str) -> str:
@@ -134,14 +134,23 @@ from app.agent_executor import MAUIAgentExecutor
 
 
 class GeminiAdapter(Gemini):
-    """Adapter to route LiteLlm calls through ADK's native Gemini model (google.genai.Client)
-    using MODEL ('gemini-3.7-flash') so that OpenTelemetry Prompt-Response logging
-    (GoogleGenAiSdkInstrumentor) instruments all client/A2A calls."""
+    """Adapter to route LiteLlm calls through ADK's native Gemini model (google.genai.Client).
+    Intelligently respects the model requested by the MAUI library (such as gemini-3.1-flash-lite
+    for fast routing, or gemini-3-flash-preview for high-quality responses) to achieve
+    maximum speed and minimal cost while keeping BigQuery analytics fully functional.
+    """
 
-    def __init__(self, model: str = MODEL, **kwargs):
+    def __init__(self, model: str = None, **kwargs):
+        # Respect the model requested by the MAUI library, fall back to MODEL if None
+        requested_model = model or MODEL
+        
+        # Remove any "gemini/" prefix if present to ensure ADK SDK compatibility
+        if requested_model.startswith("gemini/"):
+            requested_model = requested_model.replace("gemini/", "")
+            
         kwargs.pop("model", None)
         super().__init__(
-            model=MODEL,
+            model=requested_model,
             retry_options=types.HttpRetryOptions(attempts=3),
             **kwargs,
         )
