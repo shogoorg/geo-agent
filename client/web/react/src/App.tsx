@@ -128,7 +128,7 @@ function App() {
       {/* --- Main Content Panel --- */}
       {/* Difference from original:
           Replaced placeholder `<h1>Main content</h1>` with a full-screen Google Maps Embed iframe
-          (defaults to Shibuya, Tokyo, Japan). To revert to original placeholder, replace with:
+          (defaults to Tokyo, Japan). To revert to original placeholder, replace with:
           <main className="main-panel">
             {!isChatOpen && (<button className="toggle-chat-btn" onClick={() => setIsChatOpen(true)}>Open Chat</button>)}
             <div className="main-panel-content"><h1>Main content</h1></div>
@@ -150,7 +150,7 @@ function App() {
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=Shibuya,Tokyo,Japan&language=${currentLang}&region=${currentRegion}`}
+            src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=Tokyo,Japan&language=${currentLang}&region=${currentRegion}`}
             title="Google Maps"
           />
         ) : (
