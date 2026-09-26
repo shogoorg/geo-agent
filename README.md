@@ -5,8 +5,8 @@ Built with agents-cli, googlemaps/a2ui, and googlemaps-samples/a2ui:
 - **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)**: The A2UI implementation for the Maps Agentic UI Toolkit.
 - **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)**: Samples for the A2UI implementation for the Maps Agentic UI Toolkit.
 
-Simple ReAct agent
-Agent generated with `agents-cli` version `1.5.0`
+Maps Agentic UI (A2UI) agent with Google ADK
+Agent generated and updated with `agents-cli` version `1.7.0`
 
 ## Project Structure
 
@@ -27,10 +27,6 @@ geo-agent/
 ├── GEMINI.md                  # AI-assisted development guide
 └── pyproject.toml             # Project dependencies and packaging
 ```
-
-### Upstream References
-* **`app/`**: Implements the agent backend referencing **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)** (`agent/python/agent_executor.py`, etc.).
-* **`maui-a2ui-python`**: Tracked via `pyproject.toml` from **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)** (`agent/python_agent/`).
 
 > 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
 
@@ -99,24 +95,12 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 uv run python -m app.fast_api_app
 ```
 
-> 💡 **Note on Local OpenTelemetry Logs (`Failed to export metrics batch: 400`):**
-> If `OTEL_TO_CLOUD=true` is enabled in your `.env` during local development, you may see background warnings like:
-> `Failed to export metrics batch code: 400, reason: Bad Request`
-> * **Impact:** None. This only indicates that the background OpenTelemetry exporter cannot find GCP resource metadata on your local machine. Agent reasoning, tools, and API responses function normally.
-> * **Solution:** To suppress these logs locally, set `OTEL_TO_CLOUD=false` in your `.env`. (Keep `OTEL_TO_CLOUD=true` for Cloud Run deployments).
-
 #### 3. Start the React Web Client
 
 ```bash
 cd client/web/react
 npm run dev
 ```
-
-Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
-
-> 💡 **Upstream a2ui Version:**
-> The upstream `a2ui` package (`maui-a2ui-python`) is tracked directly from GitHub in `pyproject.toml` under `[tool.uv.sources]`. To change or update versions, simply update the `tag` or `rev` in `pyproject.toml` and run `uv lock`.
-
 
 ## Commands
 
@@ -127,7 +111,8 @@ Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
 | `agents-cli lint`    | Run code quality checks                                                               |
 | `agents-cli eval`    | Evaluate agent behavior (generate, grade, analyze, and more — see `agents-cli eval --help`) |
 | `uv run pytest tests/unit tests/integration` | Run unit and integration tests                                                        |
-| `agents-cli deploy`  | Deploy agent to Cloud Run                                                                   || [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                        |
+| `agents-cli deploy`  | Deploy agent to Cloud Run                                                                   |
+| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                        |
 
 ## 🛠️ Project Management
 
@@ -179,12 +164,6 @@ gcloud config set project <your-project-id>
 agents-cli infra single-project --apply --project <your-project-id>
 ```
 
-To view the provisioned infrastructure status:
-
-```bash
-agents-cli infra show
-```
-
 ##### 2.2 Deploy Agent Application
 
 Deploy the application container and code:
@@ -206,17 +185,7 @@ gcloud run services add-iam-policy-binding geo-agent \
   --role="roles/run.invoker"
 ```
 
-> 💡 Take note of the deployed Service URL (e.g. `https://geo-agent-xxxx.run.app`). The backend endpoint will be `https://geo-agent-xxxx.run.app/a2a/app`.
-
 #### 3. Deploy the React Web Client (`geo-agent-web`)
-
-Configure `client/web/react/.env.production` with your deployed backend URL and Maps API Key:
-
-```properties
-GOOGLE_MAPS_API_KEY=<your-google-maps-api-key>
-VITE_A2A_SERVER_URL=https://<your-backend-url>.run.app/a2a/app
-SERVER_URL=https://<your-backend-url>.run.app/a2a/app
-```
 
 Deploy the web client to Cloud Run:
 
@@ -251,63 +220,6 @@ gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
 # Query telemetry in BigQuery
 bq query --use_legacy_sql=false \
   "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
-```
-
-*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset name)*
-
-#### 1. Recent Prompt-Response Turn History (Recommended)
-Combines Cloud Logging inference metadata with GCS prompt/response text in chronological order:
-
-```sql
-SELECT
-  timestamp,
-  role,               -- 'user' or 'assistant'
-  message_type,       -- 'input' or 'output'
-  content,            -- Prompt or model response text
-  tool_name,          -- Tool name if invoked (e.g. search_places, set_model_response)
-  tool_args           -- Tool arguments (JSON)
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions_view`
-ORDER BY
-  timestamp DESC
-LIMIT 50;
-```
-
-#### 2. Tool Invocations and Generated UI Cards
-Track tool executions, Maps grounding searches, and synthesized A2UI response payloads:
-
-```sql
-SELECT
-  timestamp,
-  conversation_id,
-  tool_name,
-  tool_args,
-  tool_response
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions_view`
-WHERE
-  tool_name IS NOT NULL
-ORDER BY
-  timestamp DESC
-LIMIT 20;
-```
-
-#### 3. Raw Completions Table
-Direct external table over GCS NDJSON files:
-
-```sql
-SELECT
-  _FILE_NAME AS file_name,
-  c.role,
-  c.index AS message_index,
-  p.type AS part_type,
-  p.content AS message_text,
-  p.name AS function_name,
-  p.arguments AS function_args
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.completions` c,
-  UNNEST(c.parts) AS p
-LIMIT 50;
 ```
 
 ### 2. BigQuery Agent Analytics (`agent_events`)
@@ -345,6 +257,13 @@ LLM token usage:
 ```sql
 SELECT
   agent,
+  -- Note on ADK schema mismatch:
+  -- The upstream documentation specifies '$.model', '$.usage_metadata.prompt', and '$.usage_metadata.completion'.
+  -- However, in actual ADK event payloads, these keys are stored as:
+  --   '$.model_version' (instead of '$.model')
+  --   '$.usage_metadata.prompt_token_count' (instead of '$.usage_metadata.prompt')
+  --   '$.usage_metadata.candidates_token_count' (instead of '$.usage_metadata.completion')
+  -- If querying against actual ADK agent_events tables, use the token_count keys.
   JSON_VALUE(attributes, '$.model') AS model,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.prompt') AS INT64)) AS total_prompt_tokens,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.completion') AS INT64)) AS total_completion_tokens
