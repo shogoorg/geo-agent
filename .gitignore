@@ -1,4 +1,4 @@
-# Environment files (contain sensitive keys)
+# Difference from base ADK scaffold (agents-cli create --bq-analytics): Explicitly ignore local environment files containing API keys
 .env
 .env.*
 !.env.example
@@ -12,6 +12,7 @@ __pycache__/
 *.pyc
 *$py.class
 **/dist
+# Difference from base ADK scaffold (agents-cli create --bq-analytics): Ignore eval results and trace artifacts
 /artifacts
 
 /tmp
@@ -221,4 +222,5 @@ tools/a2a-inspector/
 *.pem
 *-key.json
 credentials*.json
+# Difference from base ADK scaffold (agents-cli create --bq-analytics): Ignore AI coding assistant temporary files
 .aider*

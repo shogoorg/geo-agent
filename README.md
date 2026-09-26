@@ -242,11 +242,15 @@ Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
 Prompt-response completions are exported via OpenTelemetry to Cloud Storage and joined with Cloud Logging in BigQuery via the pre-built `completions_view`:
 
 ```bash
-PROJECT_ID="your-project-id"
+PROJECT_ID="your-dev-project-id"
 PROJECT_NAME="your-project-name"
 
 # Check for telemetry files in GCS
 gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
+
+# Query telemetry in BigQuery
+bq query --use_legacy_sql=false \
+  "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
 ```
 
 *(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset name)*
@@ -310,9 +314,44 @@ LIMIT 50;
 
 When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
 
-*(Replace `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry` with your deployed dataset name)*
+#### Example Queries
+Replace `YOUR_PROJECT_ID` and `YOUR_AGENT_NAME` accordingly.
 
-#### 1. Recent Events
+#### 1. Recent events:
+```sql
+SELECT *
+FROM `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+ORDER BY timestamp DESC
+LIMIT 100;
+```
+
+#### 2. Tool calls and errors:
+```sql
+SELECT
+  timestamp,
+  JSON_VALUE(content, '$.tool') AS tool_name,
+  JSON_VALUE(content, '$.args') AS tool_args,
+  status,
+  error_message
+FROM `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+WHERE event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
+ORDER BY timestamp DESC;
+```
+
+#### 3. LLM token usage:
+```sql
+SELECT
+  agent,
+  JSON_VALUE(attributes, '$.model') AS model,
+  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.prompt') AS INT64)) AS total_prompt_tokens,
+  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.completion') AS INT64)) AS total_completion_tokens
+FROM `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
+WHERE event_type = 'LLM_RESPONSE'
+  AND JSON_VALUE(attributes, '$.usage_metadata.prompt') IS NOT NULL
+GROUP BY agent, model;
+```
+
+#### 4. Recent Events
 ```sql
 SELECT
   timestamp,
@@ -327,7 +366,7 @@ ORDER BY
 LIMIT 100;
 ```
 
-#### 2. Conversation QA Pairs (User Question ➔ Agent Answer)
+#### 5. Conversation QA Pairs (User Question ➔ Agent Answer)
 ```sql
 WITH paired_events AS (
   SELECT
@@ -361,7 +400,7 @@ ORDER BY
 LIMIT 20;
 ```
 
-#### 3. Conversation Timeline (Chronological Chat History)
+#### 6. Conversation Timeline (Chronological Chat History)
 ```sql
 SELECT
   timestamp,
@@ -383,7 +422,7 @@ ORDER BY
 LIMIT 50;
 ```
 
-#### 4. Tool Calls and Errors
+#### 7. Tool Calls and Errors
 ```sql
 SELECT
   timestamp,
@@ -399,7 +438,7 @@ ORDER BY
   timestamp DESC;
 ```
 
-#### 5. LLM Token Usage by Agent and Model
+#### 8. LLM Token Usage by Agent and Model
 ```sql
 SELECT
   agent,

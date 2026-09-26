@@ -12,56 +12,110 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
+# ==============================================================================
+# Standard ADK Agent & BigQuery Analytics Setup
+# Reference: https://google.github.io/agents-cli/guide/observability/bq-agent-analytics/
+#
+# Core ADK agent definition including tools, Gemini model configuration, and
+# BigQuery telemetry streaming. Kept as the standard base reference for rebuilding
+# custom agent logic and tool implementations from scratch.
+# ==============================================================================
+import datetime
+from zoneinfo import ZoneInfo
 
 from google.adk.agents import Agent
 from google.adk.apps import App
 from google.adk.models import Gemini
+from google.genai import types
+import logging
 from google.adk.plugins.bigquery_agent_analytics_plugin import (
     BigQueryAgentAnalyticsPlugin,
     BigQueryLoggerConfig,
 )
-from google.genai import types
+from google.cloud import bigquery
 
 
 MODEL = "gemini-3.7-flash"
 
-# BigQuery Agent Analytics Plugin (agents-cli guide compliant)
-analytics_plugin = None
-bq_dataset_id = os.getenv("BQ_ANALYTICS_DATASET_ID")
-gcp_project = os.getenv("GOOGLE_CLOUD_PROJECT")
 
-if bq_dataset_id and gcp_project:
-    bq_config = BigQueryLoggerConfig(
-        enabled=True,
-        gcs_bucket_name=os.getenv("BQ_ANALYTICS_GCS_BUCKET"),
-        connection_id=os.getenv("BQ_ANALYTICS_CONNECTION_ID"),
-        log_multi_modal_content=True,
-        max_content_length=500 * 1024,
-        table_id=os.getenv("BQ_ANALYTICS_TABLE_ID", "agent_events"),
-    )
-    analytics_plugin = BigQueryAgentAnalyticsPlugin(
-        project_id=gcp_project,
-        dataset_id=bq_dataset_id,
-        table_id=bq_config.table_id,
-        config=bq_config,
-        location=os.getenv("BQ_ANALYTICS_LOCATION") or os.getenv("GOOGLE_CLOUD_LOCATION", "US"),
-    )
+def get_weather(query: str) -> str:
+    """Simulates a web search. Use it get information on weather.
+
+    Args:
+        query: A string containing the location to get weather information for.
+
+    Returns:
+        A string with the simulated weather information for the queried location.
+    """
+    if "sf" in query.lower() or "san francisco" in query.lower():
+        return "It's 60 degrees and foggy."
+    return "It's 90 degrees and sunny."
+
+
+def get_current_time(query: str) -> str:
+    """Simulates getting the current time for a city.
+
+    Args:
+        query: The name of the city to get the current time for.
+
+    Returns:
+        A string with the current time information.
+    """
+    if "sf" in query.lower() or "san francisco" in query.lower():
+        tz_identifier = "America/Los_Angeles"
+    else:
+        return f"Sorry, I don't have timezone information for query: {query}."
+
+    tz = ZoneInfo(tz_identifier)
+    now = datetime.datetime.now(tz)
+    return f"The current time for query {query} is {now.strftime('%Y-%m-%d %H:%M:%S %Z%z')}"
+
 
 root_agent = Agent(
+    # Keep in sync with agents-cli-manifest.yaml: agents-cli derives this name
+    # from the project `name:` recorded there, and telemetry reports it as
+    # gen_ai.agent.name. Renaming the agent only here makes the two disagree,
+    # and anything selecting traces by name stops finding this agent's.
+    # name="my_agent",
     name="geo_agent",
     model=Gemini(
         model=MODEL,
         retry_options=types.HttpRetryOptions(attempts=3),
     ),
     instruction="You are a helpful AI assistant designed to provide accurate and useful information.",
-    tools=[],
+    tools=[get_weather, get_current_time],
 )
+import os
+
+# Initialize BigQuery Analytics
+_plugins = []
+_project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+_dataset_id = os.environ.get("BQ_ANALYTICS_DATASET_ID", "adk_agent_analytics")
+_location = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-east1")
+
+if _project_id:
+    try:
+        bq = bigquery.Client(project=_project_id)
+        bq.create_dataset(f"{_project_id}.{_dataset_id}", exists_ok=True)
+
+        _plugins.append(
+            BigQueryAgentAnalyticsPlugin(
+                project_id=_project_id,
+                dataset_id=_dataset_id,
+                location=_location,
+                config=BigQueryLoggerConfig(
+                    gcs_bucket_name=os.environ.get("BQ_ANALYTICS_GCS_BUCKET"),
+                    connection_id=os.environ.get("BQ_ANALYTICS_CONNECTION_ID"),
+                ),
+            )
+        )
+    except Exception as e:
+        logging.warning(f"Failed to initialize BigQuery Analytics: {e}")
 
 app = App(
     root_agent=root_agent,
     name="app",
-    plugins=[analytics_plugin] if analytics_plugin else [],
+    plugins=_plugins,
 )
 
 # ==============================================================================
@@ -107,7 +161,9 @@ agent_with_templates.LiteLlm = GeminiAdapter
 agent_with_grounding.LiteLlm = GeminiAdapter
 
 # Inject analytics plugin into MAUIAgent's Runner factory without modifying upstream package
-if analytics_plugin:
+# Note: uses _plugins list from the BigQuery analytics initialization block above
+if _plugins:
+    analytics_plugin = _plugins[0]
     _original_build_runner = MAUIAgent._build_runner
 
     def _build_runner_with_analytics(self, agent):

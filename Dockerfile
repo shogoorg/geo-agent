@@ -14,6 +14,9 @@
 
 FROM python:3.12-slim
 
+# Difference from base ADK scaffold (agents-cli create --bq-analytics):
+# Installs git because pyproject.toml pulls `maui-a2ui-python` directly from the
+# upstream git repository (https://github.com/googlemaps/a2ui.git).
 RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir uv==0.8.13
 
