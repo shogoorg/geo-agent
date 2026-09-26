@@ -317,7 +317,8 @@ When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool 
 #### Example Queries
 Replace `YOUR_PROJECT_ID` and `YOUR_AGENT_NAME` accordingly.
 
-#### 1. Recent events:
+Recent events:
+
 ```sql
 SELECT *
 FROM `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
@@ -325,7 +326,8 @@ ORDER BY timestamp DESC
 LIMIT 100;
 ```
 
-#### 2. Tool calls and errors:
+Tool calls and errors:
+
 ```sql
 SELECT
   timestamp,
@@ -338,7 +340,8 @@ WHERE event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
 ORDER BY timestamp DESC;
 ```
 
-#### 3. LLM token usage:
+LLM token usage:
+
 ```sql
 SELECT
   agent,
@@ -349,110 +352,6 @@ FROM `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
 WHERE event_type = 'LLM_RESPONSE'
   AND JSON_VALUE(attributes, '$.usage_metadata.prompt') IS NOT NULL
 GROUP BY agent, model;
-```
-
-#### 4. Recent Events
-```sql
-SELECT
-  timestamp,
-  event_type,
-  agent,
-  user_id,
-  status
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
-ORDER BY
-  timestamp DESC
-LIMIT 100;
-```
-
-#### 5. Conversation QA Pairs (User Question ➔ Agent Answer)
-```sql
-WITH paired_events AS (
-  SELECT
-    timestamp,
-    session_id,
-    event_type,
-    LAST_VALUE(IF(event_type = 'USER_MESSAGE_RECEIVED', content, NULL) IGNORE NULLS) 
-      OVER (
-        PARTITION BY session_id 
-        ORDER BY timestamp 
-        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-      ) AS user_question,
-    JSON_VALUE(content, '$.response') AS agent_answer
-  FROM
-    `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
-  WHERE
-    event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
-)
-SELECT
-  timestamp,
-  session_id,
-  user_question AS question,
-  agent_answer   AS answer
-FROM
-  paired_events
-WHERE
-  event_type = 'AGENT_RESPONSE'
-  AND agent_answer IS NOT NULL
-ORDER BY
-  timestamp DESC
-LIMIT 20;
-```
-
-#### 6. Conversation Timeline (Chronological Chat History)
-```sql
-SELECT
-  timestamp,
-  session_id,
-  CASE
-    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN 'User (Question)'
-    WHEN event_type = 'AGENT_RESPONSE'         THEN 'Agent (Answer)'
-  END AS speaker,
-  CASE
-    WHEN event_type = 'USER_MESSAGE_RECEIVED' THEN content
-    WHEN event_type = 'AGENT_RESPONSE'         THEN JSON_VALUE(content, '$.response')
-  END AS message_text
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
-WHERE
-  event_type IN ('USER_MESSAGE_RECEIVED', 'AGENT_RESPONSE')
-ORDER BY
-  timestamp ASC
-LIMIT 50;
-```
-
-#### 7. Tool Calls and Errors
-```sql
-SELECT
-  timestamp,
-  JSON_VALUE(content, '$.tool') AS tool_name,
-  JSON_VALUE(content, '$.args') AS tool_args,
-  status,
-  error_message
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
-WHERE
-  event_type IN ('TOOL_COMPLETED', 'TOOL_ERROR')
-ORDER BY
-  timestamp DESC;
-```
-
-#### 8. LLM Token Usage by Agent and Model
-```sql
-SELECT
-  agent,
-  JSON_VALUE(attributes, '$.model_version') AS model,
-  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') AS INT64)) AS total_prompt_tokens,
-  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.candidates_token_count') AS INT64)) AS total_completion_tokens,
-  SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.total_token_count') AS INT64)) AS grand_total_tokens
-FROM
-  `YOUR_PROJECT_ID.YOUR_AGENT_NAME_telemetry.agent_events`
-WHERE
-  event_type = 'LLM_RESPONSE'
-  AND JSON_VALUE(attributes, '$.usage_metadata.prompt_token_count') IS NOT NULL
-GROUP BY
-  agent, model;
 ```
 
 ## A2A Inspector
