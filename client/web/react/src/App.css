@@ -220,3 +220,11 @@
   }
 }
 
+
+/* --- Full Chat Layout for Chrome Extension & Full Screen --- */
+.chat-panel {
+  width: 100%;
+  box-shadow: none;
+}
+
+
