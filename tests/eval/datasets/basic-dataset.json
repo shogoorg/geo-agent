@@ -1,111 +1,111 @@
 {
   "eval_cases": [
     {
-      "eval_case_id": "coffee_shops_shibuya",
+      "eval_case_id": "coffee_shops_shinjuku",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 coffee shops near Shibuya Station in Shibuya"
+            "text": "Show me 5 coffee shops near Shinjuku Gyoen National Garden in Shinjuku"
           }
         ]
       }
     },
     {
-      "eval_case_id": "cerulean_tower_hotel",
+      "eval_case_id": "keio_plaza_hotel",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Is the Cerulean Tower Tokyu Hotel in Shibuya a good hotel?"
+            "text": "Is the Keio Plaza Hotel in Shinjuku, Tokyo a good hotel?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "google_tokyo_commute",
+      "eval_case_id": "tokyo_gov_commute",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "How long will it take to commute to Google Tokyo office from downtown Shinjuku during my morning rush hour commute?"
+            "text": "How long will it take to commute to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "salad_lunch_and_directions_shibuya",
+      "eval_case_id": "salad_lunch_and_directions_shinjuku",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 lunch restaurants with Salads in Shibuya. Give me directions to the 2nd one (starting from the Google Shibuya Stream building)"
+            "text": "Show me 5 lunch restaurants with Salads in Shinjuku Gyoen. Give me directions to the 2nd one (starting from the Tokyo Metropolitan Government Building)"
           }
         ]
       }
     },
     {
-      "eval_case_id": "shibuya_itinerary",
+      "eval_case_id": "tokyo_itinerary",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Give me a 3 day itinerary for a family of 3 traveling to Shibuya"
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to Tokyo"
           }
         ]
       }
     },
     {
-      "eval_case_id": "coffee_shops_shibuya_ja",
+      "eval_case_id": "coffee_shops_shinjuku_ja",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "渋谷区の渋谷駅周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+            "text": "新宿区の新宿御苑周辺にあるコーヒーショップ（カフェ）を5軒教えて"
           }
         ]
       }
     },
     {
-      "eval_case_id": "cerulean_tower_hotel_ja",
+      "eval_case_id": "keio_plaza_hotel_ja",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "渋谷のセルリアンタワー東急ホテルは良いホテルですか？"
+            "text": "新宿区東京の京王プラザホテルは良いホテルですか？"
           }
         ]
       }
     },
     {
-      "eval_case_id": "google_tokyo_commute_ja",
+      "eval_case_id": "tokyo_gov_commute_ja",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "朝の通勤ラッシュ時に新宿のダウンタウンからGoogle東京オフィスまで通勤すると、どれくらい時間がかかりますか？"
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで通勤すると、どれくらい時間がかかりますか？"
           }
         ]
       }
     },
     {
-      "eval_case_id": "salad_lunch_and_directions_shibuya_ja",
+      "eval_case_id": "salad_lunch_and_directions_shinjuku_ja",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "渋谷でサラダが食べられるランチのお店を5軒教えて。そして（Google渋谷ストリームビルを出発点として）2番目のお店への道順を案内して"
+            "text": "新宿御苑周辺でサラダが食べられるランチのお店を5軒教えて。そして（東京都庁を出発点として）2番目のお店への道順を案内して"
           }
         ]
       }
     },
     {
-      "eval_case_id": "shibuya_itinerary_ja",
+      "eval_case_id": "tokyo_itinerary_ja",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "家族3人で渋谷を旅行するための2泊3日（3日間）の旅行プラン（旅程）を提案して"
+            "text": "家族3人で東京を旅行するための2泊3日（3日間）の旅行プラン（旅程）を提案して"
           }
         ]
       }
