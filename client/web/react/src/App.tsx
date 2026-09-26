@@ -34,6 +34,12 @@ function App() {
     import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
     (import.meta as any).env.GOOGLE_MAPS_API_KEY ||
     "";
+  // Added: Automatically detect browser language to localize embedded Google Maps (ja for Japanese, en for others)
+  const currentLang =
+    typeof navigator !== "undefined" && navigator.language.startsWith("ja")
+      ? "ja"
+      : "en";
+  const currentRegion = currentLang === "ja" ? "JP" : "US";
   const clientRef = useRef(new A2UIClient(serverUrl));
   // A2UIRenderer manages the local state of A2UI surfaces and message processing
   const rendererRef = useRef(new A2UIRenderer());
@@ -122,7 +128,7 @@ function App() {
       {/* --- Main Content Panel --- */}
       {/* Difference from original:
           Replaced placeholder `<h1>Main content</h1>` with a full-screen Google Maps Embed iframe
-          (defaults to Tokyo, Japan). To revert to original placeholder, replace with:
+          (defaults to Shibuya, Tokyo, Japan). To revert to original placeholder, replace with:
           <main className="main-panel">
             {!isChatOpen && (<button className="toggle-chat-btn" onClick={() => setIsChatOpen(true)}>Open Chat</button>)}
             <div className="main-panel-content"><h1>Main content</h1></div>
@@ -144,7 +150,7 @@ function App() {
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=Tokyo,Japan`}
+            src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=Shibuya,Tokyo,Japan&language=${currentLang}&region=${currentRegion}`}
             title="Google Maps"
           />
         ) : (
@@ -158,7 +164,8 @@ function App() {
       {/* --- Side Chat Panel --- */}
       <aside className={`chat-panel ${isChatOpen ? 'open' : 'closed'}`}>
         <div className="chat-header">
-          <h2>Chat</h2>
+          {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
+          <h2>GeoAgent</h2>
 
           <button
             className="close-chat-btn"

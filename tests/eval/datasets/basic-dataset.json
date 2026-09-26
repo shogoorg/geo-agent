@@ -1,64 +1,114 @@
 {
   "eval_cases": [
     {
-      "eval_case_id": "coffee_shops_seattle",
+      "eval_case_id": "coffee_shops_shibuya",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 coffee shops near South Lake Union in Seattle"
+            "text": "Show me 5 coffee shops near Shibuya Station in Shibuya"
           }
         ]
       }
     },
     {
-      "eval_case_id": "edgewater_hotel",
+      "eval_case_id": "cerulean_tower_hotel",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Is the Edgewater Hotel in Seattle a good hotel?"
+            "text": "Is the Cerulean Tower Tokyu Hotel in Shibuya a good hotel?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "kirkland_commute",
+      "eval_case_id": "google_tokyo_commute",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "How long will it take to commute to Google Kirkland office from downtown Redmond during my morning rush hour commute?"
+            "text": "How long will it take to commute to Google Tokyo office from downtown Shinjuku during my morning rush hour commute?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "salad_lunch_and_directions",
+      "eval_case_id": "salad_lunch_and_directions_shibuya",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 lunch restaurants with Salads in South Lake Union. Give me directions to the 2nd one (starting from the Google South Lake Union WLK building)"
+            "text": "Show me 5 lunch restaurants with Salads in Shibuya. Give me directions to the 2nd one (starting from the Google Shibuya Stream building)"
           }
         ]
       }
     },
     {
-      "eval_case_id": "london_itinerary",
+      "eval_case_id": "shibuya_itinerary",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Give me a 3 day itinerary for a family of 3 traveling to London"
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to Shibuya"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "coffee_shops_shibuya_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "渋谷区の渋谷駅周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "cerulean_tower_hotel_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "渋谷のセルリアンタワー東急ホテルは良いホテルですか？"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "google_tokyo_commute_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に新宿のダウンタウンからGoogle東京オフィスまで通勤すると、どれくらい時間がかかりますか？"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "salad_lunch_and_directions_shibuya_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "渋谷でサラダが食べられるランチのお店を5軒教えて。そして（Google渋谷ストリームビルを出発点として）2番目のお店への道順を案内して"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "shibuya_itinerary_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "家族3人で渋谷を旅行するための2泊3日（3日間）の旅行プラン（旅程）を提案して"
           }
         ]
       }
     }
   ]
 }
-
-
-
-
-
