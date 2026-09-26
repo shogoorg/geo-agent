@@ -23,10 +23,17 @@ function App() {
 
   // --- A2UI Integration Refs ---
   // A2UIClient handles communication with the A2A agent
+  // Difference from original: Defaults to local FastAPI backend endpoint http://localhost:8000/a2a/app
+  // (original default was http://localhost:10002)
   const serverUrl =
     import.meta.env.VITE_A2A_SERVER_URL ||
     (import.meta as any).env.SERVER_URL ||
-    "http://localhost:10002";
+    "http://localhost:8000/a2a/app";
+  // Added: Google Maps Platform API key loaded for Google Maps Embed iframe
+  const mapsApiKey =
+    import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
+    (import.meta as any).env.GOOGLE_MAPS_API_KEY ||
+    "";
   const clientRef = useRef(new A2UIClient(serverUrl));
   // A2UIRenderer manages the local state of A2UI surfaces and message processing
   const rendererRef = useRef(new A2UIRenderer());
@@ -113,7 +120,15 @@ function App() {
   return (
     <div className="app-container">
       {/* --- Main Content Panel --- */}
-      <main className="main-panel">
+      {/* Difference from original:
+          Replaced placeholder `<h1>Main content</h1>` with a full-screen Google Maps Embed iframe
+          (defaults to Tokyo, Japan). To revert to original placeholder, replace with:
+          <main className="main-panel">
+            {!isChatOpen && (<button className="toggle-chat-btn" onClick={() => setIsChatOpen(true)}>Open Chat</button>)}
+            <div className="main-panel-content"><h1>Main content</h1></div>
+          </main>
+      */}
+      <main className="main-panel" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
         {!isChatOpen && (
           <button
             className="toggle-chat-btn"
@@ -121,9 +136,23 @@ function App() {
             Open Chat
           </button>
         )}
-        <div className="main-panel-content">
-          <h1>Main content</h1>
-        </div>
+        {mapsApiKey ? (
+          <iframe
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            src={`https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=Tokyo,Japan`}
+            title="Google Maps"
+          />
+        ) : (
+          <div className="main-panel-content">
+            <h1>Google Maps</h1>
+            <p style={{ opacity: 0.7 }}>Please configure GOOGLE_MAPS_API_KEY in your environment.</p>
+          </div>
+        )}
       </main>
 
       {/* --- Side Chat Panel --- */}
