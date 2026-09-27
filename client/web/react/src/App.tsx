@@ -139,14 +139,16 @@ function App() {
       {/* --- Side Chat Panel --- */}
       <aside className={`chat-panel ${isChatOpen ? 'open' : 'closed'}`}>
         <div className="chat-header">
-          {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
+    {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
           <h2>GeoAgent</h2>
 
+          {/* Hidden close button to prevent closing the chat layout inside the Chrome side panel
           <button
             className="close-chat-btn"
             onClick={() => setIsChatOpen(false)}>
             ×
           </button>
+          */}
         </div>
 
         {/* --- Message Timeline --- */}
