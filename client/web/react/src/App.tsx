@@ -13,7 +13,10 @@ import './App.css';
  */
 function App() {
   // --- UI State ---
-  const [isChatOpen, setIsChatOpen] = useState(true);
+  // const [isChatOpen, setIsChatOpen] = useState(true);
+  // Disabled setIsChatOpen because the close button was commented out for Chrome Extension compatibility,
+  // preventing TS6133 'declared but never read' error during production build.
+  const [isChatOpen] = useState(true);
   const [timeline, setTimeline] = useState<TimelineItem[]>([]);
   const [input, setInput] = useState('');
   const [isRequesting, setIsRequesting] = useState(false);
