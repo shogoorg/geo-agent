@@ -26,10 +26,12 @@ from app.app_utils import services
 from app.app_utils.a2a import attach_a2a_routes
 
 load_dotenv()
+# Difference from base ADK scaffold (agents-cli create --bq-analytics): Defaults to ["*"] instead of None to allow
+# local frontend clients (e.g. React web client at localhost:5173) to connect out-of-the-box.
 allow_origins = (
-    os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else ["*"]
+    os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else ["*"]  # modified: ["*"] instead of None
 )
-otel_to_cloud = os.getenv("OTEL_TO_CLOUD", "false").lower() == "true"
+otel_to_cloud = True
 
 AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,8 +39,8 @@ AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     from app.agent import app as adk_app
-    from app.agent import root_agent, create_maui_bundle
-    from app.app_utils.a2a import attach_maui_a2a_routes
+    from app.agent import root_agent, create_maui_bundle  # modified: added create_maui_bundle
+    from app.app_utils.a2a import attach_maui_a2a_routes  # modified: uses attach_maui_a2a_routes instead of attach_a2a_routes
 
     runner = Runner(
         app=adk_app,
@@ -49,8 +51,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.runner = runner
     app.state.agent_app_name = adk_app.name
 
-    maui_bundle = create_maui_bundle()
-    attach_maui_a2a_routes(
+    # Difference from base ADK scaffold (agents-cli create --bq-analytics):
+    # Instead of attaching the single standard root_agent via `await attach_a2a_routes(app, agent=root_agent, ...)`,
+    # geo-agent initializes the MAUI bundle (Template, Grounding, and Base agents + MAUIAgentExecutor)
+    # and registers them via `attach_maui_a2a_routes` to handle rich Google Maps / A2UI JSON-RPC requests.
+    maui_bundle = create_maui_bundle()  # added: initialize MAUI agent bundle
+    attach_maui_a2a_routes(  # modified: replaced await attach_a2a_routes(app, agent=root_agent, ...)
         app,
         default_agent=maui_bundle["default_agent"],
         agent_executor=maui_bundle["agent_executor"],
@@ -72,10 +78,12 @@ app: FastAPI = get_fast_api_app(
 app.title = "geo-agent"
 app.description = "API for interacting with the Agent geo-agent"
 
-# Enable CORS for browser web clients (React frontend, etc.)
+# Difference from base ADK scaffold (agents-cli create --bq-analytics):
+# Explicitly adds Starlette CORSMiddleware with permissive settings to avoid
+# preflight (OPTIONS) header rejections when called by the React web client.
 from starlette.middleware.cors import CORSMiddleware
 
-app.add_middleware(
+app.add_middleware(  # added: explicit CORS middleware configuration
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,

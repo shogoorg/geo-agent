@@ -1,0 +1,14 @@
+# .clineignore
+# Clineのコンテキストを削減するためのスキャン対象外設定
+
+node_modules/
+.venv/
+.git/
+.pytest_cache/
+artifacts/
+client/android/
+client/ios/
+client/web/react/node_modules/
+client/web/react/dist/
+*.lock
+uv.lock

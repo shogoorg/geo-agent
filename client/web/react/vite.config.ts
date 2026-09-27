@@ -25,6 +25,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: './',
+    // Added: Expose GOOGLE_MAPS_API_KEY to Vite client-side code for Google Maps Embed iframe
+    define: {
+      'import.meta.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify(apiKey),
+    },
     plugins: [
       react(),
       {

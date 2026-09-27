@@ -1,64 +1,114 @@
 {
   "eval_cases": [
     {
-      "eval_case_id": "coffee_shops_seattle",
+      "eval_case_id": "coffee_shops_shinjuku",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 coffee shops near South Lake Union in Seattle"
+            "text": "Show me 5 coffee shops near Shinjuku Gyoen National Garden in Shinjuku"
           }
         ]
       }
     },
     {
-      "eval_case_id": "edgewater_hotel",
+      "eval_case_id": "keio_plaza_hotel",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Is the Edgewater Hotel in Seattle a good hotel?"
+            "text": "Is the Keio Plaza Hotel in Shinjuku, Tokyo a good hotel?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "kirkland_commute",
+      "eval_case_id": "tokyo_gov_commute",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "How long will it take to commute to Google Kirkland office from downtown Redmond during my morning rush hour commute?"
+            "text": "How long will it take to commute to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
           }
         ]
       }
     },
     {
-      "eval_case_id": "salad_lunch_and_directions",
+      "eval_case_id": "salad_lunch_and_directions_shinjuku",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Show me 5 lunch restaurants with Salads in South Lake Union. Give me directions to the 2nd one (starting from the Google South Lake Union WLK building)"
+            "text": "Show me 5 lunch restaurants with Salads in Shinjuku Gyoen. Give me directions to the 2nd one (starting from the Tokyo Metropolitan Government Building)"
           }
         ]
       }
     },
     {
-      "eval_case_id": "london_itinerary",
+      "eval_case_id": "tokyo_itinerary",
       "prompt": {
         "role": "user",
         "parts": [
           {
-            "text": "Give me a 3 day itinerary for a family of 3 traveling to London"
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to Tokyo"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "coffee_shops_shinjuku_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "新宿区の新宿御苑周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "keio_plaza_hotel_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "新宿区東京の京王プラザホテルは良いホテルですか？"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "tokyo_gov_commute_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで通勤すると、どれくらい時間がかかりますか？"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "salad_lunch_and_directions_shinjuku_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "新宿御苑周辺でサラダが食べられるランチのお店を5軒教えて。そして（東京都庁を出発点として）2番目のお店への道順を案内して"
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "tokyo_itinerary_ja",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "家族3人で東京を旅行するための2泊3日（3日間）の旅行プラン（旅程）を提案して"
           }
         ]
       }
     }
   ]
 }
-
-
-
-
-

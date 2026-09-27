@@ -130,6 +130,13 @@ async def attach_a2a_routes(
     )
 
 
+# ==============================================================================
+# Difference from base ADK scaffold (agents-cli create --bq-analytics):
+# The base scaffold only uses `attach_a2a_routes` for a single ADK root_agent.
+# `attach_maui_a2a_routes` is added specifically for geo-agent to mount the MAUI
+# (Maps Agentic UI) agent executor and agent card into FastAPI, matching upstream
+# googlemaps-samples/a2ui (agent/python/__main__.py) for React/Mobile A2UI client support.
+# ==============================================================================
 def attach_maui_a2a_routes(
     app: FastAPI,
     *,
