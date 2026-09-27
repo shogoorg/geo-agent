@@ -130,23 +130,12 @@ Edit your agent logic in `app/agent.py` and test with `agents-cli playground` - 
 
 ## Deployment
 
-#### 1. Configure the Production Agent (`.env` or Deploy Flag)
+#### 1. Configure the Agent Mode for Deployment
 
-Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your root `.env` file during deployment:
-
-```bash
-# Option 1: Template Agent (Recommended for low-latency local search & directions)
-A2UI_DEFAULT_AGENT=TEMPLATE
-
-# Option 2: Grounding Agent (Vertex AI Maps Grounding)
-# A2UI_DEFAULT_AGENT=GROUNDING
-
-# Option 3: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
-# A2UI_DEFAULT_AGENT=BASE
-```
+By default, Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your `.env` file (see [Configure the Default Agent](#1-configure-the-default-agent-env) for available agent modes).
 
 > 💡 **Tip (Overriding Agent Mode at Deploy Time):**
-> You can override the agent mode at deploy time without modifying `.env` using `--update-env-vars`:
+> You can override the agent mode without modifying `.env` using `--update-env-vars`:
 > * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=GROUNDING` ➔ Deploy as Grounding Agent
 > * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=TEMPLATE` ➔ Deploy as Template Agent
 
