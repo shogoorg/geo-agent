@@ -266,3 +266,68 @@ GROUP BY agent, model;
 
 This agent supports the [A2A Protocol](https://a2a-protocol.org/). Use the [A2A Inspector](https://github.com/a2aproject/a2a-inspector) to test interoperability.
 See the [A2A Inspector docs](https://github.com/a2aproject/a2a-inspector) for details.
+
+
+## Architecture
+
+```mermaid
+flowchart TB
+    Client["Client"]
+
+    subgraph Deployment ["Deployment"]
+        subgraph CloudRun ["Cloud Run"]
+            subgraph AgentOrchestration ["Agent Orchestration"]
+                AO["Build with Google's ADK and A2A, with the option to leverage ready to use samples"]
+            end
+            subgraph Observability ["Observability"]
+                OTEL["OpenTele"]
+                LOG["Logging"]
+            end
+        end
+    end
+
+    subgraph LLMs ["LLMs"]
+        MG["Model Garden"]
+    end
+
+    subgraph Data ["Data"]
+        DSA["Data storage and analysis"]
+    end
+
+    subgraph Evaluation ["Evaluation"]
+        APE["Agent Platform Evaluation"]
+    end
+
+    subgraph IaCCICD ["IaC & CI/CD"]
+        IAC["Infrastructure as code"]
+    end
+
+    %% Connections
+    Client --> AO
+    AO <--> MG
+    AO --> Observability
+    Observability --> DSA
+    Evaluation --> AO
+    IAC --> Deployment
+    IAC --> Data
+```
+
+The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` architecture):
+
+* **Agent Orchestration**
+  * **Build with Google's ADK and A2A, with the option to leverage ready to use samples**: Built with `google-adk` for the core agent implementation, `a2a-sdk` for Agent-to-Agent protocol communication, and integrated with the Maps Agentic UI (A2UI) agent bundle.
+* **LLMs**
+  * **Model Garden**: Uses Gemini foundation models (e.g., `gemini-3-flash-preview`) accessed via Vertex AI / Model Garden.
+* **Deployment**
+  * **Cloud Run**: Packaged as a FastAPI container application via `Dockerfile` and deployed to Cloud Run (selected over `Agent Runtime` / `GKE`).
+* **IaC & CI/CD**
+  * **Infrastructure as code**: Provisioned using Terraform manifests under `deployment/terraform/single-project` to automate Cloud Run, IAM, storage, and telemetry datasets.
+* **Observability**
+  * **OpenTele**: Integrated with `opentelemetry-resourcedetector-gcp` and `google-adk[otel-gcp]` for distributed tracing to Cloud Trace.
+  * **Logging**: Uses `google-cloud-logging` to route runtime and inference event logs to Cloud Logging.
+* **Data**
+  * **Data storage and analysis**: Employs `BigQueryAgentAnalyticsPlugin`, Cloud Storage (`logs_data_bucket`), and BigQuery tables/views for telemetry storage, token tracking, and agent analytics.
+* **Evaluation**
+  * **Agent Platform Evaluation**: Integrated with `google-cloud-aiplatform[evaluation]` and `google-adk[eval]` test suites under `tests/eval/`.
+* **Client**
+  * **Client**: Multi-platform frontend clients implemented under `client/` (Web/React, Android, and iOS) rendering rich responses via A2UI.
