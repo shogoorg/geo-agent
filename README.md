@@ -120,7 +120,7 @@ npm run dev
 | `agents-cli eval`    | Evaluate agent behavior (generate, grade, analyze, and more — see `agents-cli eval --help`) |
 | `uv run pytest tests/unit tests/integration` | Run unit and integration tests                                                        |
 | `agents-cli deploy`  | Deploy agent to Cloud Run                                                                   |
-| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                        |
+| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                       |
 
 ## 🛠️ Project Management
 
@@ -157,8 +157,17 @@ Provision the Google Cloud infrastructure (Cloud Run, GCS telemetry logs bucket,
 # Set your GCP project
 gcloud config set project <your-project-id>
 
-# Provision single-project infrastructure (Terraform)
+# 1. Enhance project infrastructure scaffolding (preview -> apply)
+agents-cli scaffold enhance --deployment-target cloud_run --bq-analytics --dry-run
+agents-cli scaffold enhance --deployment-target cloud_run --bq-analytics
+
+# 2. Provision single-project infrastructure via Terraform (plan preview -> apply)
+agents-cli infra single-project --project <your-project-id>
 agents-cli infra single-project --apply --project <your-project-id>
+
+# 3. Upgrade project to latest CLI template version (preview -> apply)
+agents-cli scaffold upgrade --dry-run
+agents-cli scaffold upgrade
 ```
 
 ##### 2.2 Deploy Agent Application
@@ -195,6 +204,7 @@ gcloud run deploy geo-agent-web \
   --region <your-region> \
   --allow-unauthenticated
 ```
+
 
 To add CI/CD and Terraform, run `agents-cli scaffold enhance`.
 To set up your production infrastructure, run `agents-cli infra cicd`.
