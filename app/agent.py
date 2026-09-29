@@ -141,14 +141,14 @@ class GeminiAdapter(Gemini):
     maximum speed and minimal cost while keeping BigQuery analytics fully functional.
     """
 
-    def __init__(self, model: str = None, **kwargs):
+    def __init__(self, model: str | None = None, **kwargs):
         # Respect the model requested by the MAUI library, fall back to MODEL if None
         requested_model = model or MODEL
-        
+
         # Remove any "gemini/" prefix if present to ensure ADK SDK compatibility
         if requested_model.startswith("gemini/"):
             requested_model = requested_model.replace("gemini/", "")
-            
+
         kwargs.pop("model", None)
         super().__init__(
             model=requested_model,
@@ -183,6 +183,7 @@ if _plugins:
         return runner
 
     MAUIAgent._build_runner = _build_runner_with_analytics
+
 
 def create_maui_bundle(base_url: str | None = None):
     """Initializes and returns the MAUI agents and executor matching a2ui-samples."""
@@ -231,4 +232,3 @@ def create_maui_bundle(base_url: str | None = None):
         "template_agent": template_agent,
         "agent_executor": agent_executor,
     }
-

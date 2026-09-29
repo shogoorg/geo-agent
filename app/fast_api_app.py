@@ -22,14 +22,20 @@ from fastapi import FastAPI
 from google.adk.cli.fast_api import get_fast_api_app
 from google.adk.runners import Runner
 
+# Difference from base ADK scaffold (agents-cli create --bq-analytics):
+# Explicitly adds Starlette CORSMiddleware with permissive settings to avoid
+# preflight (OPTIONS) header rejections when called by the React web client.
+from starlette.middleware.cors import CORSMiddleware
+
 from app.app_utils import services
-from app.app_utils.a2a import attach_a2a_routes
 
 load_dotenv()
 # Difference from base ADK scaffold (agents-cli create --bq-analytics): Defaults to ["*"] instead of None to allow
 # local frontend clients (e.g. React web client at localhost:5173) to connect out-of-the-box.
 allow_origins = (
-    os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else ["*"]  # modified: ["*"] instead of None
+    os.getenv("ALLOW_ORIGINS", "").split(",")
+    if os.getenv("ALLOW_ORIGINS")
+    else ["*"]  # modified: ["*"] instead of None
 )
 otel_to_cloud = True
 
@@ -39,8 +45,12 @@ AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     from app.agent import app as adk_app
-    from app.agent import root_agent, create_maui_bundle  # modified: added create_maui_bundle
-    from app.app_utils.a2a import attach_maui_a2a_routes  # modified: uses attach_maui_a2a_routes instead of attach_a2a_routes
+    from app.agent import (  # modified: added create_maui_bundle
+        create_maui_bundle,
+    )
+    from app.app_utils.a2a import (
+        attach_maui_a2a_routes,  # modified: uses attach_maui_a2a_routes instead of attach_a2a_routes
+    )
 
     runner = Runner(
         app=adk_app,
@@ -77,11 +87,6 @@ app: FastAPI = get_fast_api_app(
 )
 app.title = "geo-agent"
 app.description = "API for interacting with the Agent geo-agent"
-
-# Difference from base ADK scaffold (agents-cli create --bq-analytics):
-# Explicitly adds Starlette CORSMiddleware with permissive settings to avoid
-# preflight (OPTIONS) header rejections when called by the React web client.
-from starlette.middleware.cors import CORSMiddleware
 
 app.add_middleware(  # added: explicit CORS middleware configuration
     CORSMiddleware,

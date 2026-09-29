@@ -58,6 +58,13 @@ Test the agent with a local web server:
 agents-cli playground
 ```
 
+Run code quality
+
+
+```bash
+agents-cli lint
+```
+
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
 
 Evaluate agent behavior:
@@ -99,6 +106,7 @@ uv run python -m app.fast_api_app
 
 ```bash
 cd client/web/react
+npm install
 npm run dev
 ```
 

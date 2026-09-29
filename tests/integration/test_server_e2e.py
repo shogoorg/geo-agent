@@ -35,6 +35,7 @@ from a2a.types import (
     SendMessageRequest,
     StreamResponse,
     TaskState,
+    TextPart,
 )
 from requests.exceptions import RequestException
 
@@ -184,12 +185,13 @@ def test_a2a_chat_stream(server_fixture: subprocess.Popen[str]) -> None:
         message = Message(
             message_id=f"msg-user-{uuid.uuid4()}",
             role=Role.ROLE_USER,
-            parts=[Part(text="Hi!")],
+            parts=[Part(root=TextPart(text="Hi!"))],
         )
-        return [
-            chunk
-            async for chunk in client.send_message(SendMessageRequest(message=message))
-        ]
+        req = SendMessageRequest(
+            id=str(uuid.uuid4()),
+            params={"message": message},  # type: ignore[arg-type]
+        )
+        return [chunk async for chunk in client.send_message(req)]
 
     responses = asyncio.run(_stream())
     assert responses, "No responses received from stream"

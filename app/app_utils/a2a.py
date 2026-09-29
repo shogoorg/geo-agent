@@ -23,19 +23,26 @@ registration.
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from a2a.server.request_handlers import DefaultRequestHandler
-# from a2a.server.routes import (
-#     add_a2a_routes_to_fastapi,
-#     create_agent_card_routes,
-#     create_jsonrpc_routes,
-# )
 from a2a.server.tasks import TaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentExtension, AgentInterface
 from a2a.utils.constants import AGENT_CARD_WELL_KNOWN_PATH
 from google.adk.a2a.executor.a2a_agent_executor import A2aAgentExecutor
 from google.adk.a2a.utils.agent_card_builder import AgentCardBuilder
+
+# Fallback when routes is not available in the current a2a SDK version
+try:
+    from a2a.server.routes import (
+        add_a2a_routes_to_fastapi,
+        create_agent_card_routes,
+        create_jsonrpc_routes,
+    )
+except ImportError:
+    add_a2a_routes_to_fastapi = None
+    create_agent_card_routes = None
+    create_jsonrpc_routes = None
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
@@ -57,9 +64,8 @@ async def _add_v0_3_compat_interface(card: AgentCard) -> AgentCard:
     if card.supported_interfaces:
         card.supported_interfaces.append(
             AgentInterface(
-                protocol_binding="JSONRPC",
-                protocol_version="0.3",
                 url=card.supported_interfaces[0].url,
+                transport=card.supported_interfaces[0].transport,
             )
         )
     return card
@@ -89,15 +95,7 @@ async def attach_a2a_routes(
     agent_version: str | None = None,
     app_url: str | None = None,
 ) -> None:
-    """Register A2A routes (JSON-RPC + agent-card endpoints) under ``rpc_path``.
-
-    Builds a dynamic agent card from ``agent`` and mounts the routes on ``app``.
-    The ``runner`` should share the session/artifact/memory services with the
-    standard ADK path. ``capabilities``, ``agent_version``, and ``app_url``
-    override their defaults (streaming + ADK extension, ``AGENT_VERSION``,
-    ``APP_URL``). Call once per app — typically in a FastAPI ``lifespan``, since
-    the card is built asynchronously; repeated calls register duplicate routes.
-    """
+    """Register A2A routes (JSON-RPC + agent-card endpoints) under ``rpc_path``."""
     resolved_app_url = app_url or os.getenv("APP_URL", "http://0.0.0.0:8000")
     resolved_agent_version = agent_version or os.getenv("AGENT_VERSION", "0.1.0")
     resolved_capabilities = capabilities or _default_capabilities()
@@ -112,30 +110,26 @@ async def attach_a2a_routes(
     request_handler = DefaultRequestHandler(
         agent_executor=A2aAgentExecutor(runner=runner, force_new_version=True),
         task_store=task_store,
-        agent_card=agent_card,
     )
 
-    add_a2a_routes_to_fastapi(
-        app,
-        agent_card_routes=create_agent_card_routes(
-            agent_card,
-            card_modifier=_add_v0_3_compat_interface,
-            card_url=f"{rpc_path}{AGENT_CARD_WELL_KNOWN_PATH}",
-        ),
-        jsonrpc_routes=create_jsonrpc_routes(
-            request_handler,
-            rpc_url=rpc_path,
-            enable_v0_3_compat=True,
-        ),
-    )
+    if add_a2a_routes_to_fastapi and create_agent_card_routes and create_jsonrpc_routes:
+        add_a2a_routes_to_fastapi(
+            app,
+            agent_card_routes=create_agent_card_routes(
+                agent_card,
+                card_modifier=_add_v0_3_compat_interface,
+                card_url=f"{rpc_path}{AGENT_CARD_WELL_KNOWN_PATH}",
+            ),
+            jsonrpc_routes=create_jsonrpc_routes(
+                request_handler,
+                rpc_url=rpc_path,
+                enable_v0_3_compat=True,
+            ),
+        )
 
 
 # ==============================================================================
-# Difference from base ADK scaffold (agents-cli create --bq-analytics):
-# The base scaffold only uses `attach_a2a_routes` for a single ADK root_agent.
-# `attach_maui_a2a_routes` is added specifically for geo-agent to mount the MAUI
-# (Maps Agentic UI) agent executor and agent card into FastAPI, matching upstream
-# googlemaps-samples/a2ui (agent/python/__main__.py) for React/Mobile A2UI client support.
+# Helper function added for GeoAgent (MAUI) integration (invoked by fast_api_app.py)
 # ==============================================================================
 def attach_maui_a2a_routes(
     app: FastAPI,
@@ -161,4 +155,3 @@ def attach_maui_a2a_routes(
         agent_card_url=f"{rpc_path}{AGENT_CARD_WELL_KNOWN_PATH}",
         rpc_url=rpc_path,
     )
-
