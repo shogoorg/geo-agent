@@ -229,6 +229,41 @@ bq query --use_legacy_sql=false \
   "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
 ```
 
+"Agent interaction turns and deterministic A2UI map payloads (set_model_response) are exported via OpenTelemetry to Cloud Storage and indexed in BigQuery for full auditability:"
+
+```bash
+PROJECT_ID="your-dev-project-id"
+PROJECT_NAME="your-project-name"
+DATASET_NAME="your_project_name_telemetry"  # Note: Use underscores instead of hyphens for BigQuery dataset
+
+# ==============================================================================
+# 1. Extract all deterministic A2UI JSON from GCS (Cloud Storage)
+# ==============================================================================
+
+# 1.1 List all telemetry log files in GCS
+gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**"
+
+# 1.2 Scan and extract all deterministic A2UI JSON payloads (set_model_response) from GCS
+FILES=$(gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**" | grep -v ':$' | grep -v 'TOTAL:')
+for f in $FILES; do
+  gsutil cat "$f" 2>/dev/null | jq -c 'select(.parts[]?.name == "set_model_response") | .parts[] | select(.name == "set_model_response") | .arguments' 2>/dev/null
+done | grep '^{' | jq .
+
+
+# ==============================================================================
+# 2. Extract all deterministic A2UI JSON from BigQuery
+# ==============================================================================
+
+# Query and display all deterministic A2UI JSON payloads (set_model_response) from BigQuery
+bq query --use_legacy_sql=false --location=us-east1 --max_rows=1000 --format=prettyjson \
+  "SELECT 
+     p.arguments AS a2ui_data 
+   FROM \`${PROJECT_ID}.${DATASET_NAME}.completions\`, 
+   UNNEST(parts) AS p 
+   WHERE p.name = 'set_model_response'"
+```
+
+
 ### 2. BigQuery Agent Analytics (`agent_events`)
 
 When `BQ_ANALYTICS_DATASET_ID` is configured, structured ADK agent events, tool calls, and token usage are streamed directly via `BigQueryAgentAnalyticsPlugin`.
