@@ -23,6 +23,7 @@ function App() {
   const [importJson, setImportJson] = useState('');
   const importDialogRef = useRef<HTMLDialogElement>(null);
   const [lastResponseJson, setLastResponseJson] = useState('');
+  const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
 
   // --- A2UI Integration Refs ---
   // A2UIClient handles communication with the A2A agent
@@ -84,11 +85,19 @@ function App() {
     rendererRef.current.addUserMessage(messageText);
     setTimeline([...rendererRef.current.timeline]);
 
-    try {
-      // 2. Send the message to the A2A agent via A2UIClient
-      const response = await clientRef.current.send(messageText);
+    // 2. Prepend routing prefix based on selected agent mode
+    let payload = messageText;
+    if (agentMode === 'grounding') {
+      payload = `[GROUNDING] ${messageText}`;
+    } else if (agentMode === 'template') {
+      payload = `[TEMPLATE] ${messageText}`;
+    }
 
-      // 3. Process the response (which may contain text and/or A2UI data)
+    try {
+      // 3. Send the message to the A2A agent via A2UIClient
+      const response = await clientRef.current.send(payload);
+
+      // 4. Process the response (which may contain text and/or A2UI data)
       rendererRef.current.processResponse(response);
 
       // Update last response JSON
@@ -99,7 +108,7 @@ function App() {
         setLastResponseJson(JSON.stringify(uiMessages, null, 2));
       }
 
-      // 4. Synchronize the React state with the renderer's updated timeline
+      // 5. Synchronize the React state with the renderer's updated timeline
       setTimeline([...rendererRef.current.timeline]);
     } catch (error) {
       console.error('Failed to send message:', error);
@@ -217,28 +226,32 @@ function App() {
             }}
             disabled={isRequesting}></textarea>
           <div className="chat-actions">
-            {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
-            <button
-              className="import-btn-input"
-              onClick={() => importDialogRef.current?.showModal()}
-              style={{
-                background: 'var(--accent)',
-                color: '#ffffff',
-                border: '1px solid var(--border)',
-                padding: '10px 24px',
-                borderRadius: '9999px',
-                fontWeight: 500,
-                cursor: 'pointer',
-                marginRight: '8px',
-              }}>
-              Import JSON
-            </button>
-            <button
-              className="send-button"
-              onClick={handleSend}
-              disabled={isRequesting || !input.trim()}>
-              {isRequesting ? '...' : 'Send'}
-            </button>
+            <div className="agent-selector-wrapper">
+              <select
+                className="agent-mode-select"
+                value={agentMode}
+                onChange={(e) => setAgentMode(e.target.value as any)}
+                disabled={isRequesting}
+                aria-label="Select Agent Mode">
+                <option value="default">Default Agent</option>
+                <option value="grounding">Grounding Agent</option>
+                <option value="template">Template Agent</option>
+              </select>
+            </div>
+            <div className="chat-actions-right">
+              {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
+              <button
+                className="import-btn-input"
+                onClick={() => importDialogRef.current?.showModal()}>
+                Import JSON
+              </button>
+              <button
+                className="send-button"
+                onClick={handleSend}
+                disabled={isRequesting || !input.trim()}>
+                {isRequesting ? '...' : 'Send'}
+              </button>
+            </div>
           </div>
         </div>
       </aside>
@@ -295,21 +308,13 @@ function App() {
               marginTop: '12px',
             }}>
             <button
-              className="cancel-btn"
+              className="dialog-btn-secondary"
               onClick={() => importDialogRef.current?.close()}>
               Cancel
             </button>
             <button
-              className="render-btn"
-              onClick={handleImport}
-              style={{
-                background: 'var(--p-40, #1a73e8)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}>
+              className="dialog-btn-primary"
+              onClick={handleImport}>
               Render A2UI
             </button>
           </div>
@@ -333,17 +338,7 @@ function ResponseViewer({json}: {json: string}) {
     <>
       <button
         className="view-response-btn"
-        onClick={() => dialogRef.current?.showModal()}
-        style={{
-          background: 'var(--accent)',
-          color: '#ffffff',
-          border: '1px solid var(--border)',
-          padding: '10px 24px',
-          borderRadius: '9999px',
-          fontWeight: 500,
-          cursor: 'pointer',
-          marginRight: '8px',
-        }}>
+        onClick={() => dialogRef.current?.showModal()}>
         View Last Response
       </button>
 
@@ -391,25 +386,16 @@ function ResponseViewer({json}: {json: string}) {
             className="dialog-footer"
             style={{display: 'flex', justifyContent: 'flex-end', gap: '12px'}}>
             <button
-              onClick={() => dialogRef.current?.close()}
-              style={{
-                background: 'var(--n-90, #e0e0e0)',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}>
+              className="dialog-btn-secondary"
+              onClick={() => dialogRef.current?.close()}>
               Close
             </button>
             <button
+              className="dialog-btn-primary"
               onClick={handleCopy}
               style={{
-                background: copied ? '#137333' : 'var(--p-40, #1a73e8)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
+                background: copied ? '#137333' : undefined,
+                borderColor: copied ? '#137333' : undefined,
               }}>
               {copied ? 'Copied!' : 'Copy JSON'}
             </button>
