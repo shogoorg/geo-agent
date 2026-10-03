@@ -167,9 +167,11 @@
 .agent-selector-wrapper {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
-.agent-mode-select {
+.agent-mode-select,
+.resolution-select {
   background: var(--code-bg);
   color: var(--text-h);
   border: 1px solid var(--border);
@@ -184,17 +186,20 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.agent-mode-select:hover {
+.agent-mode-select:hover,
+.resolution-select:hover {
   border-color: var(--accent-border);
   background: var(--social-bg);
 }
 
-.agent-mode-select:focus {
+.agent-mode-select:focus,
+.resolution-select:focus {
   border-color: var(--accent-border);
   box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-.agent-mode-select:disabled {
+.agent-mode-select:disabled,
+.resolution-select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
