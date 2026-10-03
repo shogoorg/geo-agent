@@ -35,9 +35,41 @@ class H3SpatialService:
             "place": place,
         }
 
+    def enrich_parts(self, parts: list[Any], resolution: int = 9) -> list[Any]:
+        """Traverses a list of A2A Parts, extracts A2UI action dictionaries,
+
+        and enriches both GoogleMap.markers and updateDataModel with H3 cell IDs.
+        """
+        actions: list[dict[str, Any]] = []
+        for part in parts:
+            data = None
+            if hasattr(part, "root") and hasattr(part.root, "data"):
+                data = part.root.data
+            elif hasattr(part, "data"):
+                data = part.data
+            elif isinstance(part, dict) and part.get("kind") == "data":
+                data = part.get("data")
+
+            if isinstance(data, dict):
+                actions.append(data)
+            elif isinstance(data, list):
+                actions.extend([item for item in data if isinstance(item, dict)])
+
+        if actions:
+            self.enrich_a2ui_data(actions, resolution=resolution)
+
+        return parts
+
     def enrich_a2ui_data(self, data: Any, resolution: int = 9) -> Any:
-        """Traverses A2UI v0.9 payload and injects h3Cell attributes for both TEMPLATE and GROUNDING modes."""
-        if not isinstance(data, list):
+        """Traverses A2UI v0.9 payload (single action dict or list of action dicts)
+
+        and injects h3Cell attributes for both TEMPLATE and GROUNDING modes.
+        """
+        if isinstance(data, dict):
+            actions = [data]
+        elif isinstance(data, list):
+            actions = data
+        else:
             return data
 
         place_id_to_h3: dict[str, str] = {}
@@ -46,7 +78,7 @@ class H3SpatialService:
         # Pass 1: Traverse GoogleMap.markers in updateComponents
         # (Coordinates exist here for both TEMPLATE and GROUNDING modes)
         # ----------------------------------------------------------------------
-        for action in data:
+        for action in actions:
             if not isinstance(action, dict):
                 continue
 
@@ -82,7 +114,7 @@ class H3SpatialService:
         # ----------------------------------------------------------------------
         # Pass 2: Traverse updateDataModel (supports places, cafes, or any list key)
         # ----------------------------------------------------------------------
-        for action in data:
+        for action in actions:
             if not isinstance(action, dict):
                 continue
 

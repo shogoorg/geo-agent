@@ -178,20 +178,8 @@ class MAUIAgentExecutor(AgentExecutor):
 
             final_parts = item["parts"]
 
-            # Enrich A2UI DataParts with H3 spatial index (supports RootModel, DataPart, and dict)
-            for part in final_parts:
-                if hasattr(part, "root") and isinstance(part.root, DataPart):
-                    part.root.data = spatial_service.enrich_a2ui_data(
-                        part.root.data, resolution=selected_resolution
-                    )
-                elif isinstance(part, DataPart) and hasattr(part, "data"):
-                    part.data = spatial_service.enrich_a2ui_data(
-                        part.data, resolution=selected_resolution
-                    )
-                elif isinstance(part, dict) and part.get("kind") == "data":
-                    part["data"] = spatial_service.enrich_a2ui_data(
-                        part.get("data"), resolution=selected_resolution
-                    )
+            # Enrich A2UI DataParts with H3 spatial index across all response parts
+            spatial_service.enrich_parts(final_parts, resolution=selected_resolution)
 
             logger.info("--- FINAL PARTS TO BE SENT ---")
             for i, part in enumerate(final_parts):
