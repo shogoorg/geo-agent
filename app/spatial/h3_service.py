@@ -167,7 +167,12 @@ class H3SpatialService:
                     if last_destination_cell:
                         value["destinationH3Cell"] = last_destination_cell
 
-                    for _key, items in value.items():
+                    # Spatial aggregation / clustering for POIs/places
+                    clusters_map: dict[str, list[dict[str, Any]]] = {}
+
+                    for key, items in value.items():
+                        if key == "h3Clusters":
+                            continue
                         if isinstance(items, list):
                             for item in items:
                                 if not isinstance(item, dict):
@@ -185,6 +190,26 @@ class H3SpatialService:
                                     p_id = item.get("id") or item.get("placeId")
                                     if p_id and p_id in place_id_to_h3:
                                         item["h3Cell"] = place_id_to_h3[p_id]
+
+                                cell = item.get("h3Cell")
+                                if cell:
+                                    if cell not in clusters_map:
+                                        clusters_map[cell] = []
+                                    clusters_map[cell].append(item)
+
+                    if clusters_map:
+                        # Sort clusters by count descending, then cell ID for determinism
+                        value["h3Clusters"] = sorted(
+                            [
+                                {
+                                    "h3Cell": cell,
+                                    "count": len(place_list),
+                                    "places": place_list,
+                                }
+                                for cell, place_list in clusters_map.items()
+                            ],
+                            key=lambda c: (-int(c["count"]), str(c["h3Cell"])),
+                        )
 
         return data
 
