@@ -7,6 +7,30 @@ import {
 import {useEffect, useRef, useState} from 'react';
 import './App.css';
 
+const H3_RESOLUTIONS = [
+  { res: 0, label: 'Res 0 - 4,250,547 km2' },
+  { res: 1, label: 'Res 1 - 607,221 km2' },
+  { res: 2, label: 'Res 2 - 86,746 km2' },
+  { res: 3, label: 'Res 3 - 12,392 km2' },
+  { res: 4, label: 'Res 4 - 1,770 km2' },
+  { res: 5, label: 'Res 5 - 253 km2' },
+  { res: 6, label: 'Res 6 - 36.1 km2' },
+  { res: 7, label: 'Res 7 - 5.16 km2' },
+  { res: 8, label: 'Res 8 - 0.737 km2' },
+  { res: 9, label: 'Res 9 - 0.105 km2' },
+  { res: 10, label: 'Res 10 - 0.015 km2' },
+  { res: 11, label: 'Res 11 - 0.0021 km2' },
+  { res: 12, label: 'Res 12 - 0.00031 km2' },
+  { res: 13, label: 'Res 13 - 0.000044 km2' },
+  { res: 14, label: 'Res 14 - 0.0000063 km2' },
+  { res: 15, label: 'Res 15 - 0.0000009 km2' },
+];
+
+const SUPPORTED_LANGUAGES = [
+  { code: 'ja', label: '日本語 (ja)' },
+  { code: 'en', label: 'English (en)' },
+];
+
 /**
  * Main Application component that demonstrates A2UI integration in a React environment.
  * It manages a chat interface with a timeline of text messages and A2UI interactive surfaces.
@@ -23,6 +47,11 @@ function App() {
   const [importJson, setImportJson] = useState('');
   const importDialogRef = useRef<HTMLDialogElement>(null);
   const [lastResponseJson, setLastResponseJson] = useState('');
+  // Agent mode state disabled - uses standard backend default agent
+  // const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
+  const [h3Resolution, setH3Resolution] = useState<number>(9);
+  // Language selection for Template mode (defaults to Japanese 'ja')
+  const [language, setLanguage] = useState<string>('ja');
 
   // --- A2UI Integration Refs ---
   // A2UIClient handles communication with the A2A agent
@@ -84,11 +113,21 @@ function App() {
     rendererRef.current.addUserMessage(messageText);
     setTimeline([...rendererRef.current.timeline]);
 
-    try {
-      // 2. Send the message to the A2A agent via A2UIClient
-      const response = await clientRef.current.send(messageText);
+    // 2. Prepend language and resolution prefix for Template mode
+    // if (agentMode === 'grounding') {
+    //   payload = `[GROUNDING][RES:${h3Resolution}] ${messageText}`;
+    // } else if (agentMode === 'template') {
+    //   payload = `[TEMPLATE][RES:${h3Resolution}] ${messageText}`;
+    // } else {
+    //   payload = `[RES:${h3Resolution}] ${messageText}`;
+    // }
+    const payload = `[LANG:${language}][RES:${h3Resolution}] ${messageText}`;
 
-      // 3. Process the response (which may contain text and/or A2UI data)
+    try {
+      // 3. Send the message to the A2A agent via A2UIClient
+      const response = await clientRef.current.send(payload);
+
+      // 4. Process the response (which may contain text and/or A2UI data)
       rendererRef.current.processResponse(response);
 
       // Update last response JSON
@@ -99,7 +138,7 @@ function App() {
         setLastResponseJson(JSON.stringify(uiMessages, null, 2));
       }
 
-      // 4. Synchronize the React state with the renderer's updated timeline
+      // 5. Synchronize the React state with the renderer's updated timeline
       setTimeline([...rendererRef.current.timeline]);
     } catch (error) {
       console.error('Failed to send message:', error);
@@ -217,28 +256,59 @@ function App() {
             }}
             disabled={isRequesting}></textarea>
           <div className="chat-actions">
-            {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
-            <button
-              className="import-btn-input"
-              onClick={() => importDialogRef.current?.showModal()}
-              style={{
-                background: 'var(--accent)',
-                color: '#ffffff',
-                border: '1px solid var(--border)',
-                padding: '10px 24px',
-                borderRadius: '9999px',
-                fontWeight: 500,
-                cursor: 'pointer',
-                marginRight: '8px',
-              }}>
-              Import JSON
-            </button>
-            <button
-              className="send-button"
-              onClick={handleSend}
-              disabled={isRequesting || !input.trim()}>
-              {isRequesting ? '...' : 'Send'}
-            </button>
+            <div className="agent-selector-wrapper">
+              {/* Language selector placed at the very beginning */}
+              <select
+                className="language-select"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                disabled={isRequesting}
+                aria-label="Select Language">
+                {SUPPORTED_LANGUAGES.map(({ code, label }) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+              {/* Agent mode selector disabled
+              <select
+                className="agent-mode-select"
+                value={agentMode}
+                onChange={(e) => setAgentMode(e.target.value as any)}
+                disabled={isRequesting}
+                aria-label="Select Agent Mode">
+                <option value="default">Default Agent</option>
+                <option value="grounding">Grounding Agent</option>
+                <option value="template">Template Agent</option>
+              </select>
+              */}
+              <select
+                className="resolution-select"
+                value={h3Resolution}
+                onChange={(e) => setH3Resolution(Number(e.target.value))}
+                disabled={isRequesting}
+                aria-label="Select H3 Resolution">
+                {H3_RESOLUTIONS.map(({ res, label }) => (
+                  <option key={res} value={res}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="chat-actions-right">
+              {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
+              <button
+                className="import-btn-input"
+                onClick={() => importDialogRef.current?.showModal()}>
+                Import JSON
+              </button>
+              <button
+                className="send-button"
+                onClick={handleSend}
+                disabled={isRequesting || !input.trim()}>
+                {isRequesting ? '...' : 'Send'}
+              </button>
+            </div>
           </div>
         </div>
       </aside>
@@ -295,21 +365,13 @@ function App() {
               marginTop: '12px',
             }}>
             <button
-              className="cancel-btn"
+              className="dialog-btn-secondary"
               onClick={() => importDialogRef.current?.close()}>
               Cancel
             </button>
             <button
-              className="render-btn"
-              onClick={handleImport}
-              style={{
-                background: 'var(--p-40, #1a73e8)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}>
+              className="dialog-btn-primary"
+              onClick={handleImport}>
               Render A2UI
             </button>
           </div>
@@ -333,17 +395,7 @@ function ResponseViewer({json}: {json: string}) {
     <>
       <button
         className="view-response-btn"
-        onClick={() => dialogRef.current?.showModal()}
-        style={{
-          background: 'var(--accent)',
-          color: '#ffffff',
-          border: '1px solid var(--border)',
-          padding: '10px 24px',
-          borderRadius: '9999px',
-          fontWeight: 500,
-          cursor: 'pointer',
-          marginRight: '8px',
-        }}>
+        onClick={() => dialogRef.current?.showModal()}>
         View Last Response
       </button>
 
@@ -391,25 +443,16 @@ function ResponseViewer({json}: {json: string}) {
             className="dialog-footer"
             style={{display: 'flex', justifyContent: 'flex-end', gap: '12px'}}>
             <button
-              onClick={() => dialogRef.current?.close()}
-              style={{
-                background: 'var(--n-90, #e0e0e0)',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}>
+              className="dialog-btn-secondary"
+              onClick={() => dialogRef.current?.close()}>
               Close
             </button>
             <button
+              className="dialog-btn-primary"
               onClick={handleCopy}
               style={{
-                background: copied ? '#137333' : 'var(--p-40, #1a73e8)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '4px',
-                cursor: 'pointer',
+                background: copied ? '#137333' : undefined,
+                borderColor: copied ? '#137333' : undefined,
               }}>
               {copied ? 'Copied!' : 'Copy JSON'}
             </button>

@@ -1,0 +1,30 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "text-only_18b03cbb-bfe6-4fb1-b43a-bdb1085407c9-dd39f6d1",
+      "catalogId": "a2ui://maps-agentic-ui-catalog.json"
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "text-only_18b03cbb-bfe6-4fb1-b43a-bdb1085407c9-dd39f6d1",
+      "components": [
+        {
+          "id": "root",
+          "component": "Column",
+          "children": [
+            "text-content"
+          ]
+        },
+        {
+          "id": "text-content",
+          "component": "Text",
+          "variant": "body",
+          "text": "京王プラザホテル（東京・新宿）は、非常に評価の高い歴史ある高級ホテルです。\n\nGoogleマップのレビューでは、多くの宿泊客から**4.2という高い評価**（15,919件のレビューに基づく）を得ています。\n\n主な特徴は以下の通りです：\n\n*   **充実した施設**: 館内には11ものレストランやバーがあり、食事の選択肢が非常に豊富です。その他、ショッピングアーケードやジムなどの施設も整っています。\n*   **利便性**: 新宿駅からも徒歩圏内とアクセスが良く、ビジネスや観光の拠点として非常に便利な立地です。\n*   **客室**: ゆったりとした温かみのある客室とスイートルームを備えており、快適な滞在が期待できます。\n\n長年にわたり、国内外からの多くの旅行者やビジネス客に選ばれ続けているホテルですので、安心して利用できる「良いホテル」の一つと言えるでしょう。\n\nもし特定の時期の空室状況や、より詳細なサービス内容について知りたい場合は、公式サイトをご覧になるか、[Googleマップの詳細ページ](https://www.google.com/maps/place//data=!4m2!3m1!1s0x60188cd4741c62e1:0x51d797d25c62db8d)から最新のレビューや写真を確認することをお勧めします。"
+        }
+      ]
+    }
+  }
+]

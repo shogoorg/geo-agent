@@ -16,11 +16,13 @@ geo-agent/
 │   ├── agent.py               # Main agent logic & MAUI bundle definition
 │   ├── agent_executor.py      # MAUI agent executor integration
 │   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
+│   ├── localization_service.py # Place localization service (Google Places API New displayName)
+│   ├── spatial/               # Uber H3 hierarchical spatial indexing & caching
+│   │   ├── __init__.py
+│   │   └── h3_service.py      # H3 service (lat/lng to cell, k-ring, A2UI enrichment)
 │   └── app_utils/             # App utilities, A2A endpoints, and services
 ├── client/                    # Client applications
-│   ├── web/react/             # React web client with A2UI renderer
-│   ├── android/               # Android client
-│   └── ios/                   # iOS client
+│   ├── web/react/             # React web client with A2UI renderer & language selector
 ├── deployment/                # Deployment infrastructure (Terraform)
 ├── tests/                     # Unit, integration, and evaluation datasets
 ├── Dockerfile                 # Backend container definition for Cloud Run
@@ -58,6 +60,17 @@ Test the agent with a local web server:
 agents-cli playground
 ```
 
+Run code quality
+
+
+```bash
+agents-cli lint
+```
+
+```bash
+uv run pytest tests/unit tests/integration
+```
+
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
 
 Evaluate agent behavior:
@@ -76,16 +89,14 @@ Set `A2UI_DEFAULT_AGENT` in `.env` to choose your default agent mode:
 # Option 1: Template Agent (Recommended for low-latency local search & directions)
 A2UI_DEFAULT_AGENT=TEMPLATE
 
-# Option 2: Grounding Agent (Vertex AI Maps Grounding)
-# A2UI_DEFAULT_AGENT=GROUNDING
-
-# Option 3: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
+# Option 2: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
 # A2UI_DEFAULT_AGENT=BASE
 ```
 
 > 💡 **Tip (Per-Query Switching without restart):**
-> You can test different agent implementations against the running server by prefixing your prompt:
-> * `[GROUNDING] <query>` ➔ Routes directly to `MAUIAgentWithGrounding`
+> You can test different configurations against the running server by prefixing your prompt:
+> * `[LANG:ja] <query>` or `[LANG:en] <query>` ➔ Override language resolution dynamically (defaults to UI selector)
+> * `[RES:<0-15>] <query>` ➔ Override H3 spatial index resolution (0 to 15)
 > * `[TEMPLATE] <query>` ➔ Routes directly to `MAUIAgentWithTemplates`
 > * `<query>` (no prefix) ➔ Routes to your configured default agent
 
@@ -99,8 +110,58 @@ uv run python -m app.fast_api_app
 
 ```bash
 cd client/web/react
+npm install
 npm run dev
 ```
+
+## 🌐 Uber H3 Hierarchical Spatial Index & Aggregation
+
+GeoAgent integrates the Uber H3 discrete global grid system (Resolutions 0–15) to discretize physical geography, partition queries, and eliminate spatial hallucinations:
+
+1. **Deterministic Spatial Sharding & Clustering (`h3Clusters`):**
+   - POI latitude/longitude coordinates are deterministically mapped to hexagonal cell IDs (e.g., Resolution 9: ~174m edge length).
+   - In production, close POIs are clustered within the same hexagon (e.g., `GLASS COFFEE` & `EIGHT COFFEE` grouped in West Cell `892f5aadb6fffff`), enabling $O(1)$ spatial hash lookups and spatial binning.
+
+2. **Mobility OD Pair Corridor Capture (Routes & Directions):**
+   - For commuter route queries (e.g., Shibuya Station to Tokyo Metropolitan Government Building), the engine automatically captures origin and destination endpoints as discrete H3 cell pairs (`originH3Cell: 892f5aad923ffff` ➔ `destinationH3Cell: 892f5a375afffff`).
+   - Enables route matrix caching and spatial corridor traversal (`grid_path_cells`).
+
+3. **Spatial Diagnostic & Inspection API:**
+   - **Local Server (Default Res 9):**
+     ```bash
+     curl "http://localhost:8000/api/spatial/h3-info"
+     ```
+   - **Custom Coordinates & Resolution (e.g., Res 8):**
+     ```bash
+     curl "http://localhost:8000/api/spatial/h3-info?lat=35.6895298&lng=139.7143743&resolution=8"
+     ```
+   - **Interactive OpenAPI 3.1 Swagger UI:** `http://localhost:8000/docs`
+
+## 🌍 Multilingual Place Localization & Spatiotemporal Grounding (Google Places API New Pro Tier)
+
+To eradicate both linguistic inconsistency and temporal hallucinations (such as recommending businesses that are currently closed or permanently out of business), `geo-agent` features a high-efficiency **Place Localization & Spatiotemporal Grounding Service** (`app/localization_service.py`):
+
+1. **Language Selection (UI & Protocol):**
+   - The React Web / Chrome SidePanel client features a language selector at the beginning of the actions bar (`日本語 (ja)` / `English (en)`).
+   - The selected language code is forwarded via `[LANG:<lang>]` prefix to the backend.
+
+2. **Pro-Tier 8-Dimension Metadata Harvesting (Zero Additional SKU Cost):**
+   - Strictly intercepts Enterprise SKU fields to eliminate billing risks, while extracting the complete **Pro-tier payload** in a single network round-trip:
+     - `displayName`: Localized official place name (e.g., "ダブルトールコーヒー 新宿御苑")
+     - `formattedAddress`: Verified postal address
+     - `primaryTypeDisplayName`: Localized business category (e.g., "カフェ・喫茶")
+     - `businessStatus`: Operational sanity check (`OPERATIONAL` vs `CLOSED_TEMPORARILY` / `CLOSED_PERMANENTLY`)
+     - `currentOpeningHours`: Real-time `openNow` status, `nextOpenTime`, and `weekdayDescriptions`
+     - `rating`, `userRatingCount`, `priceLevel`: Quality and budgetary indicators
+   - **Physical Grounding Proof:** In production testing, only 24-hour establishments (e.g., "珈琲貴族エジンバラ") return `openNow: true` during late-night/early-morning queries, proving zero temporal hallucination.
+
+3. **Route Destination Assurance (`destinationDetails`):**
+   - Seamlessly enriches commuting and direction destinations (e.g., Tokyo Metropolitan Government Building) with operational hours and business status, preventing users from traveling to closed facilities.
+
+4. **Performance & Reliability:**
+   - **In-Memory Cache:** Avoids repeated API round-trips for the same place and language.
+   - **Zero Additional Dependencies:** Built using Python's standard `urllib.request`.
+   - **Graceful Fallback:** If the network or API lookup fails, original labels are safely preserved without breaking UI components.
 
 ## Commands
 
@@ -112,7 +173,7 @@ npm run dev
 | `agents-cli eval`    | Evaluate agent behavior (generate, grade, analyze, and more — see `agents-cli eval --help`) |
 | `uv run pytest tests/unit tests/integration` | Run unit and integration tests                                                        |
 | `agents-cli deploy`  | Deploy agent to Cloud Run                                                                   |
-| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                        |
+| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                       |
 
 ## 🛠️ Project Management
 
@@ -136,8 +197,8 @@ By default, Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your `.en
 
 > 💡 **Tip (Overriding Agent Mode at Deploy Time):**
 > You can override the agent mode without modifying `.env` using `--update-env-vars`:
-> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=GROUNDING` ➔ Deploy as Grounding Agent
 > * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=TEMPLATE` ➔ Deploy as Template Agent
+> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=BASE` ➔ Deploy as Base Agent
 
 #### 2. Deploy the MAUI Agent Backend (`geo-agent`)
 
@@ -149,8 +210,17 @@ Provision the Google Cloud infrastructure (Cloud Run, GCS telemetry logs bucket,
 # Set your GCP project
 gcloud config set project <your-project-id>
 
-# Provision single-project infrastructure (Terraform)
+# 1. Enhance project infrastructure scaffolding (preview -> apply)
+agents-cli scaffold enhance --deployment-target cloud_run --bq-analytics --dry-run
+agents-cli scaffold enhance --deployment-target cloud_run --bq-analytics
+
+# 2. Provision single-project infrastructure via Terraform (plan preview -> apply)
+agents-cli infra single-project --project <your-project-id>
 agents-cli infra single-project --apply --project <your-project-id>
+
+# 3. Upgrade project to latest CLI template version (preview -> apply)
+agents-cli scaffold upgrade --dry-run
+agents-cli scaffold upgrade
 ```
 
 ##### 2.2 Deploy Agent Application
@@ -188,6 +258,7 @@ gcloud run deploy geo-agent-web \
   --allow-unauthenticated
 ```
 
+
 To add CI/CD and Terraform, run `agents-cli scaffold enhance`.
 To set up your production infrastructure, run `agents-cli infra cicd`.
 
@@ -210,6 +281,41 @@ gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
 bq query --use_legacy_sql=false \
   "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
 ```
+
+"Agent interaction turns and deterministic A2UI map payloads (set_model_response) are exported via OpenTelemetry to Cloud Storage and indexed in BigQuery for full auditability:"
+
+```bash
+PROJECT_ID="your-dev-project-id"
+PROJECT_NAME="your-project-name"
+DATASET_NAME="your_project_name_telemetry"  # Note: Use underscores instead of hyphens for BigQuery dataset
+
+# ==============================================================================
+# 1. Extract all deterministic A2UI JSON from GCS (Cloud Storage)
+# ==============================================================================
+
+# 1.1 List all telemetry log files in GCS
+gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**"
+
+# 1.2 Scan and extract all deterministic A2UI JSON payloads (set_model_response) from GCS
+FILES=$(gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**" | grep -v ':$' | grep -v 'TOTAL:')
+for f in $FILES; do
+  gsutil cat "$f" 2>/dev/null | jq -c 'select(.parts[]?.name == "set_model_response") | .parts[] | select(.name == "set_model_response") | .arguments' 2>/dev/null
+done | grep '^{' | jq .
+
+
+# ==============================================================================
+# 2. Extract all deterministic A2UI JSON from BigQuery
+# ==============================================================================
+
+# Query and display all deterministic A2UI JSON payloads (set_model_response) from BigQuery
+bq query --use_legacy_sql=false --location=us-east1 --max_rows=1000 --format=prettyjson \
+  "SELECT 
+     p.arguments AS a2ui_data 
+   FROM \`${PROJECT_ID}.${DATASET_NAME}.completions\`, 
+   UNNEST(parts) AS p 
+   WHERE p.name = 'set_model_response'"
+```
+
 
 ### 2. BigQuery Agent Analytics (`agent_events`)
 
@@ -325,50 +431,51 @@ scaffold, eval, deploy, observe — on a rotation, forever. You write the spec; 
 
 ```mermaid
 flowchart TB
-    Client["Client"]
+    Client["Client\n(Chrome SidePanel / React Web)\n[Language & H3 Selectors]"]
 
-    subgraph Deployment ["Deployment"]
-        subgraph CloudRun ["Cloud Run"]
-            subgraph AgentOrchestration ["Agent Orchestration"]
-                AO["Build with Google's ADK and A2A, with the option to leverage ready to use samples"]
-            end
-            subgraph Observability ["Observability"]
-                OTEL["OpenTele"]
-                LOG["Logging"]
-            end
+    subgraph Deployment ["Google Cloud Run"]
+        subgraph FastAPIApp ["FastAPI Backend (fast_api_app.py)"]
+            AO["Agent Orchestration\n(Google ADK + MAUI Bundle + A2A)"]
+            GA["GeminiAdapter\n(ADK Native Client Interceptor)"]
+            H3["Uber H3 Spatial Service\n(Hierarchical Sharding, Clusters & OD Cells)"]
+            LOC["Place Localization & Spatiotemporal Service\n(Places API New Pro Tier: displayName, openNow, destinationDetails / Cache)"]
+            AO --- GA
+            AO --- H3
+            AO --- LOC
+        end
+        subgraph Observability ["Observability Pipeline"]
+            OTEL["Cloud Trace\n(Distributed Tracing)"]
+            LOG["Cloud Logging\n(Runtime Logs)"]
         end
     end
 
-    subgraph LLMs ["LLMs"]
-        MG["Model Garden"]
+    subgraph LLMs ["Model Garden & Vertex AI"]
+        MG["Gemini Models\n(gemini-3.1-flash-lite)"]
     end
 
-    subgraph Data ["Data"]
-        DSA["Data storage and analysis"]
+    subgraph Data ["Data & Telemetry"]
+        DSA["BigQuery & GCS\n(completions & agent_events)"]
     end
 
-    subgraph Evaluation ["Evaluation"]
-        APE["Agent Platform Evaluation"]
-    end
-
-    subgraph IaCCICD ["IaC & CI/CD"]
-        IAC["Infrastructure as code"]
+    subgraph MapsPlatform ["Google Maps Platform"]
+        MAPS["Places API (New) Pro Tier / Routes API /\nGoogle Maps Platform MCP"]
     end
 
     %% Connections
     Client --> AO
-    AO <--> MG
+    AO <--> MAPS
+    LOC <--> MAPS
+    GA <--> MG
     AO --> Observability
     Observability --> DSA
-    Evaluation --> AO
-    IAC --> Deployment
-    IAC --> Data
 ```
 
 The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` architecture):
 
 * **Agent Orchestration**
   * **Build with Google's ADK and A2A, with the option to leverage ready to use samples**: Built with `google-adk` for the core agent implementation, `a2a-sdk` for Agent-to-Agent protocol communication, and integrated with the Maps Agentic UI (A2UI) agent bundle.
+* **Multilingual Place Localization & Spatiotemporal Grounding**
+  * **Google Places API (New) Pro Tier Integration**: Employs `PlaceLocalizationService` to dynamically resolve localized `displayName`, `openNow` status, weekly schedules, and destination details using place IDs, ensuring language consistency and zero temporal hallucinations across map pins, route endpoints, place details cards, and telemetry payloads.
 * **LLMs**
   * **Model Garden**: Uses Gemini foundation models (e.g., `gemini-3-flash-preview`) accessed via Vertex AI / Model Garden.
 * **Deployment**
@@ -383,4 +490,4 @@ The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` a
 * **Evaluation**
   * **Agent Platform Evaluation**: Integrated with `google-cloud-aiplatform[evaluation]` and `google-adk[eval]` test suites under `tests/eval/`.
 * **Client**
-  * **Client**: Multi-platform frontend clients implemented under `client/` (Web/React, Android, and iOS) rendering rich responses via A2UI.
+  * **Client**: Focused frontend client implemented under `client/web/react/` (React Web & Chrome SidePanel) rendering rich Generative UI responses via A2UI.
