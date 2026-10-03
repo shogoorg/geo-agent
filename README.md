@@ -16,6 +16,9 @@ geo-agent/
 │   ├── agent.py               # Main agent logic & MAUI bundle definition
 │   ├── agent_executor.py      # MAUI agent executor integration
 │   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
+│   ├── spatial/               # Uber H3 hierarchical spatial indexing & caching
+│   │   ├── __init__.py
+│   │   └── h3_service.py      # H3 service (lat/lng to cell, k-ring, A2UI enrichment)
 │   └── app_utils/             # App utilities, A2A endpoints, and services
 ├── client/                    # Client applications
 │   ├── web/react/             # React web client with A2UI renderer
@@ -109,6 +112,32 @@ cd client/web/react
 npm install
 npm run dev
 ```
+
+## 🌐 Uber H3 Spatial Index Inspection API
+
+You can test H3 hexagonal cell indexing and k-ring neighbor lookups using the spatial inspection endpoint:
+
+### 1. Local Development Server
+- **Default (Resolution 9):**
+  ```bash
+  curl "http://localhost:8000/api/spatial/h3-info"
+  ```
+- **Custom Coordinates & Resolution (e.g., Resolution 8):**
+  ```bash
+  curl "http://localhost:8000/api/spatial/h3-info?lat=35.6895298&lng=139.7143743&resolution=8"
+  ```
+- **Interactive Swagger UI:**
+  `http://localhost:8000/docs`
+
+### 2. Production (Cloud Run)
+- **Endpoint Pattern:**
+  ```text
+  https://<SERVICE_URL>/api/spatial/h3-info?lat=<LAT>&lng=<LNG>&resolution=<RES>
+  ```
+- **Interactive Swagger UI:**
+  ```text
+  https://<SERVICE_URL>/docs
+  ```
 
 ## Commands
 
