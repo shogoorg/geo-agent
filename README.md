@@ -16,12 +16,13 @@ geo-agent/
 │   ├── agent.py               # Main agent logic & MAUI bundle definition
 │   ├── agent_executor.py      # MAUI agent executor integration
 │   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
+│   ├── localization_service.py # Place localization service (Google Places API New displayName)
 │   ├── spatial/               # Uber H3 hierarchical spatial indexing & caching
 │   │   ├── __init__.py
 │   │   └── h3_service.py      # H3 service (lat/lng to cell, k-ring, A2UI enrichment)
 │   └── app_utils/             # App utilities, A2A endpoints, and services
 ├── client/                    # Client applications
-│   ├── web/react/             # React web client with A2UI renderer
+│   ├── web/react/             # React web client with A2UI renderer & language selector
 ├── deployment/                # Deployment infrastructure (Terraform)
 ├── tests/                     # Unit, integration, and evaluation datasets
 ├── Dockerfile                 # Backend container definition for Cloud Run
@@ -89,7 +90,9 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 ```
 
 > 💡 **Tip (Per-Query Switching without restart):**
-> You can test the template agent implementation against the running server by prefixing your prompt:
+> You can test different configurations against the running server by prefixing your prompt:
+> * `[LANG:ja] <query>` or `[LANG:en] <query>` ➔ Override language resolution dynamically (defaults to UI selector)
+> * `[RES:<0-15>] <query>` ➔ Override H3 spatial index resolution (0 to 15)
 > * `[TEMPLATE] <query>` ➔ Routes directly to `MAUIAgentWithTemplates`
 > * `<query>` (no prefix) ➔ Routes to your configured default agent
 
@@ -132,6 +135,23 @@ You can test H3 hexagonal cell indexing and k-ring neighbor lookups using the sp
   ```text
   https://<SERVICE_URL>/docs
   ```
+
+## 🌍 Multilingual Place Localization (Google Places API New)
+
+When searching for places, Google Maps tools may return registered primary titles in English. To ensure that map pin labels, place details cards, and A2UI JSON payloads are seamlessly presented in the user's preferred language, `geo-agent` integrates a dedicated **Place Localization Service** (`app/localization_service.py`):
+
+1. **Language Selection (UI & Protocol):**
+   - The React Web / Chrome SidePanel client features a language selector at the beginning of the actions bar (`日本語 (ja)` / `English (en)`).
+   - The selected language code is forwarded via `[LANG:<lang>]` prefix to the backend.
+
+2. **Name Resolution via Google Places API (New):**
+   - For every extracted place in the response, the service queries the Places API (New) Place Details endpoint (`https://places.googleapis.com/v1/places/{placeId}`) with `languageCode` set to the target language.
+   - The resolved `displayName` safely replaces `markers[].label` and `places[].name` in memory before wire transmission.
+
+3. **Performance & Reliability:**
+   - **In-Memory Cache:** Avoids repeated API round-trips for the same place and language.
+   - **Zero Additional Dependencies:** Built using Python's standard `urllib.request`.
+   - **Graceful Fallback:** If the network or API lookup fails, the original label is safely preserved without interrupting the conversation.
 
 ## Commands
 
@@ -401,15 +421,17 @@ scaffold, eval, deploy, observe — on a rotation, forever. You write the spec; 
 
 ```mermaid
 flowchart TB
-    Client["Client\n(Chrome SidePanel / React Web)"]
+    Client["Client\n(Chrome SidePanel / React Web)\n[Language & H3 Selectors]"]
 
     subgraph Deployment ["Google Cloud Run"]
         subgraph FastAPIApp ["FastAPI Backend (fast_api_app.py)"]
             AO["Agent Orchestration\n(Google ADK + MAUI Bundle + A2A)"]
             GA["GeminiAdapter\n(ADK Native Client Interceptor)"]
             H3["Uber H3 Spatial Service\n(Hierarchical Sharding & Cache)"]
+            LOC["Place Localization Service\n(Places API New displayName / Cache)"]
             AO --- GA
             AO --- H3
+            AO --- LOC
         end
         subgraph Observability ["Observability Pipeline"]
             OTEL["Cloud Trace\n(Distributed Tracing)"]
@@ -426,12 +448,13 @@ flowchart TB
     end
 
     subgraph MapsPlatform ["Google Maps Platform"]
-        MAPS["Places API / Routes API /\nGoogle Maps Platform MCP"]
+        MAPS["Places API (New) / Routes API /\nGoogle Maps Platform MCP"]
     end
 
     %% Connections
     Client --> AO
     AO <--> MAPS
+    LOC <--> MAPS
     GA <--> MG
     AO --> Observability
     Observability --> DSA
@@ -441,6 +464,8 @@ The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` a
 
 * **Agent Orchestration**
   * **Build with Google's ADK and A2A, with the option to leverage ready to use samples**: Built with `google-adk` for the core agent implementation, `a2a-sdk` for Agent-to-Agent protocol communication, and integrated with the Maps Agentic UI (A2UI) agent bundle.
+* **Multilingual Place Localization**
+  * **Google Places API (New) Integration**: Employs `PlaceLocalizationService` to dynamically resolve localized `displayName` values using place IDs, ensuring language consistency across map pins, place details cards, and telemetry payloads.
 * **LLMs**
   * **Model Garden**: Uses Gemini foundation models (e.g., `gemini-3-flash-preview`) accessed via Vertex AI / Model Garden.
 * **Deployment**
