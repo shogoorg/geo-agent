@@ -1,0 +1,279 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 coffee shops near South Lake Union in Seattle"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Here are 5 great coffee shops located right in and around the South Lake Union (SLU) neighborhood in Seattle:\n\n---\n\n### 1. **Caffè Ladro**\n* **Location:** 400 Fairview Ave N *(inside the Market Hall at 400 Fairview)*\n* **Vibe:** Modern, bustling, and airy.\n* **Why Visit:** A Seattle staple, this location sits in a bright, modern building surrounded by local food vendors. They roast their own beans and offer excellent espresso alongside fresh house-baked pastries.\n\n---\n\n### 2. **Espresso Vivace**\n* **Location:** 227 Yale Ave N *(Alley 24 Building)*\n* **Vibe:** Relaxed, classic espresso bar with outdoor courtyard seating.\n* **Why Visit:** Co-founder David Schomer is credited with pioneering latte art and refining espresso standards in the U.S. Vivace is famous for its rich, caramel-like *Caffè Dolce* blend and velvety microfoam.\n\n---\n\n### 3. **Monorail Espresso**\n* **Location:** 510 Westlake Ave N\n* **Vibe:** Fast, friendly, and quintessential Seattle.\n* **Why Visit:** Originating as the world's first espresso cart in downtown Seattle in the 1980s, Monorail's SLU location offers consistently strong, classic espresso drinks and their famous homemade chubby cookies.\n\n---\n\n### 4. **Uptown Espresso**\n* **Location:** 500 Westlake Ave N\n* **Vibe:** Cozy, spacious, with plenty of seating to work or meet.\n* **Why Visit:** Famous for their trademark \"Velvet Foam\" drinks, Uptown Espresso serves smooth, creamy lattes and a variety of bakery treats in a warm setting along the South Lake Union streetcar line.\n\n---\n\n### 5. **Kakao Coffee & Chocolate**\n* **Location:** 415 Westlake Ave N\n* **Vibe:** Sweet, artisanal, and casual.\n* **Why Visit:** A great two-in-one stop for specialty coffee and handcrafted artisan chocolates/truffles. It's a favorite for mid-afternoon pick-me-ups and unique mocha variations."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_seattle",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Here are 5 great coffee shops located right in and around the South Lake Union (SLU) neighborhood in Seattle:\n\n---\n\n### 1. **Caffè Ladro**\n* **Location:** 400 Fairview Ave N *(inside the Market Hall at 400 Fairview)*\n* **Vibe:** Modern, bustling, and airy.\n* **Why Visit:** A Seattle staple, this location sits in a bright, modern building surrounded by local food vendors. They roast their own beans and offer excellent espresso alongside fresh house-baked pastries.\n\n---\n\n### 2. **Espresso Vivace**\n* **Location:** 227 Yale Ave N *(Alley 24 Building)*\n* **Vibe:** Relaxed, classic espresso bar with outdoor courtyard seating.\n* **Why Visit:** Co-founder David Schomer is credited with pioneering latte art and refining espresso standards in the U.S. Vivace is famous for its rich, caramel-like *Caffè Dolce* blend and velvety microfoam.\n\n---\n\n### 3. **Monorail Espresso**\n* **Location:** 510 Westlake Ave N\n* **Vibe:** Fast, friendly, and quintessential Seattle.\n* **Why Visit:** Originating as the world's first espresso cart in downtown Seattle in the 1980s, Monorail's SLU location offers consistently strong, classic espresso drinks and their famous homemade chubby cookies.\n\n---\n\n### 4. **Uptown Espresso**\n* **Location:** 500 Westlake Ave N\n* **Vibe:** Cozy, spacious, with plenty of seating to work or meet.\n* **Why Visit:** Famous for their trademark \"Velvet Foam\" drinks, Uptown Espresso serves smooth, creamy lattes and a variety of bakery treats in a warm setting along the South Lake Union streetcar line.\n\n---\n\n### 5. **Kakao Coffee & Chocolate**\n* **Location:** 415 Westlake Ave N\n* **Vibe:** Sweet, artisanal, and casual.\n* **Why Visit:** A great two-in-one stop for specialty coffee and handcrafted artisan chocolates/truffles. It's a favorite for mid-afternoon pick-me-ups and unique mocha variations."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-22T15:53:35.155659Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Is the Edgewater Hotel in Seattle a good hotel?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "**Yes, The Edgewater Hotel is widely considered one of Seattle’s best and most unique hotels.** It consistently receives high ratings (generally 4 to 4.5 out of 5 stars) and offers an experience you won't find anywhere else in the city.\n\nHere is a breakdown of what makes it special, along with a few drawbacks to consider:\n\n---\n\n### **The Highlights (Why People Love It)**\n\n1. **Unbeatable Waterfront Location:**\n   * It is Seattle’s **only over-water hotel**, situated directly on Pier 67 on Elliott Bay. \n   * Rooms facing the water offer unobstructed views of the Puget Sound, the Olympic Mountains, passing ferries, and stunning sunsets.\n\n2. **Pacific Northwest \"Lodge-Luxe\" Atmosphere:**\n   * The interior features a cozy, upscale cabin aesthetic with warm wood, river rock fireplaces, pine furnishings, and antler chandeliers.\n   * Most rooms feature working gas fireplaces, making it especially popular for romantic getaways or rainy Seattle weekends.\n\n3. **Rock 'n' Roll History:**\n   * Built for the 1962 World’s Fair, it became world-famous in 1964 when **The Beatles** stayed there and fished out of their window.\n   * Other music legends like Led Zeppelin, The Rolling Stones, and Pearl Jam have stayed there. You can even stay in custom rock-themed suites (like the Beatles Suite) or borrow a loaner guitar/record player for your room.\n\n4. **Acclaimed On-Site Dining:**\n   * **Six Seven Restaurant** is one of Seattle’s top waterfront dining spots, known for Pacific Northwest seafood, great cocktails, and floor-to-ceiling bay views.\n\n5. **Good Walkability to Key Sights:**\n   * It is within a 10–15 minute walk along the waterfront to **Pike Place Market**, the **Seattle Aquarium**, and the **Olympic Sculpture Park**.\n\n---\n\n### **Potential Drawbacks to Consider**\n\n1. **Price and Extra Fees:**\n   * Rates can be quite high, especially during peak summer/cruise season.\n   * Like many downtown/waterfront hotels, valet parking is expensive ($60+ per night), and there is typically a daily amenity/destination fee.\n\n2. **City-View vs. Water-View Rooms:**\n   * If you book a standard \"City View\" room, you face Alaskan Way and the train tracks, which can occasionally have street noise and lacks the magical feel of the water-facing rooms. Paying the upgrade for a **Water View** room is strongly recommended.\n\n3. **Uphill Walk to Central Downtown:**\n   * While it is right on the waterfront in the trendy Belltown neighborhood, walking into the central business district or up to the Capitol Hill area involves steep Seattle hills.\n\n---\n\n### **The Verdict**\n* **Best For:** Couples, leisure travelers, music history buffs, and anyone looking for a distinctive, scenic Pacific Northwest experience rather than a generic corporate high-rise.\n* **Skip If:** You are traveling on a strict budget or need to be directly next to the Seattle Convention Center."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "edgewater_hotel",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "**Yes, The Edgewater Hotel is widely considered one of Seattle’s best and most unique hotels.** It consistently receives high ratings (generally 4 to 4.5 out of 5 stars) and offers an experience you won't find anywhere else in the city.\n\nHere is a breakdown of what makes it special, along with a few drawbacks to consider:\n\n---\n\n### **The Highlights (Why People Love It)**\n\n1. **Unbeatable Waterfront Location:**\n   * It is Seattle’s **only over-water hotel**, situated directly on Pier 67 on Elliott Bay. \n   * Rooms facing the water offer unobstructed views of the Puget Sound, the Olympic Mountains, passing ferries, and stunning sunsets.\n\n2. **Pacific Northwest \"Lodge-Luxe\" Atmosphere:**\n   * The interior features a cozy, upscale cabin aesthetic with warm wood, river rock fireplaces, pine furnishings, and antler chandeliers.\n   * Most rooms feature working gas fireplaces, making it especially popular for romantic getaways or rainy Seattle weekends.\n\n3. **Rock 'n' Roll History:**\n   * Built for the 1962 World’s Fair, it became world-famous in 1964 when **The Beatles** stayed there and fished out of their window.\n   * Other music legends like Led Zeppelin, The Rolling Stones, and Pearl Jam have stayed there. You can even stay in custom rock-themed suites (like the Beatles Suite) or borrow a loaner guitar/record player for your room.\n\n4. **Acclaimed On-Site Dining:**\n   * **Six Seven Restaurant** is one of Seattle’s top waterfront dining spots, known for Pacific Northwest seafood, great cocktails, and floor-to-ceiling bay views.\n\n5. **Good Walkability to Key Sights:**\n   * It is within a 10–15 minute walk along the waterfront to **Pike Place Market**, the **Seattle Aquarium**, and the **Olympic Sculpture Park**.\n\n---\n\n### **Potential Drawbacks to Consider**\n\n1. **Price and Extra Fees:**\n   * Rates can be quite high, especially during peak summer/cruise season.\n   * Like many downtown/waterfront hotels, valet parking is expensive ($60+ per night), and there is typically a daily amenity/destination fee.\n\n2. **City-View vs. Water-View Rooms:**\n   * If you book a standard \"City View\" room, you face Alaskan Way and the train tracks, which can occasionally have street noise and lacks the magical feel of the water-facing rooms. Paying the upgrade for a **Water View** room is strongly recommended.\n\n3. **Uphill Walk to Central Downtown:**\n   * While it is right on the waterfront in the trendy Belltown neighborhood, walking into the central business district or up to the Capitol Hill area involves steep Seattle hills.\n\n---\n\n### **The Verdict**\n* **Best For:** Couples, leisure travelers, music history buffs, and anyone looking for a distinctive, scenic Pacific Northwest experience rather than a generic corporate high-rise.\n* **Skip If:** You are traveling on a strict budget or need to be directly next to the Seattle Convention Center."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-22T15:53:35.279530Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "How long will it take to commute to Google Kirkland office from downtown Redmond during my morning rush hour commute?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "During morning rush hour (typically between 7:30 AM and 9:00 AM on weekdays), a commute from **Downtown Redmond to the Google Kirkland campus** (either the 6th Street S campus or Kirkland Urban) typically takes **15 to 25 minutes by car**, depending on traffic.\n\nHere is a breakdown by mode of transportation and route:\n\n---\n\n### 1. Driving (15 – 25 minutes)\n* **Distance:** ~4.5 to 6 miles\n* **Typical Routes:**\n  * **Via WA-520 West:** Take WA-520 W from Redmond toward Kirkland, exiting at Lake Washington Blvd NE or 108th Ave NE. This is generally the fastest route, though minor slowdowns occur near the I-405 interchange.\n  * **Via Local Roads (Old Redmond Rd / NE 85th St / Redmond Way):** A solid alternative if WA-520 has an incident. Traffic can be stop-and-go through Rose Hill, but it is reliable and avoids highway congestion.\n\n---\n\n### 2. Biking / E-Scooter (20 – 30 minutes) — *Highly Recommended*\n* **The Route:** The **Redmond Central Connector** directly links to the **Eastrail / Cross Kirkland Corridor (CKC)** trail. \n* **Perks:** \n  * It is entirely car-free and paved/crushed gravel.\n  * The trail runs directly adjacent to the Google 6th Street campus.\n  * Travel time is completely predictable (no traffic delays).\n\n---\n\n### 3. Public Transit (25 – 40 minutes)\n* **Bus:** King County Metro **Route 250** runs directly between Downtown Redmond (Redmond Transit Center) and Downtown Kirkland / Kirkland Urban every 10–15 minutes during peak hours.\n* **Travel Time:** Typically around 25–35 minutes on the bus plus a short walk depending on which Google building you are heading to.\n\n---\n\n### Pro-Tips:\n* **Tuesdays and Thursdays** tend to have the heaviest peak traffic due to hybrid in-office schedules.\n* If you work at the **6th Street S campus**, entering via the 108th Ave NE / 6th St corridor from the south can save a few minutes compared to navigating through downtown Kirkland."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "kirkland_commute",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "During morning rush hour (typically between 7:30 AM and 9:00 AM on weekdays), a commute from **Downtown Redmond to the Google Kirkland campus** (either the 6th Street S campus or Kirkland Urban) typically takes **15 to 25 minutes by car**, depending on traffic.\n\nHere is a breakdown by mode of transportation and route:\n\n---\n\n### 1. Driving (15 – 25 minutes)\n* **Distance:** ~4.5 to 6 miles\n* **Typical Routes:**\n  * **Via WA-520 West:** Take WA-520 W from Redmond toward Kirkland, exiting at Lake Washington Blvd NE or 108th Ave NE. This is generally the fastest route, though minor slowdowns occur near the I-405 interchange.\n  * **Via Local Roads (Old Redmond Rd / NE 85th St / Redmond Way):** A solid alternative if WA-520 has an incident. Traffic can be stop-and-go through Rose Hill, but it is reliable and avoids highway congestion.\n\n---\n\n### 2. Biking / E-Scooter (20 – 30 minutes) — *Highly Recommended*\n* **The Route:** The **Redmond Central Connector** directly links to the **Eastrail / Cross Kirkland Corridor (CKC)** trail. \n* **Perks:** \n  * It is entirely car-free and paved/crushed gravel.\n  * The trail runs directly adjacent to the Google 6th Street campus.\n  * Travel time is completely predictable (no traffic delays).\n\n---\n\n### 3. Public Transit (25 – 40 minutes)\n* **Bus:** King County Metro **Route 250** runs directly between Downtown Redmond (Redmond Transit Center) and Downtown Kirkland / Kirkland Urban every 10–15 minutes during peak hours.\n* **Travel Time:** Typically around 25–35 minutes on the bus plus a short walk depending on which Google building you are heading to.\n\n---\n\n### Pro-Tips:\n* **Tuesdays and Thursdays** tend to have the heaviest peak traffic due to hybrid in-office schedules.\n* If you work at the **6th Street S campus**, entering via the 108th Ave NE / 6th St corridor from the south can save a few minutes compared to navigating through downtown Kirkland."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-22T15:53:35.291089Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 lunch restaurants with Salads in South Lake Union. Give me directions to the 2nd one (starting from the Google South Lake Union WLK building)"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Here are 5 great lunch spots with delicious salads in South Lake Union:\n\n---\n\n### 5 Lunch Restaurants with Salads in South Lake Union\n\n1. **Evergreens** *(504 9th Ave N)*\n   * A Pacific Northwest staple for quick, customizable chopped salads, warm grain bowls, and wraps with fresh, seasonal toppings and house-made dressings.\n2. **Mendocino Farms** *(901 Harrison St)*\n   * Known for gourmet, ingredient-packed chef’s salads (like the *Avocado & Quinoa Superfood Salad* and the *Pink Lady Beets & Goat Cheese Salad*) alongside hearty sandwiches.\n3. **Homegrown** *(208 Westlake Ave N)*\n   * Features sustainable, organic salads and bowls (like the *Matcha Sesame Soba Bowl* or *Za'atar Cauliflower Salad*) focused on locally sourced farm-to-table ingredients.\n4. **Sweetgreen** *(2250 7th Ave)*\n   * Popular fast-casual chain offering warm protein bowls and customizable seasonal salads made with scratch-cooked whole produce.\n5. **Portage Bay Cafe – South Lake Union** *(391 Terry Ave N)*\n   * Great for a sit-down lunch, offering substantial organic, locally sourced entrée salads (like the *Dungeness Crab & Avocado Salad* and *House Cobb*).\n\n---\n\n### Directions to #2: Mendocino Farms (901 Harrison St)\n*Starting from **Google WLK (Lakefront Buildings / ~1021 Valley St / Terry Ave N & Mercer St)***\n\n* **Travel Mode:** Walking\n* **Distance:** ~0.4 miles \n* **Time:** ~8–10 minutes\n\n1. **Exit the Google WLK building** onto **Terry Ave N** (facing south toward Mercer St).\n2. **Walk south along Terry Ave N**, crossing:\n   * **Mercer Street**\n   * **Republican Street**\n3. At **Harrison Street**, turn **right** (west).\n4. Walk one block along Harrison St toward **9th Ave N**.\n5. **Mendocino Farms** will be on your left at the corner of **Harrison St & 9th Ave N** (901 Harrison St)."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "salad_lunch_and_directions",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Here are 5 great lunch spots with delicious salads in South Lake Union:\n\n---\n\n### 5 Lunch Restaurants with Salads in South Lake Union\n\n1. **Evergreens** *(504 9th Ave N)*\n   * A Pacific Northwest staple for quick, customizable chopped salads, warm grain bowls, and wraps with fresh, seasonal toppings and house-made dressings.\n2. **Mendocino Farms** *(901 Harrison St)*\n   * Known for gourmet, ingredient-packed chef’s salads (like the *Avocado & Quinoa Superfood Salad* and the *Pink Lady Beets & Goat Cheese Salad*) alongside hearty sandwiches.\n3. **Homegrown** *(208 Westlake Ave N)*\n   * Features sustainable, organic salads and bowls (like the *Matcha Sesame Soba Bowl* or *Za'atar Cauliflower Salad*) focused on locally sourced farm-to-table ingredients.\n4. **Sweetgreen** *(2250 7th Ave)*\n   * Popular fast-casual chain offering warm protein bowls and customizable seasonal salads made with scratch-cooked whole produce.\n5. **Portage Bay Cafe – South Lake Union** *(391 Terry Ave N)*\n   * Great for a sit-down lunch, offering substantial organic, locally sourced entrée salads (like the *Dungeness Crab & Avocado Salad* and *House Cobb*).\n\n---\n\n### Directions to #2: Mendocino Farms (901 Harrison St)\n*Starting from **Google WLK (Lakefront Buildings / ~1021 Valley St / Terry Ave N & Mercer St)***\n\n* **Travel Mode:** Walking\n* **Distance:** ~0.4 miles \n* **Time:** ~8–10 minutes\n\n1. **Exit the Google WLK building** onto **Terry Ave N** (facing south toward Mercer St).\n2. **Walk south along Terry Ave N**, crossing:\n   * **Mercer Street**\n   * **Republican Street**\n3. At **Harrison Street**, turn **right** (west).\n4. Walk one block along Harrison St toward **9th Ave N**.\n5. **Mendocino Farms** will be on your left at the corner of **Harrison St & 9th Ave N** (901 Harrison St)."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-22T15:53:35.296197Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to London"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Here is a balanced, family-friendly **3-day itinerary for London**. It groups attractions by neighborhood to minimize travel time on the Underground and offers a great mix of iconic landmarks, interactive history, green spaces, and entertainment.\n\n---\n\n### **Day 1: Royal London & The South Bank**\n\n#### **Morning: Royal Landmarks & St. James’s Park**\n* **9:30 AM – Westminster Abbey & Big Ben:** Start at Parliament Square. Admire the iconic Elizabeth Tower (**Big Ben**) and the Houses of Parliament, then view or tour Westminster Abbey.\n* **11:00 AM – St. James’s Park & Buckingham Palace:** Walk through St. James’s Park (kids love spotting the resident pelicans and waterfowl) toward Buckingham Palace to see the gates and the Changing of the Guard (check the schedule in advance; it typically takes place at 11:00 AM on select days).\n\n#### **Afternoon: Covent Garden & Lunch**\n* **12:30 PM – Lunch in Covent Garden:** Head to Covent Garden for a lively atmosphere, street performers, and family-friendly dining (e.g., *Flat Iron*, *Dishoom*, or the food stalls inside the Apple Market).\n* **2:00 PM – London Transport Museum (Covent Garden):** A hit for all ages with interactive heritage buses, historic Tube carriages, and driving simulators.\n\n#### **Late Afternoon / Evening: South Bank & London Eye**\n* **4:30 PM – The Lastminute.com London Eye:** Cross Waterloo Bridge to the South Bank and take a 30-minute flight for panoramic views across the city (*book timed-entry tickets online in advance*).\n* **6:30 PM – Dinner on the South Bank:** Enjoy a relaxed dinner along the riverside promenade (*Giraffe*, *Honest Burgers*, or *Wahaca*).\n\n---\n\n### **Day 2: Castles, River Views & West End Magic**\n\n#### **Morning: The Tower of London & Tower Bridge**\n* **9:00 AM – Tower of London:** Arrive right at opening. Head straight to the **Crown Jewels** before the queues build up, then join a Yeoman Warder (Beefeater) guided tour—they are humorous, engaging, and full of captivating history.\n* **11:30 AM – Tower Bridge Walkway:** Walk across the iconic bridge. If interested, take the high-level walkways with glass floors for a thrilling view down to the river traffic below.\n\n#### **Afternoon: Borough Market & Maritime Exploration**\n* **1:00 PM – Lunch at Borough Market:** Sample diverse street food (artisan cheeses, paella, gourmet sausage rolls, fresh pastries, and gelato).\n* **2:30 PM – HMS Belfast or River Boat Ride:** Explore the massive WWII cruiser *HMS Belfast* moored on the Thames, or take an Uber Boat / Thames Clipper river bus ride back towards central London.\n\n#### **Evening: West End Theatre**\n* **5:30 PM – Early Dinner in Theatreland:** Grab a pre-theatre bite in Soho, Chinatown, or Leicester Square.\n* **7:30 PM – West End Musical:** Enjoy an evening show such as *The Lion King* (Lyceum Theatre), *Matilda the Musical* (Cambridge Theatre), or *Wicked* (Apollo Victoria).\n\n---\n\n### **Day 3: World-Class Museums, Parks & Shopping**\n\n#### **Morning: South Kensington Museums**\n* **10:00 AM – Natural History Museum or Science Museum:** Both museums are world-class, free of general admission (*timed booking recommended*), and sit right next to each other:\n  * **Natural History Museum:** Famous for the Earth Hall escalator, dinosaur gallery, and the giant blue whale skeleton (\"Hope\") in the central hall.\n  * **Science Museum:** Great for hands-on, interactive science galleries, flight simulators, and space exploration exhibits.\n\n#### **Afternoon: Kensington Gardens & Afternoon Tea**\n* **1:00 PM – Lunch & Stroll in Hyde Park / Kensington Gardens:**\n  * Grab a casual lunch at a park cafe.\n  * Visit the **Diana Memorial Playground** (features a full-sized wooden pirate ship—ideal if traveling with younger children) or stroll past Kensington Palace.\n* **3:30 PM – Regent Street & Hamleys:** Take the Tube to Oxford Circus. Visit **Hamleys**, the world’s oldest toy store (7 floors of demonstrations and entertainment), or explore nearby Carnaby Street for boutique shopping.\n\n#### **Evening: Farewell Dinner**\n* **6:30 PM – Dinner around Piccadilly / Marylebone:** Wrap up the trip with a relaxed meal (such as traditional British fish & chips at *The Golden Hind* or a classic gastropub).\n\n---\n\n### **Family Travel Tips for London:**\n\n1. **Getting Around:**\n   * **Underground (Tube) & Buses:** Children **under 11 travel free** on public transport when accompanied by a paying adult. Adults can simply tap in and out with a contactless credit/debit card or phone.\n2. **Booking Ahead:**\n   * Book major attractions (Tower of London, London Eye) and theatre tickets 3–6 weeks ahead to secure preferred time slots and avoid long lines.\n3. **Footwear & Weather:**\n   * Expect to walk 15,000–20,000 steps per day; pack comfortable sneakers and compact travel umbrellas/rain jackets."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "london_itinerary",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Here is a balanced, family-friendly **3-day itinerary for London**. It groups attractions by neighborhood to minimize travel time on the Underground and offers a great mix of iconic landmarks, interactive history, green spaces, and entertainment.\n\n---\n\n### **Day 1: Royal London & The South Bank**\n\n#### **Morning: Royal Landmarks & St. James’s Park**\n* **9:30 AM – Westminster Abbey & Big Ben:** Start at Parliament Square. Admire the iconic Elizabeth Tower (**Big Ben**) and the Houses of Parliament, then view or tour Westminster Abbey.\n* **11:00 AM – St. James’s Park & Buckingham Palace:** Walk through St. James’s Park (kids love spotting the resident pelicans and waterfowl) toward Buckingham Palace to see the gates and the Changing of the Guard (check the schedule in advance; it typically takes place at 11:00 AM on select days).\n\n#### **Afternoon: Covent Garden & Lunch**\n* **12:30 PM – Lunch in Covent Garden:** Head to Covent Garden for a lively atmosphere, street performers, and family-friendly dining (e.g., *Flat Iron*, *Dishoom*, or the food stalls inside the Apple Market).\n* **2:00 PM – London Transport Museum (Covent Garden):** A hit for all ages with interactive heritage buses, historic Tube carriages, and driving simulators.\n\n#### **Late Afternoon / Evening: South Bank & London Eye**\n* **4:30 PM – The Lastminute.com London Eye:** Cross Waterloo Bridge to the South Bank and take a 30-minute flight for panoramic views across the city (*book timed-entry tickets online in advance*).\n* **6:30 PM – Dinner on the South Bank:** Enjoy a relaxed dinner along the riverside promenade (*Giraffe*, *Honest Burgers*, or *Wahaca*).\n\n---\n\n### **Day 2: Castles, River Views & West End Magic**\n\n#### **Morning: The Tower of London & Tower Bridge**\n* **9:00 AM – Tower of London:** Arrive right at opening. Head straight to the **Crown Jewels** before the queues build up, then join a Yeoman Warder (Beefeater) guided tour—they are humorous, engaging, and full of captivating history.\n* **11:30 AM – Tower Bridge Walkway:** Walk across the iconic bridge. If interested, take the high-level walkways with glass floors for a thrilling view down to the river traffic below.\n\n#### **Afternoon: Borough Market & Maritime Exploration**\n* **1:00 PM – Lunch at Borough Market:** Sample diverse street food (artisan cheeses, paella, gourmet sausage rolls, fresh pastries, and gelato).\n* **2:30 PM – HMS Belfast or River Boat Ride:** Explore the massive WWII cruiser *HMS Belfast* moored on the Thames, or take an Uber Boat / Thames Clipper river bus ride back towards central London.\n\n#### **Evening: West End Theatre**\n* **5:30 PM – Early Dinner in Theatreland:** Grab a pre-theatre bite in Soho, Chinatown, or Leicester Square.\n* **7:30 PM – West End Musical:** Enjoy an evening show such as *The Lion King* (Lyceum Theatre), *Matilda the Musical* (Cambridge Theatre), or *Wicked* (Apollo Victoria).\n\n---\n\n### **Day 3: World-Class Museums, Parks & Shopping**\n\n#### **Morning: South Kensington Museums**\n* **10:00 AM – Natural History Museum or Science Museum:** Both museums are world-class, free of general admission (*timed booking recommended*), and sit right next to each other:\n  * **Natural History Museum:** Famous for the Earth Hall escalator, dinosaur gallery, and the giant blue whale skeleton (\"Hope\") in the central hall.\n  * **Science Museum:** Great for hands-on, interactive science galleries, flight simulators, and space exploration exhibits.\n\n#### **Afternoon: Kensington Gardens & Afternoon Tea**\n* **1:00 PM – Lunch & Stroll in Hyde Park / Kensington Gardens:**\n  * Grab a casual lunch at a park cafe.\n  * Visit the **Diana Memorial Playground** (features a full-sized wooden pirate ship—ideal if traveling with younger children) or stroll past Kensington Palace.\n* **3:30 PM – Regent Street & Hamleys:** Take the Tube to Oxford Circus. Visit **Hamleys**, the world’s oldest toy store (7 floors of demonstrations and entertainment), or explore nearby Carnaby Street for boutique shopping.\n\n#### **Evening: Farewell Dinner**\n* **6:30 PM – Dinner around Piccadilly / Marylebone:** Wrap up the trip with a relaxed meal (such as traditional British fish & chips at *The Golden Hind* or a classic gastropub).\n\n---\n\n### **Family Travel Tips for London:**\n\n1. **Getting Around:**\n   * **Underground (Tube) & Buses:** Children **under 11 travel free** on public transport when accompanied by a paying adult. Adults can simply tap in and out with a contactless credit/debit card or phone.\n2. **Booking Ahead:**\n   * Book major attractions (Tower of London, London Eye) and theatre tickets 3–6 weeks ahead to secure preferred time slots and avoid long lines.\n3. **Footwear & Weather:**\n   * Expect to walk 15,000–20,000 steps per day; pack comfortable sneakers and compact travel umbrellas/rain jackets."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-22T15:53:59.296714Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

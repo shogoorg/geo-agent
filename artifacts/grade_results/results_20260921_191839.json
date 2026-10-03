@@ -1,0 +1,172 @@
+{
+  "eval_case_results": [
+    {
+      "eval_case_index": 0,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "The assistant provided an exceptionally well-structured, diverse, and accurate list of restaurant recommendations in Tokyo broken down by cuisine type, price point, and neighborhood, along with practical local dining tips.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary_metrics": [
+    {
+      "metric_name": "custom_response_quality",
+      "num_cases_total": 1,
+      "num_cases_valid": 1,
+      "num_cases_error": 0,
+      "mean_score": 5.0,
+      "stdev_score": null,
+      "pass_rate": null
+    }
+  ],
+  "win_rates": null,
+  "evaluation_dataset": [
+    {
+      "bigquery_source": null,
+      "gcs_source": null,
+      "eval_cases": [
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "Show me restaurants in Tokyo",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "Here is a curated guide to some of the best restaurants in Tokyo across different styles, budgets, and neighborhoods:\n\n---\n\n### **1. Sushi**\n* **Nemuro Hanamaru** *(KITTE Marunouchi / Ginza)*  \n  * **Vibe:** Casual, lively standing/conveyor sushi. High-quality seafood sourced directly from Hokkaido at very reasonable prices.\n* **Sushi no Midori** *(Shibuya / Ginza)*  \n  * **Vibe:** Mid-range, highly popular for generous cuts of fresh fish (expect a queue or take a numbered ticket early).\n* **Sushi Yoshitake** *(Ginza)*  \n  * **Vibe:** Ultra-high-end (Michelin 3-Star). An intimate, world-class traditional Edomae *omakase* experience (*reservations required far in advance*).\n\n---\n\n### **2. Ramen & Tsukemen**\n* **Fuunji** *(Shinjuku)*  \n  * **Specialty:** Rich, savory *tsukemen* (dipping noodles) with a deeply flavored chicken and fish broth. Order via ticket vending machine.\n* **Konjiki Hototogisu** *(Shinjuku)*  \n  * **Specialty:** Michelin 1-Star ramen featuring a refined clam-and-pork broth with black truffle oil.\n* **Afuri** *(Ebisu, Harajuku, Roppongi)*  \n  * **Specialty:** Light, refreshing *Yuzu Shio* (citrus and salt) ramen; also offers great vegan ramen options.\n\n---\n\n### **3. Tonkatsu (Deep-Fried Pork Cutlet)**\n* **Tonkatsu Tonki** *(Meguro)*  \n  * **Vibe:** Historic, open-counter setting operating since 1939. Renowned for its unique crispy crust and traditional hospitality.\n* **Tonkatsu Maisen** *(Aoyama)*  \n  * **Vibe:** Housed in a renovated pre-WWII public bathhouse. Famous for Kurobuta (black pork) that melts in your mouth.\n\n---\n\n### **4. Wagyu, Yakiniku & Sukiyaki**\n* **Ningyocho Imahan** *(Ningyocho, Ginza, Shinjuku)*  \n  * **Specialty:** Legendary Kuroge Wagyu sukiyaki and shabu-shabu served by kimono-clad staff in private or semi-private tatami rooms.\n* **Yoroniku** *(Minami-Aoyama)*  \n  * **Specialty:** Modern, premium *yakiniku* (Japanese BBQ) tasting menus featuring rare wagyu cuts grilled to perfection by dedicated servers.\n\n---\n\n### **5. Yakitori & Casual Izakaya**\n* **Toritama** *(Shirokane / Ebisu)*  \n  * **Specialty:** Exceptional yakitori specializing in rare cuts of chicken grilled over binchotan charcoal.\n* **Gonpachi Nishi-Azabu** *(Roppongi)*  \n  * **Vibe:** Large, energetic izakaya known as the inspiration for the tavern fight scene in Quentin Tarantino's *Kill Bill*.\n* **Omoide Yokocho (\"Memory Lane\")** *(Shinjuku)*  \n  * **Vibe:** Atmospheric, narrow alleyways packed with tiny counter-only stalls serving grilled skewers, cold beer, and highballs.\n\n---\n\n### **Tips for Dining in Tokyo:**\n1. **Reservations:** For mid-to-high-end restaurants, book via platforms like **TableCheck**, **Tabelog**, or your hotel concierge.\n2. **Payment:** While cards and IC cards (Suica/Pasmo) are widely accepted, small ramen shops and street stalls still prefer or require **cash**.\n3. **Tipping:** Tipping is not customary in Japan; exceptional service is already standard.\n\n---\n\nIf you have a specific **neighborhood** (e.g., Shinjuku, Shibuya, Ginza), **budget**, or **cuisine type/dietary preference** in mind, let me know and I can provide tailored recommendations!",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "restaurants_in_tokyo",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "geo_agent": {
+                "agent_id": "geo_agent",
+                "agent_type": "LlmAgent",
+                "description": "",
+                "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+                "tools": [],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "geo_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Here is a curated guide to some of the best restaurants in Tokyo across different styles, budgets, and neighborhoods:\n\n---\n\n### **1. Sushi**\n* **Nemuro Hanamaru** *(KITTE Marunouchi / Ginza)*  \n  * **Vibe:** Casual, lively standing/conveyor sushi. High-quality seafood sourced directly from Hokkaido at very reasonable prices.\n* **Sushi no Midori** *(Shibuya / Ginza)*  \n  * **Vibe:** Mid-range, highly popular for generous cuts of fresh fish (expect a queue or take a numbered ticket early).\n* **Sushi Yoshitake** *(Ginza)*  \n  * **Vibe:** Ultra-high-end (Michelin 3-Star). An intimate, world-class traditional Edomae *omakase* experience (*reservations required far in advance*).\n\n---\n\n### **2. Ramen & Tsukemen**\n* **Fuunji** *(Shinjuku)*  \n  * **Specialty:** Rich, savory *tsukemen* (dipping noodles) with a deeply flavored chicken and fish broth. Order via ticket vending machine.\n* **Konjiki Hototogisu** *(Shinjuku)*  \n  * **Specialty:** Michelin 1-Star ramen featuring a refined clam-and-pork broth with black truffle oil.\n* **Afuri** *(Ebisu, Harajuku, Roppongi)*  \n  * **Specialty:** Light, refreshing *Yuzu Shio* (citrus and salt) ramen; also offers great vegan ramen options.\n\n---\n\n### **3. Tonkatsu (Deep-Fried Pork Cutlet)**\n* **Tonkatsu Tonki** *(Meguro)*  \n  * **Vibe:** Historic, open-counter setting operating since 1939. Renowned for its unique crispy crust and traditional hospitality.\n* **Tonkatsu Maisen** *(Aoyama)*  \n  * **Vibe:** Housed in a renovated pre-WWII public bathhouse. Famous for Kurobuta (black pork) that melts in your mouth.\n\n---\n\n### **4. Wagyu, Yakiniku & Sukiyaki**\n* **Ningyocho Imahan** *(Ningyocho, Ginza, Shinjuku)*  \n  * **Specialty:** Legendary Kuroge Wagyu sukiyaki and shabu-shabu served by kimono-clad staff in private or semi-private tatami rooms.\n* **Yoroniku** *(Minami-Aoyama)*  \n  * **Specialty:** Modern, premium *yakiniku* (Japanese BBQ) tasting menus featuring rare wagyu cuts grilled to perfection by dedicated servers.\n\n---\n\n### **5. Yakitori & Casual Izakaya**\n* **Toritama** *(Shirokane / Ebisu)*  \n  * **Specialty:** Exceptional yakitori specializing in rare cuts of chicken grilled over binchotan charcoal.\n* **Gonpachi Nishi-Azabu** *(Roppongi)*  \n  * **Vibe:** Large, energetic izakaya known as the inspiration for the tavern fight scene in Quentin Tarantino's *Kill Bill*.\n* **Omoide Yokocho (\"Memory Lane\")** *(Shinjuku)*  \n  * **Vibe:** Atmospheric, narrow alleyways packed with tiny counter-only stalls serving grilled skewers, cold beer, and highballs.\n\n---\n\n### **Tips for Dining in Tokyo:**\n1. **Reservations:** For mid-to-high-end restaurants, book via platforms like **TableCheck**, **Tabelog**, or your hotel concierge.\n2. **Payment:** While cards and IC cards (Suica/Pasmo) are widely accepted, small ramen shops and street stalls still prefer or require **cash**.\n3. **Tipping:** Tipping is not customary in Japan; exceptional service is already standard.\n\n---\n\nIf you have a specific **neighborhood** (e.g., Shinjuku, Shibuya, Ginza), **budget**, or **cuisine type/dietary preference** in mind, let me know and I can provide tailored recommendations!",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-09-21T10:17:16.213046Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        }
+      ],
+      "eval_dataset_df": null,
+      "candidate_name": null
+    }
+  ],
+  "metadata": {
+    "candidate_names": [
+      "candidate_1"
+    ],
+    "dataset_name": null,
+    "dataset_id": null,
+    "creation_timestamp": "2026-09-21T10:18:39.082911Z",
+    "dataset": [
+      {
+        "prompt_display_text": "Show me restaurants in Tokyo",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"Show me restaurants in Tokyo\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "Here is a curated guide to some of the best restaurants in Tokyo across different styles, budgets, and neighborhoods:\n\n---\n\n### **1. Sushi**\n* **Nemuro Hanamaru** *(KITTE Marunouchi / Ginza)*  \n  * **Vibe:** Casual, lively standing/conveyor sushi. High-quality seafood sourced directly from Hokkaido at very reasonable prices.\n* **Sushi no Midori** *(Shibuya / Ginza)*  \n  * **Vibe:** Mid-range, highly popular for generous cuts of fresh fish (expect a queue or take a numbered ticket early).\n* **Sushi Yoshitake** *(Ginza)*  \n  * **Vibe:** Ultra-high-end (Michelin 3-Star). An intimate, world-class traditional Edomae *omakase* experience (*reservations required far in advance*).\n\n---\n\n### **2. Ramen & Tsukemen**\n* **Fuunji** *(Shinjuku)*  \n  * **Specialty:** Rich, savory *tsukemen* (dipping noodles) with a deeply flavored chicken and fish broth. Order via ticket vending machine.\n* **Konjiki Hototogisu** *(Shinjuku)*  \n  * **Specialty:** Michelin 1-Star ramen featuring a refined clam-and-pork broth with black truffle oil.\n* **Afuri** *(Ebisu, Harajuku, Roppongi)*  \n  * **Specialty:** Light, refreshing *Yuzu Shio* (citrus and salt) ramen; also offers great vegan ramen options.\n\n---\n\n### **3. Tonkatsu (Deep-Fried Pork Cutlet)**\n* **Tonkatsu Tonki** *(Meguro)*  \n  * **Vibe:** Historic, open-counter setting operating since 1939. Renowned for its unique crispy crust and traditional hospitality.\n* **Tonkatsu Maisen** *(Aoyama)*  \n  * **Vibe:** Housed in a renovated pre-WWII public bathhouse. Famous for Kurobuta (black pork) that melts in your mouth.\n\n---\n\n### **4. Wagyu, Yakiniku & Sukiyaki**\n* **Ningyocho Imahan** *(Ningyocho, Ginza, Shinjuku)*  \n  * **Specialty:** Legendary Kuroge Wagyu sukiyaki and shabu-shabu served by kimono-clad staff in private or semi-private tatami rooms.\n* **Yoroniku** *(Minami-Aoyama)*  \n  * **Specialty:** Modern, premium *yakiniku* (Japanese BBQ) tasting menus featuring rare wagyu cuts grilled to perfection by dedicated servers.\n\n---\n\n### **5. Yakitori & Casual Izakaya**\n* **Toritama** *(Shirokane / Ebisu)*  \n  * **Specialty:** Exceptional yakitori specializing in rare cuts of chicken grilled over binchotan charcoal.\n* **Gonpachi Nishi-Azabu** *(Roppongi)*  \n  * **Vibe:** Large, energetic izakaya known as the inspiration for the tavern fight scene in Quentin Tarantino's *Kill Bill*.\n* **Omoide Yokocho (\"Memory Lane\")** *(Shinjuku)*  \n  * **Vibe:** Atmospheric, narrow alleyways packed with tiny counter-only stalls serving grilled skewers, cold beer, and highballs.\n\n---\n\n### **Tips for Dining in Tokyo:**\n1. **Reservations:** For mid-to-high-end restaurants, book via platforms like **TableCheck**, **Tabelog**, or your hotel concierge.\n2. **Payment:** While cards and IC cards (Suica/Pasmo) are widely accepted, small ramen shops and street stalls still prefer or require **cash**.\n3. **Tipping:** Tipping is not customary in Japan; exceptional service is already standard.\n\n---\n\nIf you have a specific **neighborhood** (e.g., Shinjuku, Shibuya, Ginza), **budget**, or **cuisine type/dietary preference** in mind, let me know and I can provide tailored recommendations!",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"Here is a curated guide to some of the best restaurants in Tokyo across different styles, budgets, and neighborhoods:\\n\\n---\\n\\n### **1. Sushi**\\n* **Nemuro Hanamaru** *(KITTE Marunouchi / Ginza)*  \\n  * **Vibe:** Casual, lively standing/conveyor sushi. High-quality seafood sourced directly from Hokkaido at very reasonable prices.\\n* **Sushi no Midori** *(Shibuya / Ginza)*  \\n  * **Vibe:** Mid-range, highly popular for generous cuts of fresh fish (expect a queue or take a numbered ticket early).\\n* **Sushi Yoshitake** *(Ginza)*  \\n  * **Vibe:** Ultra-high-end (Michelin 3-Star). An intimate, world-class traditional Edomae *omakase* experience (*reservations required far in advance*).\\n\\n---\\n\\n### **2. Ramen & Tsukemen**\\n* **Fuunji** *(Shinjuku)*  \\n  * **Specialty:** Rich, savory *tsukemen* (dipping noodles) with a deeply flavored chicken and fish broth. Order via ticket vending machine.\\n* **Konjiki Hototogisu** *(Shinjuku)*  \\n  * **Specialty:** Michelin 1-Star ramen featuring a refined clam-and-pork broth with black truffle oil.\\n* **Afuri** *(Ebisu, Harajuku, Roppongi)*  \\n  * **Specialty:** Light, refreshing *Yuzu Shio* (citrus and salt) ramen; also offers great vegan ramen options.\\n\\n---\\n\\n### **3. Tonkatsu (Deep-Fried Pork Cutlet)**\\n* **Tonkatsu Tonki** *(Meguro)*  \\n  * **Vibe:** Historic, open-counter setting operating since 1939. Renowned for its unique crispy crust and traditional hospitality.\\n* **Tonkatsu Maisen** *(Aoyama)*  \\n  * **Vibe:** Housed in a renovated pre-WWII public bathhouse. Famous for Kurobuta (black pork) that melts in your mouth.\\n\\n---\\n\\n### **4. Wagyu, Yakiniku & Sukiyaki**\\n* **Ningyocho Imahan** *(Ningyocho, Ginza, Shinjuku)*  \\n  * **Specialty:** Legendary Kuroge Wagyu sukiyaki and shabu-shabu served by kimono-clad staff in private or semi-private tatami rooms.\\n* **Yoroniku** *(Minami-Aoyama)*  \\n  * **Specialty:** Modern, premium *yakiniku* (Japanese BBQ) tasting menus featuring rare wagyu cuts grilled to perfection by dedicated servers.\\n\\n---\\n\\n### **5. Yakitori & Casual Izakaya**\\n* **Toritama** *(Shirokane / Ebisu)*  \\n  * **Specialty:** Exceptional yakitori specializing in rare cuts of chicken grilled over binchotan charcoal.\\n* **Gonpachi Nishi-Azabu** *(Roppongi)*  \\n  * **Vibe:** Large, energetic izakaya known as the inspiration for the tavern fight scene in Quentin Tarantino's *Kill Bill*.\\n* **Omoide Yokocho (\\\"Memory Lane\\\")** *(Shinjuku)*  \\n  * **Vibe:** Atmospheric, narrow alleyways packed with tiny counter-only stalls serving grilled skewers, cold beer, and highballs.\\n\\n---\\n\\n### **Tips for Dining in Tokyo:**\\n1. **Reservations:** For mid-to-high-end restaurants, book via platforms like **TableCheck**, **Tabelog**, or your hotel concierge.\\n2. **Payment:** While cards and IC cards (Suica/Pasmo) are widely accepted, small ramen shops and street stalls still prefer or require **cash**.\\n3. **Tipping:** Tipping is not customary in Japan; exceptional service is already standard.\\n\\n---\\n\\nIf you have a specific **neighborhood** (e.g., Shinjuku, Shibuya, Ginza), **budget**, or **cuisine type/dietary preference** in mind, let me know and I can provide tailored recommendations!\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"geo_agent\": {\"agent_id\": \"geo_agent\", \"agent_type\": \"LlmAgent\", \"description\": \"\", \"instruction\": \"You are a helpful AI assistant designed to provide accurate and useful information.\", \"tools\": [], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"geo_agent\", \"content\": {\"parts\": [{\"text\": \"Here is a curated guide to some of the best restaurants in Tokyo across different styles, budgets, and neighborhoods:\\n\\n---\\n\\n### **1. Sushi**\\n* **Nemuro Hanamaru** *(KITTE Marunouchi / Ginza)*  \\n  * **Vibe:** Casual, lively standing/conveyor sushi. High-quality seafood sourced directly from Hokkaido at very reasonable prices.\\n* **Sushi no Midori** *(Shibuya / Ginza)*  \\n  * **Vibe:** Mid-range, highly popular for generous cuts of fresh fish (expect a queue or take a numbered ticket early).\\n* **Sushi Yoshitake** *(Ginza)*  \\n  * **Vibe:** Ultra-high-end (Michelin 3-Star). An intimate, world-class traditional Edomae *omakase* experience (*reservations required far in advance*).\\n\\n---\\n\\n### **2. Ramen & Tsukemen**\\n* **Fuunji** *(Shinjuku)*  \\n  * **Specialty:** Rich, savory *tsukemen* (dipping noodles) with a deeply flavored chicken and fish broth. Order via ticket vending machine.\\n* **Konjiki Hototogisu** *(Shinjuku)*  \\n  * **Specialty:** Michelin 1-Star ramen featuring a refined clam-and-pork broth with black truffle oil.\\n* **Afuri** *(Ebisu, Harajuku, Roppongi)*  \\n  * **Specialty:** Light, refreshing *Yuzu Shio* (citrus and salt) ramen; also offers great vegan ramen options.\\n\\n---\\n\\n### **3. Tonkatsu (Deep-Fried Pork Cutlet)**\\n* **Tonkatsu Tonki** *(Meguro)*  \\n  * **Vibe:** Historic, open-counter setting operating since 1939. Renowned for its unique crispy crust and traditional hospitality.\\n* **Tonkatsu Maisen** *(Aoyama)*  \\n  * **Vibe:** Housed in a renovated pre-WWII public bathhouse. Famous for Kurobuta (black pork) that melts in your mouth.\\n\\n---\\n\\n### **4. Wagyu, Yakiniku & Sukiyaki**\\n* **Ningyocho Imahan** *(Ningyocho, Ginza, Shinjuku)*  \\n  * **Specialty:** Legendary Kuroge Wagyu sukiyaki and shabu-shabu served by kimono-clad staff in private or semi-private tatami rooms.\\n* **Yoroniku** *(Minami-Aoyama)*  \\n  * **Specialty:** Modern, premium *yakiniku* (Japanese BBQ) tasting menus featuring rare wagyu cuts grilled to perfection by dedicated servers.\\n\\n---\\n\\n### **5. Yakitori & Casual Izakaya**\\n* **Toritama** *(Shirokane / Ebisu)*  \\n  * **Specialty:** Exceptional yakitori specializing in rare cuts of chicken grilled over binchotan charcoal.\\n* **Gonpachi Nishi-Azabu** *(Roppongi)*  \\n  * **Vibe:** Large, energetic izakaya known as the inspiration for the tavern fight scene in Quentin Tarantino's *Kill Bill*.\\n* **Omoide Yokocho (\\\"Memory Lane\\\")** *(Shinjuku)*  \\n  * **Vibe:** Atmospheric, narrow alleyways packed with tiny counter-only stalls serving grilled skewers, cold beer, and highballs.\\n\\n---\\n\\n### **Tips for Dining in Tokyo:**\\n1. **Reservations:** For mid-to-high-end restaurants, book via platforms like **TableCheck**, **Tabelog**, or your hotel concierge.\\n2. **Payment:** While cards and IC cards (Suica/Pasmo) are widely accepted, small ramen shops and street stalls still prefer or require **cash**.\\n3. **Tipping:** Tipping is not customary in Japan; exceptional service is already standard.\\n\\n---\\n\\nIf you have a specific **neighborhood** (e.g., Shinjuku, Shibuya, Ginza), **budget**, or **cuisine type/dietary preference** in mind, let me know and I can provide tailored recommendations!\"}], \"role\": \"model\"}, \"event_time\": \"2026-09-21T10:17:16.213046Z\"}]}]}"
+      }
+    ]
+  },
+  "agent_info": null
+}

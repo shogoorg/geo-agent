@@ -227,6 +227,3 @@ tools/a2a-inspector/
 credentials*.json
 # Difference from base ADK scaffold (agents-cli create --bq-analytics): Ignore AI coding assistant temporary files
 .aider*
-
-# Difference from base ADK scaffold (agents-cli create --bq-analytics): Ignore eval results and trace artifacts
-/artifacts
