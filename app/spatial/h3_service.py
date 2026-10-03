@@ -73,9 +73,11 @@ class H3SpatialService:
             return data
 
         place_id_to_h3: dict[str, str] = {}
+        last_origin_cell: str | None = None
+        last_destination_cell: str | None = None
 
         # ----------------------------------------------------------------------
-        # Pass 1: Traverse GoogleMap.markers in updateComponents
+        # Pass 1: Traverse GoogleMap.markers and GoogleMap.routes in updateComponents
         # (Coordinates exist here for both TEMPLATE and GROUNDING modes)
         # ----------------------------------------------------------------------
         for action in actions:
@@ -90,6 +92,7 @@ class H3SpatialService:
                             isinstance(comp, dict)
                             and comp.get("component") == "GoogleMap"
                         ):
+                            # Traverse markers (POI pins)
                             markers = comp.get("markers", [])
                             if isinstance(markers, list):
                                 for marker in markers:
@@ -111,8 +114,43 @@ class H3SpatialService:
                                             cell_key = f"{resolution}:{cell_id}"
                                             self.set_cached_place(cell_key, marker)
 
+                            # Traverse routes (OD pairs)
+                            routes = comp.get("routes", [])
+                            if isinstance(routes, list):
+                                for route in routes:
+                                    if not isinstance(route, dict):
+                                        continue
+
+                                    orig = route.get("origin")
+                                    if (
+                                        isinstance(orig, dict)
+                                        and "lat" in orig
+                                        and "lng" in orig
+                                    ):
+                                        orig_cell = self.lat_lng_to_cell(
+                                            float(orig["lat"]),
+                                            float(orig["lng"]),
+                                            resolution,
+                                        )
+                                        orig["h3Cell"] = orig_cell
+                                        last_origin_cell = orig_cell
+
+                                    dest = route.get("destination")
+                                    if (
+                                        isinstance(dest, dict)
+                                        and "lat" in dest
+                                        and "lng" in dest
+                                    ):
+                                        dest_cell = self.lat_lng_to_cell(
+                                            float(dest["lat"]),
+                                            float(dest["lng"]),
+                                            resolution,
+                                        )
+                                        dest["h3Cell"] = dest_cell
+                                        last_destination_cell = dest_cell
+
         # ----------------------------------------------------------------------
-        # Pass 2: Traverse updateDataModel (supports places, cafes, or any list key)
+        # Pass 2: Traverse updateDataModel (supports places, cafes, or OD cells)
         # ----------------------------------------------------------------------
         for action in actions:
             if not isinstance(action, dict):
@@ -122,6 +160,12 @@ class H3SpatialService:
                 value = action["updateDataModel"].get("value", {})
                 if isinstance(value, dict):
                     value["h3Resolution"] = resolution
+
+                    # Route commute: record OD cell IDs in data model
+                    if last_origin_cell:
+                        value["originH3Cell"] = last_origin_cell
+                    if last_destination_cell:
+                        value["destinationH3Cell"] = last_destination_cell
 
                     for _key, items in value.items():
                         if isinstance(items, list):
