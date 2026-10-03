@@ -84,16 +84,12 @@ Set `A2UI_DEFAULT_AGENT` in `.env` to choose your default agent mode:
 # Option 1: Template Agent (Recommended for low-latency local search & directions)
 A2UI_DEFAULT_AGENT=TEMPLATE
 
-# Option 2: Grounding Agent (Vertex AI Maps Grounding)
-# A2UI_DEFAULT_AGENT=GROUNDING
-
-# Option 3: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
+# Option 2: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
 # A2UI_DEFAULT_AGENT=BASE
 ```
 
 > 💡 **Tip (Per-Query Switching without restart):**
-> You can test different agent implementations against the running server by prefixing your prompt:
-> * `[GROUNDING] <query>` ➔ Routes directly to `MAUIAgentWithGrounding`
+> You can test the template agent implementation against the running server by prefixing your prompt:
 > * `[TEMPLATE] <query>` ➔ Routes directly to `MAUIAgentWithTemplates`
 > * `<query>` (no prefix) ➔ Routes to your configured default agent
 
@@ -171,8 +167,8 @@ By default, Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your `.en
 
 > 💡 **Tip (Overriding Agent Mode at Deploy Time):**
 > You can override the agent mode without modifying `.env` using `--update-env-vars`:
-> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=GROUNDING` ➔ Deploy as Grounding Agent
 > * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=TEMPLATE` ➔ Deploy as Template Agent
+> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=BASE` ➔ Deploy as Base Agent
 
 #### 2. Deploy the MAUI Agent Backend (`geo-agent`)
 
@@ -430,7 +426,7 @@ flowchart TB
     end
 
     subgraph MapsPlatform ["Google Maps Platform"]
-        MAPS["Places API / Routes API /\nVertex AI Maps Grounding"]
+        MAPS["Places API / Routes API /\nGoogle Maps Platform MCP"]
     end
 
     %% Connections

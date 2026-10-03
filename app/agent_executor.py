@@ -103,14 +103,16 @@ class MAUIAgentExecutor(AgentExecutor):
 
         # Interpret prefix and choose agent
         agent_to_use = self._default_agent
-        if query.startswith("[GROUNDING]"):
-            logger.info(
-                "--- AGENT_EXECUTOR: Prefix [GROUNDING] detected. Using Grounding"
-                " Agent. ---"
-            )
-            agent_to_use = self._grounding_agent
-            query = query[len("[GROUNDING]") :].strip()
-        elif query.startswith("[TEMPLATE]"):
+        # Grounding agent disabled
+        # if query.startswith("[GROUNDING]"):
+        #     logger.info(
+        #         "--- AGENT_EXECUTOR: Prefix [GROUNDING] detected. Using Grounding"
+        #         " Agent. ---"
+        #     )
+        #     agent_to_use = self._grounding_agent
+        #     query = query[len("[GROUNDING]") :].strip()
+        # elif query.startswith("[TEMPLATE]"):
+        if query.startswith("[TEMPLATE]"):
             if not self._template_agent:
                 raise RuntimeError("Template Agent is not configured.")
             logger.info(

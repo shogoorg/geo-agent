@@ -42,7 +42,8 @@ function App() {
   const [importJson, setImportJson] = useState('');
   const importDialogRef = useRef<HTMLDialogElement>(null);
   const [lastResponseJson, setLastResponseJson] = useState('');
-  const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
+  // Agent mode state disabled - uses standard backend default agent
+  // const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
   const [h3Resolution, setH3Resolution] = useState<number>(9);
 
   // --- A2UI Integration Refs ---
@@ -105,15 +106,15 @@ function App() {
     rendererRef.current.addUserMessage(messageText);
     setTimeline([...rendererRef.current.timeline]);
 
-    // 2. Prepend routing and resolution prefix based on selected agent mode
-    let payload = messageText;
-    if (agentMode === 'grounding') {
-      payload = `[GROUNDING][RES:${h3Resolution}] ${messageText}`;
-    } else if (agentMode === 'template') {
-      payload = `[TEMPLATE][RES:${h3Resolution}] ${messageText}`;
-    } else {
-      payload = `[RES:${h3Resolution}] ${messageText}`;
-    }
+    // 2. Prepend resolution prefix (agent routing prefixes disabled)
+    // if (agentMode === 'grounding') {
+    //   payload = `[GROUNDING][RES:${h3Resolution}] ${messageText}`;
+    // } else if (agentMode === 'template') {
+    //   payload = `[TEMPLATE][RES:${h3Resolution}] ${messageText}`;
+    // } else {
+    //   payload = `[RES:${h3Resolution}] ${messageText}`;
+    // }
+    const payload = `[RES:${h3Resolution}] ${messageText}`;
 
     try {
       // 3. Send the message to the A2A agent via A2UIClient
@@ -249,6 +250,7 @@ function App() {
             disabled={isRequesting}></textarea>
           <div className="chat-actions">
             <div className="agent-selector-wrapper">
+              {/* Agent mode selector disabled
               <select
                 className="agent-mode-select"
                 value={agentMode}
@@ -259,6 +261,7 @@ function App() {
                 <option value="grounding">Grounding Agent</option>
                 <option value="template">Template Agent</option>
               </select>
+              */}
               <select
                 className="resolution-select"
                 value={h3Resolution}
