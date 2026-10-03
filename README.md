@@ -405,44 +405,40 @@ scaffold, eval, deploy, observe — on a rotation, forever. You write the spec; 
 
 ```mermaid
 flowchart TB
-    Client["Client"]
+    Client["Client\n(Chrome SidePanel / React Web)"]
 
-    subgraph Deployment ["Deployment"]
-        subgraph CloudRun ["Cloud Run"]
-            subgraph AgentOrchestration ["Agent Orchestration"]
-                AO["Build with Google's ADK and A2A, with the option to leverage ready to use samples"]
-            end
-            subgraph Observability ["Observability"]
-                OTEL["OpenTele"]
-                LOG["Logging"]
-            end
+    subgraph Deployment ["Google Cloud Run"]
+        subgraph FastAPIApp ["FastAPI Backend (fast_api_app.py)"]
+            AO["Agent Orchestration\n(Google ADK + MAUI Bundle + A2A)"]
+            GA["GeminiAdapter\n(ADK Native Client Interceptor)"]
+            H3["Uber H3 Spatial Service\n(Hierarchical Sharding & Cache)"]
+            AO --- GA
+            AO --- H3
+        end
+        subgraph Observability ["Observability Pipeline"]
+            OTEL["Cloud Trace\n(Distributed Tracing)"]
+            LOG["Cloud Logging\n(Runtime Logs)"]
         end
     end
 
-    subgraph LLMs ["LLMs"]
-        MG["Model Garden"]
+    subgraph LLMs ["Model Garden & Vertex AI"]
+        MG["Gemini Models\n(gemini-3.1-flash-lite)"]
     end
 
-    subgraph Data ["Data"]
-        DSA["Data storage and analysis"]
+    subgraph Data ["Data & Telemetry"]
+        DSA["BigQuery & GCS\n(completions & agent_events)"]
     end
 
-    subgraph Evaluation ["Evaluation"]
-        APE["Agent Platform Evaluation"]
-    end
-
-    subgraph IaCCICD ["IaC & CI/CD"]
-        IAC["Infrastructure as code"]
+    subgraph MapsPlatform ["Google Maps Platform"]
+        MAPS["Places API / Routes API /\nVertex AI Maps Grounding"]
     end
 
     %% Connections
     Client --> AO
-    AO <--> MG
+    AO <--> MAPS
+    GA <--> MG
     AO --> Observability
     Observability --> DSA
-    Evaluation --> AO
-    IAC --> Deployment
-    IAC --> Data
 ```
 
 The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` architecture):
@@ -463,4 +459,4 @@ The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` a
 * **Evaluation**
   * **Agent Platform Evaluation**: Integrated with `google-cloud-aiplatform[evaluation]` and `google-adk[eval]` test suites under `tests/eval/`.
 * **Client**
-  * **Client**: Multi-platform frontend clients implemented under `client/` (Web/React, Android, and iOS) rendering rich responses via A2UI.
+  * **Client**: Focused frontend client implemented under `client/web/react/` (React Web & Chrome SidePanel) rendering rich Generative UI responses via A2UI.
