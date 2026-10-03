@@ -67,6 +67,10 @@ Run code quality
 agents-cli lint
 ```
 
+```bash
+uv run pytest tests/unit tests/integration
+```
+
 You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
 
 Evaluate agent behavior:
@@ -110,48 +114,54 @@ npm install
 npm run dev
 ```
 
-## 🌐 Uber H3 Spatial Index Inspection API
+## 🌐 Uber H3 Hierarchical Spatial Index & Aggregation
 
-You can test H3 hexagonal cell indexing and k-ring neighbor lookups using the spatial inspection endpoint:
+GeoAgent integrates the Uber H3 discrete global grid system (Resolutions 0–15) to discretize physical geography, partition queries, and eliminate spatial hallucinations:
 
-### 1. Local Development Server
-- **Default (Resolution 9):**
-  ```bash
-  curl "http://localhost:8000/api/spatial/h3-info"
-  ```
-- **Custom Coordinates & Resolution (e.g., Resolution 8):**
-  ```bash
-  curl "http://localhost:8000/api/spatial/h3-info?lat=35.6895298&lng=139.7143743&resolution=8"
-  ```
-- **Interactive Swagger UI:**
-  `http://localhost:8000/docs`
+1. **Deterministic Spatial Sharding & Clustering (`h3Clusters`):**
+   - POI latitude/longitude coordinates are deterministically mapped to hexagonal cell IDs (e.g., Resolution 9: ~174m edge length).
+   - In production, close POIs are clustered within the same hexagon (e.g., `GLASS COFFEE` & `EIGHT COFFEE` grouped in West Cell `892f5aadb6fffff`), enabling $O(1)$ spatial hash lookups and spatial binning.
 
-### 2. Production (Cloud Run)
-- **Endpoint Pattern:**
-  ```text
-  https://<SERVICE_URL>/api/spatial/h3-info?lat=<LAT>&lng=<LNG>&resolution=<RES>
-  ```
-- **Interactive Swagger UI:**
-  ```text
-  https://<SERVICE_URL>/docs
-  ```
+2. **Mobility OD Pair Corridor Capture (Routes & Directions):**
+   - For commuter route queries (e.g., Shibuya Station to Tokyo Metropolitan Government Building), the engine automatically captures origin and destination endpoints as discrete H3 cell pairs (`originH3Cell: 892f5aad923ffff` ➔ `destinationH3Cell: 892f5a375afffff`).
+   - Enables route matrix caching and spatial corridor traversal (`grid_path_cells`).
 
-## 🌍 Multilingual Place Localization (Google Places API New)
+3. **Spatial Diagnostic & Inspection API:**
+   - **Local Server (Default Res 9):**
+     ```bash
+     curl "http://localhost:8000/api/spatial/h3-info"
+     ```
+   - **Custom Coordinates & Resolution (e.g., Res 8):**
+     ```bash
+     curl "http://localhost:8000/api/spatial/h3-info?lat=35.6895298&lng=139.7143743&resolution=8"
+     ```
+   - **Interactive OpenAPI 3.1 Swagger UI:** `http://localhost:8000/docs`
 
-When searching for places, Google Maps tools may return registered primary titles in English. To ensure that map pin labels, place details cards, and A2UI JSON payloads are seamlessly presented in the user's preferred language, `geo-agent` integrates a dedicated **Place Localization Service** (`app/localization_service.py`):
+## 🌍 Multilingual Place Localization & Spatiotemporal Grounding (Google Places API New Pro Tier)
+
+To eradicate both linguistic inconsistency and temporal hallucinations (such as recommending businesses that are currently closed or permanently out of business), `geo-agent` features a high-efficiency **Place Localization & Spatiotemporal Grounding Service** (`app/localization_service.py`):
 
 1. **Language Selection (UI & Protocol):**
    - The React Web / Chrome SidePanel client features a language selector at the beginning of the actions bar (`日本語 (ja)` / `English (en)`).
    - The selected language code is forwarded via `[LANG:<lang>]` prefix to the backend.
 
-2. **Name Resolution via Google Places API (New):**
-   - For every extracted place in the response, the service queries the Places API (New) Place Details endpoint (`https://places.googleapis.com/v1/places/{placeId}`) with `languageCode` set to the target language.
-   - The resolved `displayName` safely replaces `markers[].label` and `places[].name` in memory before wire transmission.
+2. **Pro-Tier 8-Dimension Metadata Harvesting (Zero Additional SKU Cost):**
+   - Strictly intercepts Enterprise SKU fields to eliminate billing risks, while extracting the complete **Pro-tier payload** in a single network round-trip:
+     - `displayName`: Localized official place name (e.g., "ダブルトールコーヒー 新宿御苑")
+     - `formattedAddress`: Verified postal address
+     - `primaryTypeDisplayName`: Localized business category (e.g., "カフェ・喫茶")
+     - `businessStatus`: Operational sanity check (`OPERATIONAL` vs `CLOSED_TEMPORARILY` / `CLOSED_PERMANENTLY`)
+     - `currentOpeningHours`: Real-time `openNow` status, `nextOpenTime`, and `weekdayDescriptions`
+     - `rating`, `userRatingCount`, `priceLevel`: Quality and budgetary indicators
+   - **Physical Grounding Proof:** In production testing, only 24-hour establishments (e.g., "珈琲貴族エジンバラ") return `openNow: true` during late-night/early-morning queries, proving zero temporal hallucination.
 
-3. **Performance & Reliability:**
+3. **Route Destination Assurance (`destinationDetails`):**
+   - Seamlessly enriches commuting and direction destinations (e.g., Tokyo Metropolitan Government Building) with operational hours and business status, preventing users from traveling to closed facilities.
+
+4. **Performance & Reliability:**
    - **In-Memory Cache:** Avoids repeated API round-trips for the same place and language.
    - **Zero Additional Dependencies:** Built using Python's standard `urllib.request`.
-   - **Graceful Fallback:** If the network or API lookup fails, the original label is safely preserved without interrupting the conversation.
+   - **Graceful Fallback:** If the network or API lookup fails, original labels are safely preserved without breaking UI components.
 
 ## Commands
 
@@ -427,8 +437,8 @@ flowchart TB
         subgraph FastAPIApp ["FastAPI Backend (fast_api_app.py)"]
             AO["Agent Orchestration\n(Google ADK + MAUI Bundle + A2A)"]
             GA["GeminiAdapter\n(ADK Native Client Interceptor)"]
-            H3["Uber H3 Spatial Service\n(Hierarchical Sharding & Cache)"]
-            LOC["Place Localization Service\n(Places API New displayName / Cache)"]
+            H3["Uber H3 Spatial Service\n(Hierarchical Sharding, Clusters & OD Cells)"]
+            LOC["Place Localization & Spatiotemporal Service\n(Places API New Pro Tier: displayName, openNow, destinationDetails / Cache)"]
             AO --- GA
             AO --- H3
             AO --- LOC
@@ -448,7 +458,7 @@ flowchart TB
     end
 
     subgraph MapsPlatform ["Google Maps Platform"]
-        MAPS["Places API (New) / Routes API /\nGoogle Maps Platform MCP"]
+        MAPS["Places API (New) Pro Tier / Routes API /\nGoogle Maps Platform MCP"]
     end
 
     %% Connections
@@ -464,8 +474,8 @@ The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` a
 
 * **Agent Orchestration**
   * **Build with Google's ADK and A2A, with the option to leverage ready to use samples**: Built with `google-adk` for the core agent implementation, `a2a-sdk` for Agent-to-Agent protocol communication, and integrated with the Maps Agentic UI (A2UI) agent bundle.
-* **Multilingual Place Localization**
-  * **Google Places API (New) Integration**: Employs `PlaceLocalizationService` to dynamically resolve localized `displayName` values using place IDs, ensuring language consistency across map pins, place details cards, and telemetry payloads.
+* **Multilingual Place Localization & Spatiotemporal Grounding**
+  * **Google Places API (New) Pro Tier Integration**: Employs `PlaceLocalizationService` to dynamically resolve localized `displayName`, `openNow` status, weekly schedules, and destination details using place IDs, ensuring language consistency and zero temporal hallucinations across map pins, route endpoints, place details cards, and telemetry payloads.
 * **LLMs**
   * **Model Garden**: Uses Gemini foundation models (e.g., `gemini-3-flash-preview`) accessed via Vertex AI / Model Garden.
 * **Deployment**

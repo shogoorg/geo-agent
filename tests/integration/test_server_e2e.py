@@ -27,13 +27,11 @@ from typing import Any
 import httpx
 import pytest
 import requests
-from a2a.client import ClientConfig, create_client
+from a2a.client import A2ACardResolver, ClientConfig, ClientFactory
 from a2a.types import (
     Message,
     Part,
     Role,
-    SendMessageRequest,
-    StreamResponse,
     TaskState,
     TextPart,
 )
@@ -176,31 +174,36 @@ def test_a2a_chat_stream(server_fixture: subprocess.Popen[str]) -> None:
     """Test the A2A route using the JSON-RPC streaming protocol."""
     logger.info("Starting A2A chat stream test")
 
-    async def _stream() -> list[StreamResponse]:
-        config = ClientConfig(
-            streaming=True,
-            httpx_client=httpx.AsyncClient(timeout=60.0),
-        )
-        client = await create_client(A2A_RPC_URL.rstrip("/"), config)
-        message = Message(
-            message_id=f"msg-user-{uuid.uuid4()}",
-            role=Role.ROLE_USER,
-            parts=[Part(root=TextPart(text="Hi!"))],
-        )
-        req = SendMessageRequest(
-            id=str(uuid.uuid4()),
-            params={"message": message},  # type: ignore[arg-type]
-        )
-        return [chunk async for chunk in client.send_message(req)]
+    async def _stream() -> list[Any]:
+        async with httpx.AsyncClient(timeout=60.0) as httpx_client:
+            config = ClientConfig(
+                streaming=True,
+                httpx_client=httpx_client,
+            )
+            resolver = A2ACardResolver(httpx_client, A2A_RPC_URL.rstrip("/"))
+            card = await resolver.get_agent_card()
+            factory = ClientFactory(config)
+            client = factory.create(card)
+
+            message = Message(
+                message_id=f"msg-user-{uuid.uuid4()}",
+                role=Role.ROLE_USER,
+                parts=[Part(root=TextPart(text="Hi!"))],
+            )
+            return [chunk async for chunk in client.send_message(message)]
 
     responses = asyncio.run(_stream())
     assert responses, "No responses received from stream"
 
-    def _is_completed(chunk: StreamResponse) -> bool:
-        if chunk.HasField("status_update"):
-            return chunk.status_update.status.state == TaskState.TASK_STATE_COMPLETED
-        if chunk.HasField("task"):
-            return chunk.task.status.state == TaskState.TASK_STATE_COMPLETED
+    def _is_completed(chunk: Any) -> bool:
+        if isinstance(chunk, tuple):
+            task, update = chunk
+            if update and hasattr(update, "status"):
+                return update.status.state == TaskState.completed
+            if hasattr(task, "status"):
+                return task.status.state == TaskState.completed
+        elif hasattr(chunk, "status"):
+            return chunk.status.state == TaskState.completed
         return False
 
     assert any(_is_completed(chunk) for chunk in responses), (
