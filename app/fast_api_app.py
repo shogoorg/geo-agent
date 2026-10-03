@@ -97,6 +97,24 @@ app.add_middleware(  # added: explicit CORS middleware configuration
 )
 
 
+@app.get("/api/spatial/h3-info")
+async def get_h3_info(
+    lat: float = 35.690921,
+    lng: float = 139.705256,
+    resolution: int = 9,
+) -> dict[str, object]:
+    """Uber H3 hierarchical spatial index diagnostic endpoint (supports dynamic resolution)."""
+    from app.spatial.h3_service import spatial_service
+
+    result = spatial_service.query_nearby(lat=lat, lng=lng, resolution=resolution)
+    return {
+        "status": "success",
+        "description": "Uber H3 hierarchical spatial index",
+        "query": {"lat": lat, "lng": lng, "resolution": resolution},
+        "data": result,
+    }
+
+
 # Main execution
 if __name__ == "__main__":
     import uvicorn

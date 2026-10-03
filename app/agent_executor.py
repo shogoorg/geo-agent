@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import re
 
 from a2a.server.agent_execution import AgentExecutor, RequestContext
 from a2a.server.events import EventQueue
@@ -33,6 +34,8 @@ from a2ui.a2a.extension import try_activate_a2ui_extension
 from agent import MAUIAgent
 from agent_with_grounding import MAUIAgentWithGrounding
 from agent_with_templates import MAUIAgentWithTemplates
+
+from app.spatial.h3_service import spatial_service
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +90,16 @@ class MAUIAgentExecutor(AgentExecutor):
         else:
             logger.info("No a2ui UI event part found. Falling back to text input.")
             query = context.get_user_input()
+
+        # Extract resolution tag prefix (e.g. [RES:8] -> 8, default: 9)
+        selected_resolution = 9
+        res_match = re.search(r"\[RES:(\d+)\]", query, re.IGNORECASE)
+        if res_match:
+            selected_resolution = int(res_match.group(1))
+            query = re.sub(r"\[RES:\d+\]", "", query, flags=re.IGNORECASE).strip()
+            logger.info(
+                f"--- AGENT_EXECUTOR: Resolution [RES:{selected_resolution}] detected. ---"
+            )
 
         # Interpret prefix and choose agent
         agent_to_use = self._default_agent
@@ -164,6 +177,21 @@ class MAUIAgentExecutor(AgentExecutor):
             )
 
             final_parts = item["parts"]
+
+            # Enrich A2UI DataParts with H3 spatial index (supports RootModel, DataPart, and dict)
+            for part in final_parts:
+                if hasattr(part, "root") and isinstance(part.root, DataPart):
+                    part.root.data = spatial_service.enrich_a2ui_data(
+                        part.root.data, resolution=selected_resolution
+                    )
+                elif isinstance(part, DataPart) and hasattr(part, "data"):
+                    part.data = spatial_service.enrich_a2ui_data(
+                        part.data, resolution=selected_resolution
+                    )
+                elif isinstance(part, dict) and part.get("kind") == "data":
+                    part["data"] = spatial_service.enrich_a2ui_data(
+                        part.get("data"), resolution=selected_resolution
+                    )
 
             logger.info("--- FINAL PARTS TO BE SENT ---")
             for i, part in enumerate(final_parts):
