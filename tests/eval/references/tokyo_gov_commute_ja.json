@@ -1,0 +1,71 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "directions-surface-5d9238b1",
+      "catalogId": "a2ui://maps-agentic-ui-catalog.json"
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "directions-surface-5d9238b1",
+      "components": [
+        {
+          "id": "root",
+          "component": "Column",
+          "children": [
+            "summary-text",
+            "map"
+          ]
+        },
+        {
+          "id": "summary-text",
+          "component": "Text",
+          "variant": "body",
+          "text": "朝の通勤ラッシュ時において、渋谷駅から東京都庁までは車で約13〜14分（約4km）かかります。ただし、朝の混雑状況により所要時間は大きく変動する可能性があるため、時間に余裕を持って移動することをお勧めします。"
+        },
+        {
+          "id": "map",
+          "component": "GoogleMap",
+          "center": {
+            "lat": 35.6738,
+            "lng": 139.6966
+          },
+          "zoom": 13,
+          "routes": [
+            {
+              "origin": {
+                "lat": 35.6580339,
+                "lng": 139.7016358,
+                "label": "渋谷駅",
+                "placeId": "ChIJnxAAO1aLGGARJqvi8d4oczM",
+                "h3Cell": "892f5aad923ffff"
+              },
+              "destination": {
+                "lat": 35.6894807,
+                "lng": 139.6916863,
+                "label": "東京都庁",
+                "placeId": "ChIJoTcat9SMGGAR6GGG8zdcZvE",
+                "h3Cell": "892f5a375afffff"
+              }
+            }
+          ],
+          "travelMode": "driving"
+        }
+      ]
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateDataModel": {
+      "surfaceId": "directions-surface-5d9238b1",
+      "path": "/",
+      "value": {
+        "h3Resolution": 9,
+        "originH3Cell": "892f5aad923ffff",
+        "destinationH3Cell": "892f5a375afffff"
+      }
+    }
+  }
+]

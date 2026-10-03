@@ -1,0 +1,141 @@
+[
+  {
+    "version": "v0.9",
+    "createSurface": {
+      "surfaceId": "local-search-surface-7a8519a1",
+      "catalogId": "a2ui://maps-agentic-ui-catalog.json"
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateComponents": {
+      "surfaceId": "local-search-surface-7a8519a1",
+      "components": [
+        {
+          "id": "root",
+          "component": "Column",
+          "children": [
+            "summary-text",
+            "map",
+            "list"
+          ]
+        },
+        {
+          "id": "summary-text",
+          "component": "Text",
+          "variant": "body",
+          "text": "新宿御苑周辺のおすすめコーヒーショップ（カフェ）を5軒ご紹介します。\n\n*   **GLASS COFFEE**\n    おしゃれで落ち着いた雰囲気のコーヒーショップ。こだわりのコーヒーやブランチ、デザートが楽しめます。ペット同伴可能（店内可）なのも嬉しいポイントです。\n*   **SASAYAIORI+ 新宿御苑店**\n    新宿御苑のすぐそばにある人気店。コーヒーや紅茶だけでなく、抹茶ソフトクリームやどら焼きなどの和風デザートもおすすめです。\n*   **珈琲貴族エジンバラ**\n    24時間営業の老舗喫茶店。レトロな落ち着いた店内で、こだわりのブレンドコーヒーやトースト、ケーキなどが楽しめます。窓際の席からは外の景色も楽しめます。\n*   **ダブルトールコーヒー 新宿御苑店**\n    カジュアルでトレンディなカフェ。美味しいコーヒーや紅茶に加えて、ホットサンドや手作りバナナケーキなどの軽食も人気です。\n*   **スターバックス コーヒー 新宿御苑店**\n    公園内にある開放的な店舗です。広々としたテラス席があり、散策の合間に気軽に立ち寄れる便利なスポットです。Wi-Fiも完備されています。"
+        },
+        {
+          "id": "map",
+          "component": "GoogleMap",
+          "center": {
+            "lat": 35.6882,
+            "lng": 139.7104
+          },
+          "zoom": 14,
+          "markers": [
+            {
+              "lat": 35.6903497,
+              "lng": 139.7102349,
+              "label": "GLASS COFFEE",
+              "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
+              "h3Cell": "892f5aadb6fffff"
+            },
+            {
+              "lat": 35.6851478,
+              "lng": 139.7095574,
+              "label": "SASAYAIORI+ 新宿御苑",
+              "placeId": "ChIJhyufvT-NGGARhd-JSPbvlww",
+              "h3Cell": "892f5aadb67ffff"
+            },
+            {
+              "lat": 35.6905013,
+              "lng": 139.7062875,
+              "label": "珈琲貴族エジンバラ",
+              "placeId": "ChIJt_gWX9uMGGARWdvJVMz9JwU",
+              "h3Cell": "892f5a375d7ffff"
+            },
+            {
+              "lat": 35.6895298,
+              "lng": 139.7143743,
+              "label": "ダブルトールコーヒー 新宿御苑",
+              "placeId": "ChIJU3ijuk-NGGAReJeqiv_EinI",
+              "h3Cell": "892f5aadb6bffff"
+            },
+            {
+              "lat": 35.6837071,
+              "lng": 139.7113021,
+              "label": "スターバックス コーヒー 新宿御苑店",
+              "placeId": "ChIJLblvi9uNGGARy-k9ouh8g80",
+              "h3Cell": "892f5aadb77ffff"
+            }
+          ]
+        },
+        {
+          "id": "list",
+          "component": "List",
+          "direction": "vertical",
+          "children": {
+            "componentId": "place-card",
+            "path": "/places"
+          }
+        },
+        {
+          "id": "place-card",
+          "component": "PlaceDetailsCompact",
+          "placeId": {
+            "path": "placeId"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "version": "v0.9",
+    "updateDataModel": {
+      "surfaceId": "local-search-surface-7a8519a1",
+      "path": "/",
+      "value": {
+        "places": [
+          {
+            "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
+            "name": "GLASS COFFEE",
+            "lat": 35.6903497,
+            "lng": 139.7102349,
+            "h3Cell": "892f5aadb6fffff"
+          },
+          {
+            "placeId": "ChIJhyufvT-NGGARhd-JSPbvlww",
+            "name": "SASAYAIORI+ 新宿御苑",
+            "lat": 35.6851478,
+            "lng": 139.7095574,
+            "h3Cell": "892f5aadb67ffff"
+          },
+          {
+            "placeId": "ChIJt_gWX9uMGGARWdvJVMz9JwU",
+            "name": "珈琲貴族エジンバラ",
+            "lat": 35.6905013,
+            "lng": 139.7062875,
+            "h3Cell": "892f5a375d7ffff"
+          },
+          {
+            "placeId": "ChIJU3ijuk-NGGAReJeqiv_EinI",
+            "name": "ダブルトールコーヒー 新宿御苑",
+            "lat": 35.6895298,
+            "lng": 139.7143743,
+            "h3Cell": "892f5aadb6bffff"
+          },
+          {
+            "placeId": "ChIJLblvi9uNGGARy-k9ouh8g80",
+            "name": "スターバックス コーヒー 新宿御苑店",
+            "lat": 35.6837071,
+            "lng": 139.7113021,
+            "h3Cell": "892f5aadb77ffff"
+          }
+        ],
+        "h3Resolution": 9
+      }
+    }
+  }
+]
