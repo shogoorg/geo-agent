@@ -22,8 +22,6 @@ geo-agent/
 │   └── app_utils/             # App utilities, A2A endpoints, and services
 ├── client/                    # Client applications
 │   ├── web/react/             # React web client with A2UI renderer
-│   ├── android/               # Android client
-│   └── ios/                   # iOS client
 ├── deployment/                # Deployment infrastructure (Terraform)
 ├── tests/                     # Unit, integration, and evaluation datasets
 ├── Dockerfile                 # Backend container definition for Cloud Run
