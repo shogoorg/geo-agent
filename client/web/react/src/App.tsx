@@ -26,6 +26,11 @@ const H3_RESOLUTIONS = [
   { res: 15, label: 'Res 15 - 0.0000009 km2' },
 ];
 
+const SUPPORTED_LANGUAGES = [
+  { code: 'ja', label: '日本語 (ja)' },
+  { code: 'en', label: 'English (en)' },
+];
+
 /**
  * Main Application component that demonstrates A2UI integration in a React environment.
  * It manages a chat interface with a timeline of text messages and A2UI interactive surfaces.
@@ -45,6 +50,8 @@ function App() {
   // Agent mode state disabled - uses standard backend default agent
   // const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
   const [h3Resolution, setH3Resolution] = useState<number>(9);
+  // Language selection for Template mode (defaults to Japanese 'ja')
+  const [language, setLanguage] = useState<string>('ja');
 
   // --- A2UI Integration Refs ---
   // A2UIClient handles communication with the A2A agent
@@ -106,7 +113,7 @@ function App() {
     rendererRef.current.addUserMessage(messageText);
     setTimeline([...rendererRef.current.timeline]);
 
-    // 2. Prepend resolution prefix (agent routing prefixes disabled)
+    // 2. Prepend language and resolution prefix for Template mode
     // if (agentMode === 'grounding') {
     //   payload = `[GROUNDING][RES:${h3Resolution}] ${messageText}`;
     // } else if (agentMode === 'template') {
@@ -114,7 +121,7 @@ function App() {
     // } else {
     //   payload = `[RES:${h3Resolution}] ${messageText}`;
     // }
-    const payload = `[RES:${h3Resolution}] ${messageText}`;
+    const payload = `[LANG:${language}][RES:${h3Resolution}] ${messageText}`;
 
     try {
       // 3. Send the message to the A2A agent via A2UIClient
@@ -250,6 +257,19 @@ function App() {
             disabled={isRequesting}></textarea>
           <div className="chat-actions">
             <div className="agent-selector-wrapper">
+              {/* Language selector placed at the very beginning */}
+              <select
+                className="language-select"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                disabled={isRequesting}
+                aria-label="Select Language">
+                {SUPPORTED_LANGUAGES.map(({ code, label }) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
               {/* Agent mode selector disabled
               <select
                 className="agent-mode-select"

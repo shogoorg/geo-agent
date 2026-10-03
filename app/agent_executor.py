@@ -35,6 +35,7 @@ from agent import MAUIAgent
 from agent_with_grounding import MAUIAgentWithGrounding
 from agent_with_templates import MAUIAgentWithTemplates
 
+from app.localization_service import localization_service
 from app.spatial.h3_service import spatial_service
 
 logger = logging.getLogger(__name__)
@@ -90,6 +91,18 @@ class MAUIAgentExecutor(AgentExecutor):
         else:
             logger.info("No a2ui UI event part found. Falling back to text input.")
             query = context.get_user_input()
+
+        # Extract language tag prefix (e.g. [LANG:ja] -> ja, default: ja)
+        selected_language = "ja"
+        lang_match = re.search(r"\[LANG:([a-zA-Z_-]+)\]", query, re.IGNORECASE)
+        if lang_match:
+            selected_language = lang_match.group(1).lower()
+            query = re.sub(
+                r"\[LANG:[a-zA-Z_-]+\]", "", query, flags=re.IGNORECASE
+            ).strip()
+            logger.info(
+                f"--- AGENT_EXECUTOR: Language [LANG:{selected_language}] detected. ---"
+            )
 
         # Extract resolution tag prefix (e.g. [RES:8] -> 8, default: 9)
         selected_resolution = 9
@@ -182,6 +195,12 @@ class MAUIAgentExecutor(AgentExecutor):
 
             # Enrich A2UI DataParts with H3 spatial index across all response parts
             spatial_service.enrich_parts(final_parts, resolution=selected_resolution)
+
+            # Localize place names (markers and places) for Template mode
+            if agent_to_use != self._grounding_agent:
+                localization_service.localize_parts(
+                    final_parts, language=selected_language
+                )
 
             logger.info("--- FINAL PARTS TO BE SENT ---")
             for i, part in enumerate(final_parts):
