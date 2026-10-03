@@ -1,0 +1,59 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "restaurants in Tokyo"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Tokyo is one of the world’s greatest culinary capitals, boasting more Michelin stars than any other city alongside an incredible street food and casual dining scene. \n\nHere is a curated guide to some of the best restaurants in Tokyo across different cuisines, styles, and budgets:\n\n---\n\n### 1. Sushi (From Value Omakase to High-End)\n* **Manten Sushi (Marunouchi / Nihonbashi)**  \n  * *Vibe:* Fantastic value for a high-quality *omakase* (chef's choice) experience without the ultra-luxury price tag.\n  * *Budget:* Moderate ($$)\n* **Sushi Dai (Toyosu Fish Market)**  \n  * *Vibe:* Ultra-fresh market sushi. Expect very early mornings and long queues, but worth it for market freshness.\n  * *Budget:* Moderate ($$)\n* **Sushi Sugita (Nihonbashi)**  \n  * *Vibe:* Often rated as one of the best Edomae sushi experiences in the world. (Very difficult to book; requires advance reservation services).\n  * *Budget:* High-end ($$$$)\n\n---\n\n### 2. Ramen & Noodles\n* **Ginza Kagari (Ginza)**  \n  * *Specialty:* *Tori Paitan* (rich, creamy chicken broth ramen) topped with seasonal vegetables.\n* **Fuunji (Shinjuku)**  \n  * *Specialty:* *Tsukemen* (dipping noodles) with a thick, rich fish-and-pork broth. Fast-paced counter seating.\n* **Afuri (Ebisu, Harajuku, Roppongi)**  \n  * *Specialty:* *Yuzu Shio* ramen (light, citrus-infused broth with charcoal-grilled chashu). Great vegan options available.\n* **Rokurinsha (Tokyo Station - Ramen Street)**  \n  * *Specialty:* Famous for heavy, rich tonkotsu-seafood dipping broth.\n\n---\n\n### 3. Wagyu, Yakiniku & Cutlets\n* **Yoroniku (Minami-Aoyama / Ebisu)**  \n  * *Specialty:* Upscale Yakiniku (Japanese BBQ). Melt-in-your-mouth cuts of A5 Wagyu served in meticulously curated tasting courses.\n* **Gyukatsu Motomura (Shinjuku, Shibuya, Akihabara)**  \n  * *Specialty:* *Gyukatsu* (deep-fried beef cutlet that you finish grilling on a personal mini hot stone at your seat).\n* **Tonkatsu Maisen (Aoyama Flagship)**  \n  * *Specialty:* Kurobuta (Berkshire pork) tonkatsu served inside a renovated historic public bathhouse.\n\n---\n\n### 4. Izakaya & Casual Yakitori\n* **Gonpachi (Nishi-Azabu)**  \n  * *Vibe:* The sprawling wooden interior that inspired the restaurant fight scene in Quentin Tarantino’s *Kill Bill*. Serves yakitori, soba, and tempura.\n* **Torikizoku (Everywhere)**  \n  * *Vibe:* Highly popular chain where every food and drink item is uniform low-price. Great for cheap beers, yakitori skewers, and casual night outs.\n* **Omoide Yokocho / \"Memory Lane\" (Shinjuku)**  \n  * *Vibe:* A narrow alley packed with tiny, smoky counter-service stalls serving yakitori, offal, and cold beer.\n\n---\n\n### 5. High-End / Modern Fine Dining\n* **NARISAWA (Minami-Aoyama)**  \n  * *Style:* Innovative \"Satoyama\" cuisine (sustainable gastronomy blending French techniques with Japanese terroir). Two Michelin stars.\n* **Den (Jingumae)**  \n  * *Style:* Creative modern Kaiseki. Playful, humorous presentation with world-class hospitality and flavors. Two Michelin stars.\n* **L’Effervescence (Nishi-Azabu)**  \n  * *Style:* Exceptional French fine dining highlighting Japanese ingredients. Three Michelin stars.\n\n---\n\n### Key Neighborhoods for Foodies\n* **Ginza:** Luxury dining, high-end sushi, department store basements (*depachika*) filled with gourmet foods.\n* **Ebisu & Nakameguro:** Trendy izakayas, wine bars, upscale casual dining, and craft beer spots.\n* **Shinjuku & Shibuya:** Bustling nightlife, ramen alleys, multi-story dining towers, and budget-friendly eats.\n* **Asakusa:** Traditional street foods, tempura, soba, and historic sweets.\n\n---\n\n### Essential Tips for Dining in Tokyo\n1. **Reservations:** For high-end sushi, kaiseki, or trendy spots, book weeks or months in advance using platforms like **TableCheck**, **Pocket Concierge**, or **OMAKASE**.\n2. **Tabelog:** Japan’s premier food rating site. Unlike Yelp/Google where ratings skew higher, any restaurant on Tabelog with a rating of **3.5 or above** is considered exceptionally good.\n3. **Cash vs. Card:** While cards and IC cards (Suica/Pasmo) are widely accepted now, smaller ramen shops, street stalls, and ticket-vending machines often take **cash only**.\n4. **Tipping:** There is **no tipping** in Japan. Exceptional service is standard and included."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "restaurants_in_tokyo",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Tokyo is one of the world’s greatest culinary capitals, boasting more Michelin stars than any other city alongside an incredible street food and casual dining scene. \n\nHere is a curated guide to some of the best restaurants in Tokyo across different cuisines, styles, and budgets:\n\n---\n\n### 1. Sushi (From Value Omakase to High-End)\n* **Manten Sushi (Marunouchi / Nihonbashi)**  \n  * *Vibe:* Fantastic value for a high-quality *omakase* (chef's choice) experience without the ultra-luxury price tag.\n  * *Budget:* Moderate ($$)\n* **Sushi Dai (Toyosu Fish Market)**  \n  * *Vibe:* Ultra-fresh market sushi. Expect very early mornings and long queues, but worth it for market freshness.\n  * *Budget:* Moderate ($$)\n* **Sushi Sugita (Nihonbashi)**  \n  * *Vibe:* Often rated as one of the best Edomae sushi experiences in the world. (Very difficult to book; requires advance reservation services).\n  * *Budget:* High-end ($$$$)\n\n---\n\n### 2. Ramen & Noodles\n* **Ginza Kagari (Ginza)**  \n  * *Specialty:* *Tori Paitan* (rich, creamy chicken broth ramen) topped with seasonal vegetables.\n* **Fuunji (Shinjuku)**  \n  * *Specialty:* *Tsukemen* (dipping noodles) with a thick, rich fish-and-pork broth. Fast-paced counter seating.\n* **Afuri (Ebisu, Harajuku, Roppongi)**  \n  * *Specialty:* *Yuzu Shio* ramen (light, citrus-infused broth with charcoal-grilled chashu). Great vegan options available.\n* **Rokurinsha (Tokyo Station - Ramen Street)**  \n  * *Specialty:* Famous for heavy, rich tonkotsu-seafood dipping broth.\n\n---\n\n### 3. Wagyu, Yakiniku & Cutlets\n* **Yoroniku (Minami-Aoyama / Ebisu)**  \n  * *Specialty:* Upscale Yakiniku (Japanese BBQ). Melt-in-your-mouth cuts of A5 Wagyu served in meticulously curated tasting courses.\n* **Gyukatsu Motomura (Shinjuku, Shibuya, Akihabara)**  \n  * *Specialty:* *Gyukatsu* (deep-fried beef cutlet that you finish grilling on a personal mini hot stone at your seat).\n* **Tonkatsu Maisen (Aoyama Flagship)**  \n  * *Specialty:* Kurobuta (Berkshire pork) tonkatsu served inside a renovated historic public bathhouse.\n\n---\n\n### 4. Izakaya & Casual Yakitori\n* **Gonpachi (Nishi-Azabu)**  \n  * *Vibe:* The sprawling wooden interior that inspired the restaurant fight scene in Quentin Tarantino’s *Kill Bill*. Serves yakitori, soba, and tempura.\n* **Torikizoku (Everywhere)**  \n  * *Vibe:* Highly popular chain where every food and drink item is uniform low-price. Great for cheap beers, yakitori skewers, and casual night outs.\n* **Omoide Yokocho / \"Memory Lane\" (Shinjuku)**  \n  * *Vibe:* A narrow alley packed with tiny, smoky counter-service stalls serving yakitori, offal, and cold beer.\n\n---\n\n### 5. High-End / Modern Fine Dining\n* **NARISAWA (Minami-Aoyama)**  \n  * *Style:* Innovative \"Satoyama\" cuisine (sustainable gastronomy blending French techniques with Japanese terroir). Two Michelin stars.\n* **Den (Jingumae)**  \n  * *Style:* Creative modern Kaiseki. Playful, humorous presentation with world-class hospitality and flavors. Two Michelin stars.\n* **L’Effervescence (Nishi-Azabu)**  \n  * *Style:* Exceptional French fine dining highlighting Japanese ingredients. Three Michelin stars.\n\n---\n\n### Key Neighborhoods for Foodies\n* **Ginza:** Luxury dining, high-end sushi, department store basements (*depachika*) filled with gourmet foods.\n* **Ebisu & Nakameguro:** Trendy izakayas, wine bars, upscale casual dining, and craft beer spots.\n* **Shinjuku & Shibuya:** Bustling nightlife, ramen alleys, multi-story dining towers, and budget-friendly eats.\n* **Asakusa:** Traditional street foods, tempura, soba, and historic sweets.\n\n---\n\n### Essential Tips for Dining in Tokyo\n1. **Reservations:** For high-end sushi, kaiseki, or trendy spots, book weeks or months in advance using platforms like **TableCheck**, **Pocket Concierge**, or **OMAKASE**.\n2. **Tabelog:** Japan’s premier food rating site. Unlike Yelp/Google where ratings skew higher, any restaurant on Tabelog with a rating of **3.5 or above** is considered exceptionally good.\n3. **Cash vs. Card:** While cards and IC cards (Suica/Pasmo) are widely accepted now, smaller ramen shops, street stalls, and ticket-vending machines often take **cash only**.\n4. **Tipping:** There is **no tipping** in Japan. Exceptional service is standard and included."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-09-21T10:23:12.290292Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
