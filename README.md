@@ -1,9 +1,11 @@
 # geo-agent
 
-Built with agents-cli, googlemaps/a2ui, and googlemaps-samples/a2ui:
+Built with agents-cli, googlemaps/a2ui, and Google Cloud Agent Stack:
 - **[agents-cli](https://github.com/google/agents-cli)**: The CLI and skills that turn any coding assistant into an expert at creating, evaluating, and deploying AI agents on Google Cloud.
 - **[googlemaps/a2ui](https://github.com/googlemaps/a2ui)**: The A2UI implementation for the Maps Agentic UI Toolkit.
 - **[googlemaps-samples/a2ui](https://github.com/googlemaps-samples/a2ui)**: Samples for the A2UI implementation for the Maps Agentic UI Toolkit.
+- **[Uber H3 Spatial Indexing](https://h3geo.org/)**: Discretizes physical geography into hexagonal grid cells (Resolutions 0–15) for deterministic spatial clustering and OD corridor routing.
+- **[Google Maps MCP & Places API (New)](https://developers.google.com/maps/ai/grounding-lite)**: Dual-layer grounding combining Grounding Lite MCP for LLM tool search with Places API (New) Pro-tier to eliminate map hallucinations and deliver verified place details.
 
 Maps Agentic UI (A2UI) agent with Google ADK
 Agent generated and updated with `agents-cli` version `1.7.0`
@@ -16,7 +18,7 @@ geo-agent/
 │   ├── agent.py               # Main agent logic & MAUI bundle definition
 │   ├── agent_executor.py      # MAUI agent executor integration
 │   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
-│   ├── localization_service.py # Place localization service (Google Places API New displayName)
+│   ├── localization_service.py # Place localization & Pro-tier metadata service (Places API New)
 │   ├── spatial/               # Uber H3 hierarchical spatial indexing & caching
 │   │   ├── __init__.py
 │   │   └── h3_service.py      # H3 service (lat/lng to cell, k-ring, A2UI enrichment)
@@ -93,12 +95,9 @@ A2UI_DEFAULT_AGENT=TEMPLATE
 # A2UI_DEFAULT_AGENT=BASE
 ```
 
-> 💡 **Tip (Per-Query Switching without restart):**
-> You can test different configurations against the running server by prefixing your prompt:
+> 💡 **Tip (Dynamic Overrides via Prompt):**
 > * `[LANG:ja] <query>` or `[LANG:en] <query>` ➔ Override language resolution dynamically (defaults to UI selector)
 > * `[RES:<0-15>] <query>` ➔ Override H3 spatial index resolution (0 to 15)
-> * `[TEMPLATE] <query>` ➔ Routes directly to `MAUIAgentWithTemplates`
-> * `<query>` (no prefix) ➔ Routes to your configured default agent
 
 #### 2. Start the MAUI Agent Backend
 
@@ -113,55 +112,6 @@ cd client/web/react
 npm install
 npm run dev
 ```
-
-## 🌐 Uber H3 Hierarchical Spatial Index & Aggregation
-
-GeoAgent integrates the Uber H3 discrete global grid system (Resolutions 0–15) to discretize physical geography, partition queries, and eliminate spatial hallucinations:
-
-1. **Deterministic Spatial Sharding & Clustering (`h3Clusters`):**
-   - POI latitude/longitude coordinates are deterministically mapped to hexagonal cell IDs (e.g., Resolution 9: ~174m edge length).
-   - In production, close POIs are clustered within the same hexagon (e.g., `GLASS COFFEE` & `EIGHT COFFEE` grouped in West Cell `892f5aadb6fffff`), enabling $O(1)$ spatial hash lookups and spatial binning.
-
-2. **Mobility OD Pair Corridor Capture (Routes & Directions):**
-   - For commuter route queries (e.g., Shibuya Station to Tokyo Metropolitan Government Building), the engine automatically captures origin and destination endpoints as discrete H3 cell pairs (`originH3Cell: 892f5aad923ffff` ➔ `destinationH3Cell: 892f5a375afffff`).
-   - Enables route matrix caching and spatial corridor traversal (`grid_path_cells`).
-
-3. **Spatial Diagnostic & Inspection API:**
-   - **Local Server (Default Res 9):**
-     ```bash
-     curl "http://localhost:8000/api/spatial/h3-info"
-     ```
-   - **Custom Coordinates & Resolution (e.g., Res 8):**
-     ```bash
-     curl "http://localhost:8000/api/spatial/h3-info?lat=35.6895298&lng=139.7143743&resolution=8"
-     ```
-   - **Interactive OpenAPI 3.1 Swagger UI:** `http://localhost:8000/docs`
-
-## 🌍 Multilingual Place Localization & Spatiotemporal Grounding (Google Places API New Pro Tier)
-
-To eradicate both linguistic inconsistency and temporal hallucinations (such as recommending businesses that are currently closed or permanently out of business), `geo-agent` features a high-efficiency **Place Localization & Spatiotemporal Grounding Service** (`app/localization_service.py`):
-
-1. **Language Selection (UI & Protocol):**
-   - The React Web / Chrome SidePanel client features a language selector at the beginning of the actions bar (`日本語 (ja)` / `English (en)`).
-   - The selected language code is forwarded via `[LANG:<lang>]` prefix to the backend.
-
-2. **Pro-Tier 8-Dimension Metadata Harvesting (Zero Additional SKU Cost):**
-   - Strictly intercepts Enterprise SKU fields to eliminate billing risks, while extracting the complete **Pro-tier payload** in a single network round-trip:
-     - `displayName`: Localized official place name (e.g., "ダブルトールコーヒー 新宿御苑")
-     - `formattedAddress`: Verified postal address
-     - `primaryTypeDisplayName`: Localized business category (e.g., "カフェ・喫茶")
-     - `businessStatus`: Operational sanity check (`OPERATIONAL` vs `CLOSED_TEMPORARILY` / `CLOSED_PERMANENTLY`)
-     - `currentOpeningHours`: Real-time `openNow` status, `nextOpenTime`, and `weekdayDescriptions`
-     - `rating`, `userRatingCount`, `priceLevel`: Quality and budgetary indicators
-   - **Physical Grounding Proof:** In production testing, only 24-hour establishments (e.g., "珈琲貴族エジンバラ") return `openNow: true` during late-night/early-morning queries, proving zero temporal hallucination.
-
-3. **Route Destination Assurance (`destinationDetails`):**
-   - Seamlessly enriches commuting and direction destinations (e.g., Tokyo Metropolitan Government Building) with operational hours and business status, preventing users from traveling to closed facilities.
-
-4. **Performance & Reliability:**
-   - **In-Memory Cache:** Avoids repeated API round-trips for the same place and language.
-   - **Zero Additional Dependencies:** Built using Python's standard `urllib.request`.
-   - **Graceful Fallback:** If the network or API lookup fails, original labels are safely preserved without breaking UI components.
 
 ## Commands
 
@@ -191,18 +141,9 @@ Edit your agent logic in `app/agent.py` and test with `agents-cli playground` - 
 
 ## Deployment
 
-#### 1. Configure the Agent Mode for Deployment
+#### 1. Deploy the MAUI Agent Backend (`geo-agent`)
 
-By default, Cloud Run automatically inherits `A2UI_DEFAULT_AGENT` from your `.env` file (see [Configure the Default Agent](#1-configure-the-default-agent-env) for available agent modes).
-
-> 💡 **Tip (Overriding Agent Mode at Deploy Time):**
-> You can override the agent mode without modifying `.env` using `--update-env-vars`:
-> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=TEMPLATE` ➔ Deploy as Template Agent
-> * `agents-cli deploy ... --update-env-vars A2UI_DEFAULT_AGENT=BASE` ➔ Deploy as Base Agent
-
-#### 2. Deploy the MAUI Agent Backend (`geo-agent`)
-
-##### 2.1 Set Up Infrastructure (Terraform)
+##### 1.1 Set Up Infrastructure (Terraform)
 
 Provision the Google Cloud infrastructure (Cloud Run, GCS telemetry logs bucket, BigQuery dataset/views, and IAM roles) using Terraform via `agents-cli`:
 
@@ -223,7 +164,7 @@ agents-cli scaffold upgrade --dry-run
 agents-cli scaffold upgrade
 ```
 
-##### 2.2 Deploy Agent Application
+##### 1.2 Deploy Agent Application
 
 Deploy the application container and code:
 
@@ -232,7 +173,7 @@ Deploy the application container and code:
 agents-cli deploy --project <your-project-id>
 ```
 
-##### 2.3 Allow Public Invocation
+##### 1.3 Allow Public Invocation
 
 Allow public invocation (required for client access):
 
@@ -244,7 +185,7 @@ gcloud run services add-iam-policy-binding geo-agent \
   --role="roles/run.invoker"
 ```
 
-#### 3. Deploy the React Web Client (`geo-agent-web`)
+#### 2. Deploy the React Web Client (`geo-agent-web`)
 
 Deploy the web client to Cloud Run:
 
@@ -280,38 +221,12 @@ gsutil ls gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/
 # Query telemetry in BigQuery
 bq query --use_legacy_sql=false \
   "SELECT * FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\` LIMIT 10"
-```
-
-"Agent interaction turns and deterministic A2UI map payloads (set_model_response) are exported via OpenTelemetry to Cloud Storage and indexed in BigQuery for full auditability:"
-
-```bash
-PROJECT_ID="your-dev-project-id"
-PROJECT_NAME="your-project-name"
-DATASET_NAME="your_project_name_telemetry"  # Note: Use underscores instead of hyphens for BigQuery dataset
-
-# ==============================================================================
-# 1. Extract all deterministic A2UI JSON from GCS (Cloud Storage)
-# ==============================================================================
-
-# 1.1 List all telemetry log files in GCS
-gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**"
-
-# 1.2 Scan and extract all deterministic A2UI JSON payloads (set_model_response) from GCS
-FILES=$(gsutil ls -r "gs://${PROJECT_ID}-${PROJECT_NAME}-logs/completions/**" | grep -v ':$' | grep -v 'TOTAL:')
-for f in $FILES; do
-  gsutil cat "$f" 2>/dev/null | jq -c 'select(.parts[]?.name == "set_model_response") | .parts[] | select(.name == "set_model_response") | .arguments' 2>/dev/null
-done | grep '^{' | jq .
-
-
-# ==============================================================================
-# 2. Extract all deterministic A2UI JSON from BigQuery
-# ==============================================================================
 
 # Query and display all deterministic A2UI JSON payloads (set_model_response) from BigQuery
 bq query --use_legacy_sql=false --location=us-east1 --max_rows=1000 --format=prettyjson \
   "SELECT 
      p.arguments AS a2ui_data 
-   FROM \`${PROJECT_ID}.${DATASET_NAME}.completions\`, 
+   FROM \`${PROJECT_ID}.${PROJECT_NAME}_telemetry.completions\`, 
    UNNEST(parts) AS p 
    WHERE p.name = 'set_model_response'"
 ```
@@ -352,13 +267,6 @@ LLM token usage:
 ```sql
 SELECT
   agent,
-  -- Note on ADK schema mismatch:
-  -- The upstream documentation specifies '$.model', '$.usage_metadata.prompt', and '$.usage_metadata.completion'.
-  -- However, in actual ADK event payloads, these keys are stored as:
-  --   '$.model_version' (instead of '$.model')
-  --   '$.usage_metadata.prompt_token_count' (instead of '$.usage_metadata.prompt')
-  --   '$.usage_metadata.candidates_token_count' (instead of '$.usage_metadata.completion')
-  -- If querying against actual ADK agent_events tables, use the token_count keys.
   JSON_VALUE(attributes, '$.model') AS model,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.prompt') AS INT64)) AS total_prompt_tokens,
   SUM(CAST(JSON_VALUE(attributes, '$.usage_metadata.completion') AS INT64)) AS total_completion_tokens
@@ -378,53 +286,42 @@ See the [A2A Inspector docs](https://github.com/a2aproject/a2a-inspector) for de
 
 ### Four CLI verbs on rotation
 
-```text
-step 1
-$ scaffold
-spec → 72 files
+```mermaid
+flowchart LR
+    S["🛠️ <b>Step 1: scaffold</b><br/><code>A2A + H3 + Maps Stack</code>"]
+    E["📊 <b>Step 2: eval</b><br/><code>Map Hallucination Gate</code>"]
+    D["🚀 <b>Step 3: deploy</b><br/><code>Dual Cloud Run (Agent + Web)</code>"]
+    O["🔍 <b>Step 4: observe</b><br/><code>Spatial Telemetry & BigQuery</code>"]
 
-step 2
-$ eval
-score before merge
+    S --> E
+    E --> D
+    D --> O
+    O -->|🔁 Continuous Feedback Loop| S
 
-step 3
-$ deploy
-ship to prod
-
-step 4
-$ observe
-trace + analytics
-
-↻
-scaffold → eval → deploy → observe → repeat
+    classDef step fill:#f8f9fa,stroke:#1a73e8,stroke-width:2px,color:#202124;
+    class S,E,D,O step;
 ```
 
-scaffold, eval, deploy, observe — on a rotation, forever. You write the spec; the loop catches what would have shipped, ships what passes, and shows you what happens next so the next iteration is smarter.
+In `geo-agent`, the four CLI lifecycle verbs continuously rotate to ensure spatial precision, eliminate map hallucinations, and deliver rich Generative UI:
 
----
+* **step 1 · `$ scaffold` (Spatial & Maps Agent Foundation)**
+  * **A2A & ADK Scaffolding**: Generates the Google ADK foundation, Agent-to-Agent (A2A) protocol routes, and Terraform IaC from the `agents-cli` manifest.
+  * **Spatial & Pro-Tier Customization**: Integrates Maps Agentic UI (`maui-a2ui-python`), Uber H3 spatial indexing (`app/spatial/`), and Google Places API (New) Pro-tier grounding (`app/localization_service.py`) directly into the agent pipeline.
 
-#### How this project utilizes each verb:
+* **step 2 · `$ eval` (Map Hallucination Prevention & UI Schema Gate)**
+  * **Map Hallucination Prevention**: Automatically verifies that recommended locations, addresses, and route endpoints are factually grounded without spatial or map hallucinations, using bilingual evaluation benchmarks under `tests/eval/`.
+  * **A2UI Schema Verification**: Guarantees that generated A2UI JSON structures (map markers, route directions, and place cards) adhere strictly to the Maps UI catalog schemas before shipping.
 
-* **step 1 · `$ scaffold` (spec → 72 files)**
-  * **Scaffolded Foundation**: Generated project structure (`app/`, `deployment/terraform/`, `Dockerfile`, configurations) via `agents-cli` (v1.7.0).
-  * **Spec & Configuration**: Managed declaratively in `agents-cli-manifest.yaml` (`deployment_target: cloud_run`, `is_a2a: true`, `base_template: adk`).
-  * **Agent Customization**: Extended the baseline ADK agent with Maps Agentic UI (`maui-a2ui-python`, `a2ui-agent-sdk`), A2A protocol routes, and Grounding Lite MCP tools.
+* **step 3 · `$ deploy` (Production Container & Web Deployment)**
+  * **Dual Cloud Run Deployment**: Deploys both the FastAPI agent backend (`geo-agent`) and the React Web / Chrome SidePanel client (`geo-agent-web`) to Google Cloud Run.
+  * **Terraform Automation**: Declaratively provisions Cloud Run services, IAM permissions, telemetry storage buckets, and BigQuery datasets.
 
-* **step 2 · `$ eval` (score before merge)**
-  * **Pre-Merge Scoring**: Runs `agents-cli eval run` as an automated quality gate before merging or shipping changes.
-  * **Evaluation Datasets**: Leverages evaluation datasets under `tests/eval/` along with `google-cloud-aiplatform[evaluation]` and `google-adk[eval]` to score prompt effectiveness, tool invocation accuracy, and grounding relevance.
+* **step 4 · `$ observe` (Spatial Telemetry & BigQuery Traces)**
+  * **Distributed Tracing**: Visualizes latency across LLM reasoning, Google Maps API queries, and H3 indexing spans via Cloud Trace.
+  * **BigQuery Spatial Analytics**: Streams prompt completions, token usage, tool events, and **H3 spatial cell / OD corridor telemetry** to BigQuery via `BigQueryAgentAnalyticsPlugin`.
 
-* **step 3 · `$ deploy` (ship to prod)**
-  * **Container Build**: Packages the application into a production-ready FastAPI / Uvicorn container using `Dockerfile`.
-  * **Infrastructure as Code**: Provisions and updates Google Cloud Run, IAM roles, and storage buckets using Terraform definitions in `deployment/terraform/single-project/`.
-
-* **step 4 · `$ observe` (trace + analytics)**
-  * **Distributed Trace**: Automatically exports all invocation spans to Cloud Trace via `opentelemetry-resourcedetector-gcp` and `google-adk[otel-gcp]`.
-  * **Logging**: Aggregates application logs and GenAI events to Cloud Logging via `google-cloud-logging`.
-  * **BigQuery Analytics**: Streams completions, token usage metrics, and tool execution logs to Cloud Storage (`logs_data_bucket`) and BigQuery (`telemetry_dataset`) using `BigQueryAgentAnalyticsPlugin`.
-
-* **↻ `scaffold → eval → deploy → observe → repeat`**
-  * **Continuous Improvement Loop**: Production telemetry and query insights from BigQuery feed back into prompt tuning and agent enhancements, verified via `eval` before the next deployment.
+* **↻ `scaffold → eval → deploy → observe → repeat` (Continuous Feedback from Spatial Data)**
+  * Production query insights and spatial distribution telemetry in BigQuery inform prompt refinements, H3 resolution tuning, and template additions, verified by `eval` before every deployment.
 
 
 ## Architecture
@@ -438,7 +335,7 @@ flowchart TB
             AO["Agent Orchestration\n(Google ADK + MAUI Bundle + A2A)"]
             GA["GeminiAdapter\n(ADK Native Client Interceptor)"]
             H3["Uber H3 Spatial Service\n(Hierarchical Sharding, Clusters & OD Cells)"]
-            LOC["Place Localization & Spatiotemporal Service\n(Places API New Pro Tier: displayName, openNow, destinationDetails / Cache)"]
+            LOC["Place Localization & Grounding Service\n(Places API New Pro Tier: displayName, addresses / Cache)"]
             AO --- GA
             AO --- H3
             AO --- LOC
@@ -450,7 +347,7 @@ flowchart TB
     end
 
     subgraph LLMs ["Model Garden & Vertex AI"]
-        MG["Gemini Models\n(gemini-3.1-flash-lite)"]
+        MG["Gemini Models\n(gemini-3.1-flash-lite / gemini-3-flash-preview)"]
     end
 
     subgraph Data ["Data & Telemetry"]
@@ -470,24 +367,25 @@ flowchart TB
     Observability --> DSA
 ```
 
-The Google Cloud agent stack that `geo-agent` builds on (based on `agents-cli` architecture):
+The Google Cloud agent stack tailored for `geo-agent`:
 
-* **Agent Orchestration**
-  * **Build with Google's ADK and A2A, with the option to leverage ready to use samples**: Built with `google-adk` for the core agent implementation, `a2a-sdk` for Agent-to-Agent protocol communication, and integrated with the Maps Agentic UI (A2UI) agent bundle.
-* **Multilingual Place Localization & Spatiotemporal Grounding**
-  * **Google Places API (New) Pro Tier Integration**: Employs `PlaceLocalizationService` to dynamically resolve localized `displayName`, `openNow` status, weekly schedules, and destination details using place IDs, ensuring language consistency and zero temporal hallucinations across map pins, route endpoints, place details cards, and telemetry payloads.
-* **LLMs**
-  * **Model Garden**: Uses Gemini foundation models (e.g., `gemini-3-flash-preview`) accessed via Vertex AI / Model Garden.
-* **Deployment**
-  * **Cloud Run**: Packaged as a FastAPI container application via `Dockerfile` and deployed to Cloud Run (selected over `Agent Runtime` / `GKE`).
-* **IaC & CI/CD**
-  * **Infrastructure as code**: Provisioned using Terraform manifests under `deployment/terraform/single-project` to automate Cloud Run, IAM, storage, and telemetry datasets.
-* **Observability**
-  * **OpenTele**: Integrated with `opentelemetry-resourcedetector-gcp` and `google-adk[otel-gcp]` for distributed tracing to Cloud Trace.
-  * **Logging**: Uses `google-cloud-logging` to route runtime and inference event logs to Cloud Logging.
-* **Data**
-  * **Data storage and analysis**: Employs `BigQueryAgentAnalyticsPlugin`, Cloud Storage (`logs_data_bucket`), and BigQuery tables/views for telemetry storage, token tracking, and agent analytics.
-* **Evaluation**
-  * **Agent Platform Evaluation**: Integrated with `google-cloud-aiplatform[evaluation]` and `google-adk[eval]` test suites under `tests/eval/`.
-* **Client**
-  * **Client**: Focused frontend client implemented under `client/web/react/` (React Web & Chrome SidePanel) rendering rich Generative UI responses via A2UI.
+* **Agent Orchestration & Protocol**
+  * **Google ADK & A2A Integration**: Built on `google-adk` with native Agent-to-Agent (A2A) protocol endpoints and integrated with the Maps Agentic UI (A2UI) runtime bundle (`app/agent.py`, `app/fast_api_app.py`).
+* **Uber H3 Spatial Computation**
+  * **Hierarchical Grid & Corridor Routing**: Discretizes physical coordinates into hexagonal cells (resolutions 0–15) via `H3SpatialService` for spatial clustering, deterministic spatial sharding, and OD corridor route calculation (`app/spatial/h3_service.py`).
+* **Multilingual Place Localization & Grounding**
+  * **Places API (New) Pro Tier Interceptor**: Leverages `PlaceLocalizationService` to resolve localized place names (`displayName`), formatted addresses, and live metadata via place IDs, eliminating map hallucinations across all generated A2UI components (`app/localization_service.py`).
+* **LLM Engine & Optimization**
+  * **GeminiAdapter on Vertex AI**: Uses Gemini models (`gemini-3.1-flash-lite` for high-throughput routing and `gemini-3-flash-preview` for high-reasoning tasks) with token usage tracking piped directly into Google ADK telemetry.
+* **Deployment & Containerization**
+  * **Dual Cloud Run Services**: Production-grade FastAPI backend (`geo-agent`) and React Web client (`geo-agent-web`) containerized via Docker and hosted on Google Cloud Run.
+* **Infrastructure as Code (IaC)**
+  * **Terraform**: Declarative provisioning in `deployment/terraform/single-project` managing Cloud Run services, IAM bindings, GCS log buckets, and BigQuery telemetry tables.
+* **Full-Stack Observability**
+  * **Cloud Trace & Logging**: Distributed tracing via `google-adk[otel-gcp]` and centralized execution logs via `google-cloud-logging`.
+* **Telemetry & Spatial Analytics**
+  * **BigQuery Agent Analytics**: Real-time streaming of prompt completions, token costs, tool execution events, and H3 spatial metrics via `BigQueryAgentAnalyticsPlugin`.
+* **Quality & Evaluation**
+  * **Automated Grounding Evaluation**: Bilingual test suites (`tests/eval/`) running via `agents-cli eval` to validate spatial factuality and A2UI schema compliance prior to merging.
+* **Frontend Generative UI**
+  * **React Web & Chrome SidePanel**: Frontend client in `client/web/react/` using `@googlemaps/a2ui` to render interactive maps, route polylines, and POI cards directly from agent payloads.
