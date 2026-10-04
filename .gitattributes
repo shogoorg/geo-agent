@@ -1,0 +1,2 @@
+# Exclude generated evaluation artifacts and test reports from GitHub language statistics
+artifacts/** linguist-generated=true
