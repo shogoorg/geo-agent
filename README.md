@@ -169,8 +169,16 @@ agents-cli scaffold upgrade
 Deploy the application container and code:
 
 ```bash
-# Deploy using agents-cli (inherits .env settings automatically)
-agents-cli deploy --project <your-project-id>
+# Deploy using gcloud run deploy (explicitly request-based billing & min 0 instances)
+gcloud run deploy geo-agent \
+  --source . \
+  --project <your-project-id> \
+  --region <your-region> \
+  --cpu-throttling \
+  --min-instances 0 \
+  --max-instances 10 \
+  --memory 4Gi \
+  --cpu 1
 ```
 
 ##### 1.3 Allow Public Invocation
@@ -196,7 +204,12 @@ gcloud run deploy geo-agent-web \
   --source . \
   --project <your-project-id> \
   --region <your-region> \
-  --allow-unauthenticated
+  --allow-unauthenticated \
+  --cpu-throttling \
+  --min-instances 0 \
+  --max-instances 10 \
+  --memory 512Mi \
+  --cpu 1
 ```
 
 
