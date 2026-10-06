@@ -29,6 +29,12 @@ variable "region" {
   default     = "us-east1"
 }
 
+variable "bigquery_location" {
+  type        = string
+  description = "Google Cloud location for BigQuery dataset and connection."
+  default     = "US"
+}
+
 variable "telemetry_logs_filter" {
   type        = string
   description = "Log Sink filter for capturing telemetry data. Captures logs with the `traceloop.association.properties.log_type` attribute set to `tracing`."

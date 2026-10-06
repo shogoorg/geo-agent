@@ -17,7 +17,7 @@ resource "google_bigquery_dataset" "telemetry_dataset" {
   project       = var.project_id
   dataset_id    = replace("${var.project_name}_telemetry", "-", "_")
   friendly_name = "${var.project_name} Telemetry"
-  location      = var.region
+  location      = var.bigquery_location
   description   = "Dataset for GenAI telemetry data stored in GCS"
   depends_on    = [google_project_service.services]
 }
@@ -25,7 +25,7 @@ resource "google_bigquery_dataset" "telemetry_dataset" {
 # BigQuery connection for accessing GCS telemetry data
 resource "google_bigquery_connection" "genai_telemetry_connection" {
   project       = var.project_id
-  location      = var.region
+  location      = var.bigquery_location
   connection_id = "${var.project_name}-genai-telemetry"
   friendly_name = "${var.project_name} GenAI Telemetry Connection"
 
@@ -36,7 +36,7 @@ resource "google_bigquery_connection" "genai_telemetry_connection" {
 
 # Wait for the BigQuery connection service account to propagate in IAM
 resource "time_sleep" "wait_for_bq_connection_sa" {
-  create_duration = "10s"
+  create_duration = "30s"
 
   depends_on = [google_bigquery_connection.genai_telemetry_connection]
 }
