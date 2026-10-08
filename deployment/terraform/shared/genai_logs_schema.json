@@ -16,7 +16,10 @@
         "name": "labels", "type": "RECORD", "mode": "NULLABLE",
         "fields": [
           { "name": "project_id", "type": "STRING", "mode": "NULLABLE" },
-          { "name": "location",   "type": "STRING", "mode": "NULLABLE" }
+          { "name": "location",   "type": "STRING", "mode": "NULLABLE" },
+          { "name": "job",        "type": "STRING", "mode": "NULLABLE" },
+          { "name": "task_id",    "type": "STRING", "mode": "NULLABLE" },
+          { "name": "namespace",  "type": "STRING", "mode": "NULLABLE" }
         ]
       }
     ]
@@ -36,7 +39,8 @@
       { "name": "gen_ai_tool_definitions_ref",    "type": "STRING", "mode": "NULLABLE" },
       { "name": "gcp_vertex_agent_invocation_id", "type": "STRING", "mode": "NULLABLE" },
       { "name": "gcp_vertex_agent_event_id",      "type": "STRING", "mode": "NULLABLE" },
-      { "name": "event_name",                     "type": "STRING", "mode": "NULLABLE" }
+      { "name": "event_name",                     "type": "STRING", "mode": "NULLABLE" },
+      { "name": "gen_ai_output_type",             "type": "STRING", "mode": "NULLABLE" }
     ]
   }
 ]
