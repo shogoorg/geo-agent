@@ -2,14 +2,14 @@
   {
     "version": "v0.9",
     "createSurface": {
-      "surfaceId": "local-search-surface-f22ae389",
+      "surfaceId": "local-search-surface-d9b00ae2",
       "catalogId": "a2ui://maps-agentic-ui-catalog.json"
     }
   },
   {
     "version": "v0.9",
     "updateComponents": {
-      "surfaceId": "local-search-surface-f22ae389",
+      "surfaceId": "local-search-surface-d9b00ae2",
       "components": [
         {
           "id": "root",
@@ -24,56 +24,46 @@
           "id": "summary-text",
           "component": "Text",
           "variant": "body",
-          "text": "新宿御苑周辺にあるおすすめのコーヒーショップ（カフェ）を5軒ご紹介します。\n\n*   **GLASS COFFEE**: スタイリッシュでトレンディなコーヒーショップです。カジュアルで落ち着いた雰囲気があり、美味しいコーヒーのほか、ブランチやデザート、アルコールメニューも楽しめます。店内外ともにペット同伴可能なのが魅力です。\n*   **Double Tall Coffee Shinjuku Gyoen Mae**: 落ち着いたカジュアルなカフェで、コーヒーや紅茶のセレクションが充実しています。濃厚なブラウニーや自家製バナナケーキなどのデザートのほか、ホットサンドやホットドッグなどの軽食も揃っています。\n*   **EIGHT COFFEE Shinjuku**: トレンディで気軽に立ち寄れるカフェです。美味しいコーヒーはもちろん、エスプレッソソフトクリームやラテなどが人気で、イートインとテイクアウトの両方で利用しやすいお店です。\n*   **SASAYAIORI+ Shinjuku Gyoen National Garden**: 新宿御苑内にある観光にも最適なカフェです。開放的なテラス席からは素敵な景色を楽しめます。コーヒーや紅茶に加え、抹茶ソフトクリームやこだわりのどら焼きが人気です。\n*   **Coffee Aristocrat Edinburgh**: 24時間営業の伝統的な喫茶店で、居心地の良い落ち着いた空間が特徴です。窓際のカウンター席や書棚に囲まれた席があり、美味しいコーヒーや紅茶、デザートのほか、ピザトーストやポテトグラタンなどのボリュームのある軽食も楽しめます。"
+          "text": "新宿御苑周辺でおすすめのコーヒーショップ（カフェ）を5軒ご紹介します。\n\n*   **Double Tall Coffee Shinjuku Gyoen Mae**：トレンド感がありつつカジュアルな雰囲気のお店です。美味しいコーヒーだけでなく、紅茶のメニューも豊富で、ブラウニーやバナナケーキなどのスイーツも人気です。\n*   **GLASS COFFEE**：落ち着いた雰囲気のトレンドカフェです。カフェとしての利用はもちろん、バーとしての側面もあり、ゆったりとした時間を過ごせます。店内にはペット（犬）を同伴できる場合もあります。\n*   **All Seasons Coffee**：白を基調とした洗練された空間が魅力です。こだわりのコーヒーとともに、ホットサンドや自家製のプリン（特にモンブランプリンが人気）が有名で、多くのファンに愛されています。\n*   **AUNG COFFEE-Myanmar Coffee Lab新宿御苑前店**：ミャンマー産コーヒーの専門店です。独特の風味を楽しめるコーヒーや、ココナッツバナナプリンなどの個性的なスイーツがあり、隠れ家的な落ち着いた空間です。\n*   **SASAYAIORI+ Shinjuku Gyoen National Garden**：新宿御苑内にあるため、景色を楽しみながら休憩するのに最適です。コーヒーや紅茶に加え、抹茶ソフトや特製のどら焼きなど、和スイーツも充実しています。\n\nそれぞれお店によって特徴が異なりますので、その日の気分に合わせて選んでみてください。"
         },
         {
           "id": "map",
           "component": "GoogleMap",
           "center": {
-            "lat": 35.6888,
-            "lng": 139.7101
+            "lat": 35.6895298,
+            "lng": 139.7143743
           },
-          "zoom": 15,
+          "zoom": 13,
           "markers": [
-            {
-              "lat": 35.6903497,
-              "lng": 139.7102349,
-              "label": "GLASS COFFEE",
-              "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
-              "h3Cell": "892f5aadb6fffff",
-              "openNow": false
-            },
             {
               "lat": 35.6895298,
               "lng": 139.7143743,
               "label": "ダブルトールコーヒー 新宿御苑",
-              "placeId": "ChIJU3ijuk-NGGAReJeqiv_EinI",
-              "h3Cell": "892f5aadb6bffff",
-              "openNow": false
+              "placeId": "ChIJU3ijuk-NGGAReJeqiv_EinI"
             },
             {
-              "lat": 35.6897768,
-              "lng": 139.7100733,
-              "label": "EIGHT COFFEE 新宿店",
-              "placeId": "ChIJ6_VrNnuNGGARQcYySZQZITA",
-              "h3Cell": "892f5aadb6fffff",
-              "openNow": false
+              "lat": 35.6903497,
+              "lng": 139.7102349,
+              "label": "GLASS COFFEE",
+              "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs"
+            },
+            {
+              "lat": 35.6897966,
+              "lng": 139.7079209,
+              "label": "オールシーズンズコーヒー",
+              "placeId": "ChIJq6rxNsOMGGARKn8-OyTuyls"
+            },
+            {
+              "lat": 35.6910368,
+              "lng": 139.7098259,
+              "label": "AUNG COFFEE-Myanmar Coffee Lab新宿御苑前店",
+              "placeId": "ChIJQRIO7nyNGGAR95A2sKoElBA"
             },
             {
               "lat": 35.6851478,
               "lng": 139.7095574,
               "label": "SASAYAIORI+ 新宿御苑",
-              "placeId": "ChIJhyufvT-NGGARhd-JSPbvlww",
-              "h3Cell": "892f5aadb67ffff",
-              "openNow": false
-            },
-            {
-              "lat": 35.6905013,
-              "lng": 139.7062875,
-              "label": "珈琲貴族エジンバラ",
-              "placeId": "ChIJt_gWX9uMGGARWdvJVMz9JwU",
-              "h3Cell": "892f5a375d7ffff",
-              "openNow": true
+              "placeId": "ChIJhyufvT-NGGARhd-JSPbvlww"
             }
           ]
         },
@@ -99,34 +89,10 @@
   {
     "version": "v0.9",
     "updateDataModel": {
-      "surfaceId": "local-search-surface-f22ae389",
+      "surfaceId": "local-search-surface-d9b00ae2",
       "path": "/",
       "value": {
         "places": [
-          {
-            "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
-            "name": "GLASS COFFEE",
-            "lat": 35.6903497,
-            "lng": 139.7102349,
-            "h3Cell": "892f5aadb6fffff",
-            "address": "日本、〒160-0022 東京都新宿区新宿１丁目３６−３ 1階",
-            "primaryType": "コーヒーショップ・喫茶店",
-            "businessStatus": "OPERATIONAL",
-            "openNow": false,
-            "nextOpenTime": "2026-10-03T23:00:00Z",
-            "weekdayDescriptions": [
-              "月曜日: 9時00分～19時00分",
-              "火曜日: 9時00分～19時00分",
-              "水曜日: 9時00分～23時00分",
-              "木曜日: 9時00分～19時00分",
-              "金曜日: 9時00分～19時00分",
-              "土曜日: 8時00分～19時00分",
-              "日曜日: 8時00分～19時00分"
-            ],
-            "rating": 4.5,
-            "userRatingCount": 114,
-            "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
-          },
           {
             "placeId": "ChIJU3ijuk-NGGAReJeqiv_EinI",
             "name": "ダブルトールコーヒー 新宿御苑",
@@ -136,8 +102,7 @@
             "address": "日本、〒160-0022 東京都新宿区新宿１丁目２３−１１ 御苑メインビル 101",
             "primaryType": "カフェ・喫茶",
             "businessStatus": "OPERATIONAL",
-            "openNow": false,
-            "nextOpenTime": "2026-10-04T23:00:00Z",
+            "openNow": true,
             "weekdayDescriptions": [
               "月曜日: 8時00分～18時00分",
               "火曜日: 8時00分～18時00分",
@@ -148,31 +113,76 @@
               "日曜日: 定休日"
             ],
             "rating": 4.7,
-            "userRatingCount": 410,
-            "priceLevel": "PRICE_LEVEL_MODERATE"
+            "userRatingCount": 413,
+            "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
           },
           {
-            "placeId": "ChIJ6_VrNnuNGGARQcYySZQZITA",
-            "name": "EIGHT COFFEE 新宿店",
-            "lat": 35.6897768,
-            "lng": 139.7100733,
+            "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
+            "name": "GLASS COFFEE",
+            "lat": 35.6903497,
+            "lng": 139.7102349,
             "h3Cell": "892f5aadb6fffff",
-            "address": "日本、〒160-0022 東京都新宿区新宿１丁目１５−５",
+            "address": "日本、〒160-0022 東京都新宿区新宿１丁目３６−３ 1階",
             "primaryType": "コーヒーショップ・喫茶店",
             "businessStatus": "OPERATIONAL",
-            "openNow": false,
-            "nextOpenTime": "2026-10-03T23:00:00Z",
+            "openNow": true,
             "weekdayDescriptions": [
-              "月曜日: 7時00分～19時00分",
-              "火曜日: 7時00分～19時00分",
-              "水曜日: 7時00分～19時00分",
-              "木曜日: 7時00分～19時00分",
-              "金曜日: 7時00分～19時00分",
+              "月曜日: 9時00分～19時00分",
+              "火曜日: 9時00分～19時00分",
+              "水曜日: 9時00分～23時00分",
+              "木曜日: 9時00分～19時00分",
+              "金曜日: 9時00分～19時00分",
               "土曜日: 8時00分～19時00分",
               "日曜日: 8時00分～19時00分"
             ],
             "rating": 4.5,
-            "userRatingCount": 435,
+            "userRatingCount": 117,
+            "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
+          },
+          {
+            "placeId": "ChIJq6rxNsOMGGARKn8-OyTuyls",
+            "name": "オールシーズンズコーヒー",
+            "lat": 35.6897966,
+            "lng": 139.7079209,
+            "h3Cell": "892f5a375d7ffff",
+            "address": "日本、〒160-0022 東京都新宿区新宿２丁目７−７ 1F",
+            "primaryType": "コーヒーショップ・喫茶店",
+            "businessStatus": "OPERATIONAL",
+            "openNow": true,
+            "weekdayDescriptions": [
+              "月曜日: 9時00分～19時00分",
+              "火曜日: 9時00分～19時00分",
+              "水曜日: 9時00分～19時00分",
+              "木曜日: 9時00分～19時00分",
+              "金曜日: 9時00分～19時00分",
+              "土曜日: 9時00分～19時00分",
+              "日曜日: 9時00分～19時00分"
+            ],
+            "rating": 4.4,
+            "userRatingCount": 1388,
+            "priceLevel": "PRICE_LEVEL_MODERATE"
+          },
+          {
+            "placeId": "ChIJQRIO7nyNGGAR95A2sKoElBA",
+            "name": "AUNG COFFEE-Myanmar Coffee Lab新宿御苑前店",
+            "lat": 35.6910368,
+            "lng": 139.7098259,
+            "h3Cell": "892f5a375d3ffff",
+            "address": "日本、〒160-0022 東京都新宿区新宿２丁目１５−２５ カテリーナ 御苑",
+            "primaryType": "コーヒーショップ・喫茶店",
+            "businessStatus": "OPERATIONAL",
+            "openNow": true,
+            "weekdayDescriptions": [
+              "月曜日: 11時00分～18時00分",
+              "火曜日: 8時00分～18時00分",
+              "水曜日: 8時00分～18時00分",
+              "木曜日: 8時00分～18時00分",
+              "金曜日: 8時00分～18時00分",
+              "土曜日: 11時00分～18時00分",
+              "日曜日: 11時00分～18時00分"
+            ],
+            "rating": 4.5,
+            "userRatingCount": 159,
             "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
           },
           {
@@ -185,7 +195,7 @@
             "primaryType": "コーヒーショップ・喫茶店",
             "businessStatus": "OPERATIONAL",
             "openNow": false,
-            "nextOpenTime": "2026-10-04T00:00:00Z",
+            "nextOpenTime": "2026-10-11T00:00:00Z",
             "weekdayDescriptions": [
               "月曜日: 定休日",
               "火曜日: 9時00分～16時00分",
@@ -196,85 +206,37 @@
               "日曜日: 9時00分～16時00分"
             ],
             "rating": 4,
-            "userRatingCount": 164,
+            "userRatingCount": 166,
             "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
-          },
-          {
-            "placeId": "ChIJt_gWX9uMGGARWdvJVMz9JwU",
-            "name": "珈琲貴族エジンバラ",
-            "lat": 35.6905013,
-            "lng": 139.7062875,
-            "h3Cell": "892f5a375d7ffff",
-            "address": "日本、〒160-0022 東京都新宿区新宿３丁目２−４",
-            "primaryType": "カフェ・喫茶",
-            "businessStatus": "OPERATIONAL",
-            "openNow": true,
-            "weekdayDescriptions": [
-              "月曜日: 24 時間営業",
-              "火曜日: 24 時間営業",
-              "水曜日: 24 時間営業",
-              "木曜日: 24 時間営業",
-              "金曜日: 24 時間営業",
-              "土曜日: 24 時間営業",
-              "日曜日: 24 時間営業"
-            ],
-            "rating": 4.1,
-            "userRatingCount": 1871,
-            "priceLevel": "PRICE_LEVEL_MODERATE"
           }
         ],
         "h3Resolution": 9,
         "h3Clusters": [
           {
-            "h3Cell": "892f5aadb6fffff",
-            "count": 2,
+            "h3Cell": "892f5a375d3ffff",
+            "count": 1,
             "places": [
               {
-                "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
-                "name": "GLASS COFFEE",
-                "lat": 35.6903497,
-                "lng": 139.7102349,
-                "h3Cell": "892f5aadb6fffff",
-                "address": "日本、〒160-0022 東京都新宿区新宿１丁目３６−３ 1階",
+                "placeId": "ChIJQRIO7nyNGGAR95A2sKoElBA",
+                "name": "AUNG COFFEE-Myanmar Coffee Lab新宿御苑前店",
+                "lat": 35.6910368,
+                "lng": 139.7098259,
+                "h3Cell": "892f5a375d3ffff",
+                "address": "日本、〒160-0022 東京都新宿区新宿２丁目１５−２５ カテリーナ 御苑",
                 "primaryType": "コーヒーショップ・喫茶店",
                 "businessStatus": "OPERATIONAL",
-                "openNow": false,
-                "nextOpenTime": "2026-10-03T23:00:00Z",
+                "openNow": true,
                 "weekdayDescriptions": [
-                  "月曜日: 9時00分～19時00分",
-                  "火曜日: 9時00分～19時00分",
-                  "水曜日: 9時00分～23時00分",
-                  "木曜日: 9時00分～19時00分",
-                  "金曜日: 9時00分～19時00分",
-                  "土曜日: 8時00分～19時00分",
-                  "日曜日: 8時00分～19時00分"
+                  "月曜日: 11時00分～18時00分",
+                  "火曜日: 8時00分～18時00分",
+                  "水曜日: 8時00分～18時00分",
+                  "木曜日: 8時00分～18時00分",
+                  "金曜日: 8時00分～18時00分",
+                  "土曜日: 11時00分～18時00分",
+                  "日曜日: 11時00分～18時00分"
                 ],
                 "rating": 4.5,
-                "userRatingCount": 114,
-                "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
-              },
-              {
-                "placeId": "ChIJ6_VrNnuNGGARQcYySZQZITA",
-                "name": "EIGHT COFFEE 新宿店",
-                "lat": 35.6897768,
-                "lng": 139.7100733,
-                "h3Cell": "892f5aadb6fffff",
-                "address": "日本、〒160-0022 東京都新宿区新宿１丁目１５−５",
-                "primaryType": "コーヒーショップ・喫茶店",
-                "businessStatus": "OPERATIONAL",
-                "openNow": false,
-                "nextOpenTime": "2026-10-03T23:00:00Z",
-                "weekdayDescriptions": [
-                  "月曜日: 7時00分～19時00分",
-                  "火曜日: 7時00分～19時00分",
-                  "水曜日: 7時00分～19時00分",
-                  "木曜日: 7時00分～19時00分",
-                  "金曜日: 7時00分～19時00分",
-                  "土曜日: 8時00分～19時00分",
-                  "日曜日: 8時00分～19時00分"
-                ],
-                "rating": 4.5,
-                "userRatingCount": 435,
+                "userRatingCount": 159,
                 "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
               }
             ]
@@ -284,26 +246,26 @@
             "count": 1,
             "places": [
               {
-                "placeId": "ChIJt_gWX9uMGGARWdvJVMz9JwU",
-                "name": "珈琲貴族エジンバラ",
-                "lat": 35.6905013,
-                "lng": 139.7062875,
+                "placeId": "ChIJq6rxNsOMGGARKn8-OyTuyls",
+                "name": "オールシーズンズコーヒー",
+                "lat": 35.6897966,
+                "lng": 139.7079209,
                 "h3Cell": "892f5a375d7ffff",
-                "address": "日本、〒160-0022 東京都新宿区新宿３丁目２−４",
-                "primaryType": "カフェ・喫茶",
+                "address": "日本、〒160-0022 東京都新宿区新宿２丁目７−７ 1F",
+                "primaryType": "コーヒーショップ・喫茶店",
                 "businessStatus": "OPERATIONAL",
                 "openNow": true,
                 "weekdayDescriptions": [
-                  "月曜日: 24 時間営業",
-                  "火曜日: 24 時間営業",
-                  "水曜日: 24 時間営業",
-                  "木曜日: 24 時間営業",
-                  "金曜日: 24 時間営業",
-                  "土曜日: 24 時間営業",
-                  "日曜日: 24 時間営業"
+                  "月曜日: 9時00分～19時00分",
+                  "火曜日: 9時00分～19時00分",
+                  "水曜日: 9時00分～19時00分",
+                  "木曜日: 9時00分～19時00分",
+                  "金曜日: 9時00分～19時00分",
+                  "土曜日: 9時00分～19時00分",
+                  "日曜日: 9時00分～19時00分"
                 ],
-                "rating": 4.1,
-                "userRatingCount": 1871,
+                "rating": 4.4,
+                "userRatingCount": 1388,
                 "priceLevel": "PRICE_LEVEL_MODERATE"
               }
             ]
@@ -322,7 +284,7 @@
                 "primaryType": "コーヒーショップ・喫茶店",
                 "businessStatus": "OPERATIONAL",
                 "openNow": false,
-                "nextOpenTime": "2026-10-04T00:00:00Z",
+                "nextOpenTime": "2026-10-11T00:00:00Z",
                 "weekdayDescriptions": [
                   "月曜日: 定休日",
                   "火曜日: 9時00分～16時00分",
@@ -333,7 +295,7 @@
                   "日曜日: 9時00分～16時00分"
                 ],
                 "rating": 4,
-                "userRatingCount": 164,
+                "userRatingCount": 166,
                 "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
               }
             ]
@@ -351,8 +313,7 @@
                 "address": "日本、〒160-0022 東京都新宿区新宿１丁目２３−１１ 御苑メインビル 101",
                 "primaryType": "カフェ・喫茶",
                 "businessStatus": "OPERATIONAL",
-                "openNow": false,
-                "nextOpenTime": "2026-10-04T23:00:00Z",
+                "openNow": true,
                 "weekdayDescriptions": [
                   "月曜日: 8時00分～18時00分",
                   "火曜日: 8時00分～18時00分",
@@ -363,8 +324,37 @@
                   "日曜日: 定休日"
                 ],
                 "rating": 4.7,
-                "userRatingCount": 410,
-                "priceLevel": "PRICE_LEVEL_MODERATE"
+                "userRatingCount": 413,
+                "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
+              }
+            ]
+          },
+          {
+            "h3Cell": "892f5aadb6fffff",
+            "count": 1,
+            "places": [
+              {
+                "placeId": "ChIJ65Y1vauNGGAR2TmPDZc6Obs",
+                "name": "GLASS COFFEE",
+                "lat": 35.6903497,
+                "lng": 139.7102349,
+                "h3Cell": "892f5aadb6fffff",
+                "address": "日本、〒160-0022 東京都新宿区新宿１丁目３６−３ 1階",
+                "primaryType": "コーヒーショップ・喫茶店",
+                "businessStatus": "OPERATIONAL",
+                "openNow": true,
+                "weekdayDescriptions": [
+                  "月曜日: 9時00分～19時00分",
+                  "火曜日: 9時00分～19時00分",
+                  "水曜日: 9時00分～23時00分",
+                  "木曜日: 9時00分～19時00分",
+                  "金曜日: 9時00分～19時00分",
+                  "土曜日: 8時00分～19時00分",
+                  "日曜日: 8時00分～19時00分"
+                ],
+                "rating": 4.5,
+                "userRatingCount": 117,
+                "priceLevel": "PRICE_LEVEL_INEXPENSIVE"
               }
             ]
           }

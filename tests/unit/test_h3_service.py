@@ -33,23 +33,19 @@ def test_enrich_a2ui_data_with_routes() -> None:
 
     enriched = spatial_service.enrich_a2ui_data(data, resolution=9)
 
-    # Check updateComponents
+    # Check updateComponents (routes should NOT have redundant h3Cell)
     map_comp = enriched[0]["updateComponents"]["components"][0]
     route = map_comp["routes"][0]
-    assert "h3Cell" in route["origin"]
-    assert "h3Cell" in route["destination"]
-    assert route["origin"]["h3Cell"] == spatial_service.lat_lng_to_cell(
-        35.6580339, 139.7016358, 9
-    )
-    assert route["destination"]["h3Cell"] == spatial_service.lat_lng_to_cell(
-        35.6894807, 139.6916863, 9
-    )
+    assert "h3Cell" not in route["origin"]
+    assert "h3Cell" not in route["destination"]
+    orig_cell = spatial_service.lat_lng_to_cell(35.6580339, 139.7016358, 9)
+    dest_cell = spatial_service.lat_lng_to_cell(35.6894807, 139.6916863, 9)
 
-    # Check updateDataModel
+    # Check updateDataModel (route commute without places should remain empty)
     value = enriched[1]["updateDataModel"]["value"]
-    assert value["h3Resolution"] == 9
-    assert value["originH3Cell"] == route["origin"]["h3Cell"]
-    assert value["destinationH3Cell"] == route["destination"]["h3Cell"]
+    assert "h3Resolution" not in value
+    assert "originH3Cell" not in value
+    assert "destinationH3Cell" not in value
 
 
 def test_enrich_a2ui_data_with_h3_clusters() -> None:

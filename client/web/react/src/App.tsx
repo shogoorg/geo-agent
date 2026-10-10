@@ -7,24 +7,24 @@ import {
 import {useEffect, useRef, useState} from 'react';
 import './App.css';
 
-const H3_RESOLUTIONS = [
-  { res: 0, label: 'Res 0 - 4,250,547 km2' },
-  { res: 1, label: 'Res 1 - 607,221 km2' },
-  { res: 2, label: 'Res 2 - 86,746 km2' },
-  { res: 3, label: 'Res 3 - 12,392 km2' },
-  { res: 4, label: 'Res 4 - 1,770 km2' },
-  { res: 5, label: 'Res 5 - 253 km2' },
-  { res: 6, label: 'Res 6 - 36.1 km2' },
-  { res: 7, label: 'Res 7 - 5.16 km2' },
-  { res: 8, label: 'Res 8 - 0.737 km2' },
-  { res: 9, label: 'Res 9 - 0.105 km2' },
-  { res: 10, label: 'Res 10 - 0.015 km2' },
-  { res: 11, label: 'Res 11 - 0.0021 km2' },
-  { res: 12, label: 'Res 12 - 0.00031 km2' },
-  { res: 13, label: 'Res 13 - 0.000044 km2' },
-  { res: 14, label: 'Res 14 - 0.0000063 km2' },
-  { res: 15, label: 'Res 15 - 0.0000009 km2' },
-];
+// const H3_RESOLUTIONS = [
+//   { res: 0, label: 'Res 0 - 4,250,547 km2' },
+//   { res: 1, label: 'Res 1 - 607,221 km2' },
+//   { res: 2, label: 'Res 2 - 86,746 km2' },
+//   { res: 3, label: 'Res 3 - 12,392 km2' },
+//   { res: 4, label: 'Res 4 - 1,770 km2' },
+//   { res: 5, label: 'Res 5 - 253 km2' },
+//   { res: 6, label: 'Res 6 - 36.1 km2' },
+//   { res: 7, label: 'Res 7 - 5.16 km2' },
+//   { res: 8, label: 'Res 8 - 0.737 km2' },
+//   { res: 9, label: 'Res 9 - 0.105 km2' },
+//   { res: 10, label: 'Res 10 - 0.015 km2' },
+//   { res: 11, label: 'Res 11 - 0.0021 km2' },
+//   { res: 12, label: 'Res 12 - 0.00031 km2' },
+//   { res: 13, label: 'Res 13 - 0.000044 km2' },
+//   { res: 14, label: 'Res 14 - 0.0000063 km2' },
+//   { res: 15, label: 'Res 15 - 0.0000009 km2' },
+// ];
 
 const SUPPORTED_LANGUAGES = [
   { code: 'ja', label: '日本語 (ja)' },
@@ -49,7 +49,8 @@ function App() {
   const [lastResponseJson, setLastResponseJson] = useState('');
   // Agent mode state disabled - uses standard backend default agent
   // const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
-  const [h3Resolution, setH3Resolution] = useState<number>(9);
+  // const [h3Resolution, setH3Resolution] = useState<number>(9);
+  const [h3Resolution] = useState<number>(9);
   // Language selection for Template mode (defaults to Japanese 'ja')
   const [language, setLanguage] = useState<string>('ja');
 
@@ -282,6 +283,7 @@ function App() {
                 <option value="template">Template Agent</option>
               </select>
               */}
+              {/* H3 Resolution selector disabled
               <select
                 className="resolution-select"
                 value={h3Resolution}
@@ -294,6 +296,7 @@ function App() {
                   </option>
                 ))}
               </select>
+              */}
             </div>
             <div className="chat-actions-right">
               {lastResponseJson && <ResponseViewer json={lastResponseJson} />}

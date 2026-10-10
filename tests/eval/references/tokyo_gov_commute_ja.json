@@ -2,14 +2,14 @@
   {
     "version": "v0.9",
     "createSurface": {
-      "surfaceId": "directions-surface-efaa0e44",
+      "surfaceId": "directions-surface-5de04636",
       "catalogId": "a2ui://maps-agentic-ui-catalog.json"
     }
   },
   {
     "version": "v0.9",
     "updateComponents": {
-      "surfaceId": "directions-surface-efaa0e44",
+      "surfaceId": "directions-surface-5de04636",
       "components": [
         {
           "id": "root",
@@ -23,13 +23,13 @@
           "id": "summary-text",
           "component": "Text",
           "variant": "body",
-          "text": "渋谷駅から東京都庁までの車での移動は、約13分（約4km）です。\n\n通勤ラッシュ時は道路状況が混雑するため、さらなる時間がかかる可能性があります。余裕を持って出発することをおすすめします。なお、この所要時間は一般的な交通状況に基づいた目安です。"
+          "text": "通勤ラッシュ時の渋谷駅から東京都庁までの移動についてですが、通常時、車での移動は混雑状況にもよりますがおおよそ13〜15分ほど（距離は約4km）かかります。ただし、通勤ラッシュ時は都内の主要幹線道路や新宿周辺が非常に混雑するため、通常よりも時間がかかる可能性が高いです。\n\n公共交通機関（電車）をご利用の場合、一般的にはJR山手線で新宿駅まで行き、そこから徒歩または都営大江戸線への乗り換えとなりますが、朝のラッシュ時は非常に混雑します。余裕を持った計画をおすすめします。"
         },
         {
           "id": "map",
           "component": "GoogleMap",
           "center": {
-            "lat": 35.6738,
+            "lat": 35.6737,
             "lng": 139.6966
           },
           "zoom": 13,
@@ -39,20 +39,13 @@
                 "lat": 35.6580339,
                 "lng": 139.7016358,
                 "label": "渋谷駅",
-                "placeId": "ChIJnxAAO1aLGGARJqvi8d4oczM",
-                "h3Cell": "892f5aad923ffff",
-                "address": "日本、〒150-0002 東京都渋谷区渋谷２丁目２４",
-                "businessStatus": "OPERATIONAL"
+                "placeId": "ChIJnxAAO1aLGGARJqvi8d4oczM"
               },
               "destination": {
                 "lat": 35.6894807,
                 "lng": 139.6916863,
                 "label": "東京都庁",
-                "placeId": "ChIJoTcat9SMGGAR6GGG8zdcZvE",
-                "h3Cell": "892f5a375afffff",
-                "address": "日本、〒163-8001 東京都新宿区西新宿２丁目８−１",
-                "businessStatus": "OPERATIONAL",
-                "openNow": false
+                "placeId": "ChIJoTcat9SMGGAR6GGG8zdcZvE"
               }
             }
           ],
@@ -64,32 +57,9 @@
   {
     "version": "v0.9",
     "updateDataModel": {
-      "surfaceId": "directions-surface-efaa0e44",
+      "surfaceId": "directions-surface-5de04636",
       "path": "/",
-      "value": {
-        "h3Resolution": 9,
-        "originH3Cell": "892f5aad923ffff",
-        "destinationH3Cell": "892f5a375afffff",
-        "destinationDetails": {
-          "name": "東京都庁",
-          "address": "日本、〒163-8001 東京都新宿区西新宿２丁目８−１",
-          "primaryType": "政府機関",
-          "businessStatus": "OPERATIONAL",
-          "openNow": false,
-          "nextOpenTime": "2026-10-04T23:00:00Z",
-          "weekdayDescriptions": [
-            "月曜日: 8時00分～18時45分",
-            "火曜日: 8時00分～18時45分",
-            "水曜日: 8時00分～18時45分",
-            "木曜日: 8時00分～18時45分",
-            "金曜日: 8時00分～18時45分",
-            "土曜日: 定休日",
-            "日曜日: 定休日"
-          ],
-          "rating": 4.5,
-          "userRatingCount": 8505
-        }
-      }
+      "value": {}
     }
   }
 ]
