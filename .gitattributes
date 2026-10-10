@@ -1,2 +1,6 @@
+# Set default behavior to normalize line endings to LF
+* text=auto eol=lf
+
 # Exclude generated evaluation artifacts and test reports from GitHub language statistics
 artifacts/** linguist-generated=true
+
