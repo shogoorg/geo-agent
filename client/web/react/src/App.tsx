@@ -4,7 +4,7 @@ import {
   type TimelineItem,
   themeStyleSheet,
 } from '@googlemaps/a2ui/lit';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 
 // const H3_RESOLUTIONS = [
@@ -27,8 +27,8 @@ import './App.css';
 // ];
 
 const SUPPORTED_LANGUAGES = [
-  { code: 'ja', label: '日本語 (ja)' },
-  { code: 'en', label: 'English (en)' },
+  { code: 'ja', label: 'Japanese' },
+  { code: 'en', label: 'English' },
 ];
 
 /**
@@ -69,7 +69,7 @@ function App() {
   // Handle scrolling properly.
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({behavior: 'smooth'});
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
     scrollToBottom();
@@ -89,7 +89,7 @@ function App() {
       const messages = JSON.parse(importJson);
       rendererRef.current = new A2UIRenderer();
       rendererRef.current.processResponse(
-        messages.map((msg: any) => ({type: 'a2ui', message: msg})),
+        messages.map((msg: any) => ({ type: 'a2ui', message: msg })),
       );
       setTimeline([...rendererRef.current.timeline]);
       importDialogRef.current?.close();
@@ -182,7 +182,7 @@ function App() {
       {/* --- Side Chat Panel --- */}
       <aside className={`chat-panel ${isChatOpen ? 'open' : 'closed'}`}>
         <div className="chat-header">
-    {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
+          {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
           <h2>GeoAgent</h2>
 
           {/* Hidden close button to prevent closing the chat layout inside the Chrome side panel
@@ -198,8 +198,8 @@ function App() {
         <div className="chat-messages">
           <maui-providers>
             {timeline.length === 0 && (
-              <p style={{opacity: 0.5, textAlign: 'center', marginTop: '50px'}}>
-                No messages yet.
+              <p style={{ opacity: 0.5, textAlign: 'center', marginTop: '50px' }}>
+
               </p>
             )}
             {timeline.map((item, idx) => {
@@ -246,7 +246,7 @@ function App() {
         <div className="chat-input-area">
           <textarea
             className="chat-textarea"
-            placeholder="Type a message..."
+            placeholder=""
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
@@ -299,17 +299,20 @@ function App() {
               */}
             </div>
             <div className="chat-actions-right">
-              {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
-              <button
-                className="import-btn-input"
-                onClick={() => importDialogRef.current?.showModal()}>
-                Import JSON
-              </button>
+              {/* Hidden debug buttons */}
+              <div style={{ display: 'none' }}>
+                {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
+                <button
+                  className="import-btn-input"
+                  onClick={() => importDialogRef.current?.showModal()}>
+                  Import JSON
+                </button>
+              </div>
               <button
                 className="send-button"
                 onClick={handleSend}
                 disabled={isRequesting || !input.trim()}>
-                {isRequesting ? '...' : 'Send'}
+                {isRequesting ? '...' : '↑'}
               </button>
             </div>
           </div>
@@ -341,7 +344,7 @@ function App() {
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
+          <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)' }}>
             Import A2UI JSON
           </h2>
           <textarea
@@ -384,7 +387,7 @@ function App() {
   );
 }
 
-function ResponseViewer({json}: {json: string}) {
+function ResponseViewer({ json }: { json: string }) {
   const [copied, setCopied] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -426,7 +429,7 @@ function ResponseViewer({json}: {json: string}) {
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
+          <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)' }}>
             Last A2UI Response
           </h2>
           <pre
@@ -444,7 +447,7 @@ function ResponseViewer({json}: {json: string}) {
           </pre>
           <div
             className="dialog-footer"
-            style={{display: 'flex', justifyContent: 'flex-end', gap: '12px'}}>
+            style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
             <button
               className="dialog-btn-secondary"
               onClick={() => dialogRef.current?.close()}>
