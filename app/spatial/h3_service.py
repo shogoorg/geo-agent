@@ -73,11 +73,9 @@ class H3SpatialService:
             return data
 
         place_id_to_h3: dict[str, str] = {}
-        last_origin_cell: str | None = None
-        last_destination_cell: str | None = None
 
         # ----------------------------------------------------------------------
-        # Pass 1: Traverse GoogleMap.markers and GoogleMap.routes in updateComponents
+        # Pass 1: Traverse GoogleMap.markers in updateComponents
         # (Coordinates exist here for both TEMPLATE and GROUNDING modes)
         # ----------------------------------------------------------------------
         for action in actions:
@@ -106,7 +104,6 @@ class H3SpatialService:
                                         cell_id = self.lat_lng_to_cell(
                                             m_lat, m_lng, resolution
                                         )
-                                        marker["h3Cell"] = cell_id
 
                                         p_id = marker.get("placeId")
                                         if p_id:
@@ -114,43 +111,8 @@ class H3SpatialService:
                                             cell_key = f"{resolution}:{cell_id}"
                                             self.set_cached_place(cell_key, marker)
 
-                            # Traverse routes (OD pairs)
-                            routes = comp.get("routes", [])
-                            if isinstance(routes, list):
-                                for route in routes:
-                                    if not isinstance(route, dict):
-                                        continue
-
-                                    orig = route.get("origin")
-                                    if (
-                                        isinstance(orig, dict)
-                                        and "lat" in orig
-                                        and "lng" in orig
-                                    ):
-                                        orig_cell = self.lat_lng_to_cell(
-                                            float(orig["lat"]),
-                                            float(orig["lng"]),
-                                            resolution,
-                                        )
-                                        orig["h3Cell"] = orig_cell
-                                        last_origin_cell = orig_cell
-
-                                    dest = route.get("destination")
-                                    if (
-                                        isinstance(dest, dict)
-                                        and "lat" in dest
-                                        and "lng" in dest
-                                    ):
-                                        dest_cell = self.lat_lng_to_cell(
-                                            float(dest["lat"]),
-                                            float(dest["lng"]),
-                                            resolution,
-                                        )
-                                        dest["h3Cell"] = dest_cell
-                                        last_destination_cell = dest_cell
-
         # ----------------------------------------------------------------------
-        # Pass 2: Traverse updateDataModel (supports places, cafes, or OD cells)
+        # Pass 2: Traverse updateDataModel (supports places and spatial clustering)
         # ----------------------------------------------------------------------
         for action in actions:
             if not isinstance(action, dict):
@@ -159,19 +121,11 @@ class H3SpatialService:
             if "updateDataModel" in action:
                 value = action["updateDataModel"].get("value", {})
                 if isinstance(value, dict):
-                    value["h3Resolution"] = resolution
-
-                    # Route commute: record OD cell IDs in data model
-                    if last_origin_cell:
-                        value["originH3Cell"] = last_origin_cell
-                    if last_destination_cell:
-                        value["destinationH3Cell"] = last_destination_cell
-
                     # Spatial aggregation / clustering for POIs/places
                     clusters_map: dict[str, list[dict[str, Any]]] = {}
 
                     for key, items in value.items():
-                        if key == "h3Clusters":
+                        if key in ("h3Clusters", "h3Resolution"):
                             continue
                         if isinstance(items, list):
                             for item in items:
@@ -198,6 +152,7 @@ class H3SpatialService:
                                     clusters_map[cell].append(item)
 
                     if clusters_map:
+                        value["h3Resolution"] = resolution
                         # Sort clusters by count descending, then cell ID for determinism
                         value["h3Clusters"] = sorted(
                             [

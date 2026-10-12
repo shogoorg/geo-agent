@@ -131,7 +131,6 @@ class PlaceLocalizationService:
                 actions.extend([item for item in data if isinstance(item, dict)])
 
         place_details_map: dict[str, dict[str, Any]] = {}
-        last_destination_details: dict[str, Any] | None = None
 
         def _enrich_node(node: dict[str, Any]) -> dict[str, Any] | None:
             p_id = node.get("placeId")
@@ -141,12 +140,6 @@ class PlaceLocalizationService:
             place_details_map[p_id] = details
             if details.get("name"):
                 node["label"] = details["name"]
-            if details.get("address"):
-                node["address"] = details["address"]
-            if details.get("business_status"):
-                node["businessStatus"] = details["business_status"]
-            if details.get("open_now") is not None:
-                node["openNow"] = details["open_now"]
             return details
 
         # ----------------------------------------------------------------------
@@ -174,12 +167,10 @@ class PlaceLocalizationService:
                                         _enrich_node(orig)
                                     dest = route.get("destination")
                                     if isinstance(dest, dict):
-                                        dest_details = _enrich_node(dest)
-                                        if dest_details:
-                                            last_destination_details = dest_details
+                                        _enrich_node(dest)
 
         # ----------------------------------------------------------------------
-        # Pass 2: updateDataModel.places / destinationDetails への Pro 枠メタデータ注入
+        # Pass 2: updateDataModel.places への Pro 枠メタデータ注入
         # ----------------------------------------------------------------------
         for action in actions:
             if not isinstance(action, dict):
@@ -188,14 +179,6 @@ class PlaceLocalizationService:
             if isinstance(update_dm, dict):
                 val = update_dm.get("value", {})
                 if isinstance(val, dict):
-                    # Route commute: record destinationDetails in data model
-                    if last_destination_details:
-                        dest_summary: dict[str, Any] = {}
-                        self._populate_pro_metadata(
-                            dest_summary, last_destination_details
-                        )
-                        val["destinationDetails"] = dest_summary
-
                     for k, items in val.items():
                         if k in ("destinationDetails", "originDetails", "h3Clusters"):
                             continue

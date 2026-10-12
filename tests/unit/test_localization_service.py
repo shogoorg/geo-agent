@@ -64,10 +64,11 @@ def test_localize_parts_enriches_pro_tier_metadata() -> None:
 
     localized = service.localize_parts(parts, language="ja")
 
-    # Check marker enrichment
+    # Check marker enrichment (only label is updated, no redundant place metadata on pins)
     marker = localized[0]["data"]["updateComponents"]["components"][0]["markers"][0]
     assert marker["label"] == "ダブルトールコーヒー 新宿御苑"
-    assert marker["openNow"] is False
+    assert "openNow" not in marker
+    assert "address" not in marker
 
     # Check data model Pro-tier enrichment
     place = localized[1]["data"]["updateDataModel"]["value"]["places"][0]
@@ -131,10 +132,7 @@ def test_localize_parts_enriches_route_destination() -> None:
             "kind": "data",
             "data": {
                 "updateDataModel": {
-                    "value": {
-                        "originH3Cell": "892f5aad923ffff",
-                        "destinationH3Cell": "892f5a375afffff",
-                    }
+                    "value": {}
                 }
             },
         },
@@ -142,21 +140,14 @@ def test_localize_parts_enriches_route_destination() -> None:
 
     localized = service.localize_parts(parts, language="ja")
 
-    # Check route destination enrichment in updateComponents
+    # Check route destination enrichment in updateComponents (label only, no redundant metadata)
     route = localized[0]["data"]["updateComponents"]["components"][0]["routes"][0]
     dest = route["destination"]
     assert dest["label"] == "東京都庁"
-    assert dest["address"] == "東京都新宿区西新宿2-8-1"
-    assert dest["businessStatus"] == "OPERATIONAL"
-    assert dest["openNow"] is True
+    assert "address" not in dest
+    assert "businessStatus" not in dest
+    assert "openNow" not in dest
 
-    # Check destinationDetails in updateDataModel
+    # Check updateDataModel (destinationDetails should not be injected)
     val = localized[1]["data"]["updateDataModel"]["value"]
-    assert "destinationDetails" in val
-    dest_details = val["destinationDetails"]
-    assert dest_details["name"] == "東京都庁"
-    assert dest_details["address"] == "東京都新宿区西新宿2-8-1"
-    assert dest_details["primaryType"] == "市役所・役場"
-    assert dest_details["businessStatus"] == "OPERATIONAL"
-    assert dest_details["openNow"] is True
-    assert dest_details["rating"] == 4.5
+    assert "destinationDetails" not in val

@@ -4,31 +4,31 @@ import {
   type TimelineItem,
   themeStyleSheet,
 } from '@googlemaps/a2ui/lit';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 
-const H3_RESOLUTIONS = [
-  { res: 0, label: 'Res 0 - 4,250,547 km2' },
-  { res: 1, label: 'Res 1 - 607,221 km2' },
-  { res: 2, label: 'Res 2 - 86,746 km2' },
-  { res: 3, label: 'Res 3 - 12,392 km2' },
-  { res: 4, label: 'Res 4 - 1,770 km2' },
-  { res: 5, label: 'Res 5 - 253 km2' },
-  { res: 6, label: 'Res 6 - 36.1 km2' },
-  { res: 7, label: 'Res 7 - 5.16 km2' },
-  { res: 8, label: 'Res 8 - 0.737 km2' },
-  { res: 9, label: 'Res 9 - 0.105 km2' },
-  { res: 10, label: 'Res 10 - 0.015 km2' },
-  { res: 11, label: 'Res 11 - 0.0021 km2' },
-  { res: 12, label: 'Res 12 - 0.00031 km2' },
-  { res: 13, label: 'Res 13 - 0.000044 km2' },
-  { res: 14, label: 'Res 14 - 0.0000063 km2' },
-  { res: 15, label: 'Res 15 - 0.0000009 km2' },
-];
+// const H3_RESOLUTIONS = [
+//   { res: 0, label: 'Res 0 - 4,250,547 km2' },
+//   { res: 1, label: 'Res 1 - 607,221 km2' },
+//   { res: 2, label: 'Res 2 - 86,746 km2' },
+//   { res: 3, label: 'Res 3 - 12,392 km2' },
+//   { res: 4, label: 'Res 4 - 1,770 km2' },
+//   { res: 5, label: 'Res 5 - 253 km2' },
+//   { res: 6, label: 'Res 6 - 36.1 km2' },
+//   { res: 7, label: 'Res 7 - 5.16 km2' },
+//   { res: 8, label: 'Res 8 - 0.737 km2' },
+//   { res: 9, label: 'Res 9 - 0.105 km2' },
+//   { res: 10, label: 'Res 10 - 0.015 km2' },
+//   { res: 11, label: 'Res 11 - 0.0021 km2' },
+//   { res: 12, label: 'Res 12 - 0.00031 km2' },
+//   { res: 13, label: 'Res 13 - 0.000044 km2' },
+//   { res: 14, label: 'Res 14 - 0.0000063 km2' },
+//   { res: 15, label: 'Res 15 - 0.0000009 km2' },
+// ];
 
 const SUPPORTED_LANGUAGES = [
-  { code: 'ja', label: '日本語 (ja)' },
-  { code: 'en', label: 'English (en)' },
+  { code: 'ja', label: 'Japanese' },
+  { code: 'en', label: 'English' },
 ];
 
 /**
@@ -49,7 +49,8 @@ function App() {
   const [lastResponseJson, setLastResponseJson] = useState('');
   // Agent mode state disabled - uses standard backend default agent
   // const [agentMode, setAgentMode] = useState<'default' | 'grounding' | 'template'>('default');
-  const [h3Resolution, setH3Resolution] = useState<number>(9);
+  // const [h3Resolution, setH3Resolution] = useState<number>(9);
+  const [h3Resolution] = useState<number>(9);
   // Language selection for Template mode (defaults to Japanese 'ja')
   const [language, setLanguage] = useState<string>('ja');
 
@@ -68,7 +69,7 @@ function App() {
   // Handle scrolling properly.
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({behavior: 'smooth'});
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   useEffect(() => {
     scrollToBottom();
@@ -88,7 +89,7 @@ function App() {
       const messages = JSON.parse(importJson);
       rendererRef.current = new A2UIRenderer();
       rendererRef.current.processResponse(
-        messages.map((msg: any) => ({type: 'a2ui', message: msg})),
+        messages.map((msg: any) => ({ type: 'a2ui', message: msg })),
       );
       setTimeline([...rendererRef.current.timeline]);
       importDialogRef.current?.close();
@@ -181,7 +182,7 @@ function App() {
       {/* --- Side Chat Panel --- */}
       <aside className={`chat-panel ${isChatOpen ? 'open' : 'closed'}`}>
         <div className="chat-header">
-    {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
+          {/* Difference from original: Changed header title from "Chat" to "GeoAgent" */}
           <h2>GeoAgent</h2>
 
           {/* Hidden close button to prevent closing the chat layout inside the Chrome side panel
@@ -197,8 +198,8 @@ function App() {
         <div className="chat-messages">
           <maui-providers>
             {timeline.length === 0 && (
-              <p style={{opacity: 0.5, textAlign: 'center', marginTop: '50px'}}>
-                No messages yet.
+              <p style={{ opacity: 0.5, textAlign: 'center', marginTop: '50px' }}>
+
               </p>
             )}
             {timeline.map((item, idx) => {
@@ -245,7 +246,7 @@ function App() {
         <div className="chat-input-area">
           <textarea
             className="chat-textarea"
-            placeholder="Type a message..."
+            placeholder=""
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
@@ -282,6 +283,7 @@ function App() {
                 <option value="template">Template Agent</option>
               </select>
               */}
+              {/* H3 Resolution selector disabled
               <select
                 className="resolution-select"
                 value={h3Resolution}
@@ -294,19 +296,23 @@ function App() {
                   </option>
                 ))}
               </select>
+              */}
             </div>
             <div className="chat-actions-right">
-              {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
-              <button
-                className="import-btn-input"
-                onClick={() => importDialogRef.current?.showModal()}>
-                Import JSON
-              </button>
+              {/* Hidden debug buttons */}
+              <div style={{ display: 'none' }}>
+                {lastResponseJson && <ResponseViewer json={lastResponseJson} />}
+                <button
+                  className="import-btn-input"
+                  onClick={() => importDialogRef.current?.showModal()}>
+                  Import JSON
+                </button>
+              </div>
               <button
                 className="send-button"
                 onClick={handleSend}
                 disabled={isRequesting || !input.trim()}>
-                {isRequesting ? '...' : 'Send'}
+                {isRequesting ? '...' : '↑'}
               </button>
             </div>
           </div>
@@ -338,7 +344,7 @@ function App() {
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
+          <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)' }}>
             Import A2UI JSON
           </h2>
           <textarea
@@ -381,7 +387,7 @@ function App() {
   );
 }
 
-function ResponseViewer({json}: {json: string}) {
+function ResponseViewer({ json }: { json: string }) {
   const [copied, setCopied] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -423,7 +429,7 @@ function ResponseViewer({json}: {json: string}) {
             flexDirection: 'column',
             gap: '16px',
           }}>
-          <h2 style={{margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)'}}>
+          <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-h)' }}>
             Last A2UI Response
           </h2>
           <pre
@@ -441,7 +447,7 @@ function ResponseViewer({json}: {json: string}) {
           </pre>
           <div
             className="dialog-footer"
-            style={{display: 'flex', justifyContent: 'flex-end', gap: '12px'}}>
+            style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
             <button
               className="dialog-btn-secondary"
               onClick={() => dialogRef.current?.close()}>

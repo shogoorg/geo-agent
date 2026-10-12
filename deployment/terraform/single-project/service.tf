@@ -104,7 +104,7 @@ resource "google_cloud_run_v2_service" "app" {
       env {
         name  = "BQ_ANALYTICS_CONNECTION_ID"
         # Format: {location}.{connection_id}
-        value = "${var.region}.${google_bigquery_connection.genai_telemetry_connection.connection_id}"
+        value = "${var.bigquery_location}.${google_bigquery_connection.genai_telemetry_connection.connection_id}"
       }
     }
 
