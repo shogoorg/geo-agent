@@ -7,8 +7,8 @@ Built with agents-cli, googlemaps/a2ui, and Google Cloud Agent Stack:
 - **[Uber H3 Spatial Indexing](https://h3geo.org/)**: Discretizes physical geography into hexagonal grid cells (Resolutions 0–15) for deterministic spatial clustering and OD corridor routing.
 - **[Google Maps MCP & Places API (New)](https://developers.google.com/maps/ai/grounding-lite)**: Dual-layer grounding combining Grounding Lite MCP for LLM tool search with Places API (New) Pro-tier to eliminate map hallucinations and deliver verified place details.
 
-Maps Agentic UI (A2UI) agent with Google ADK
-Agent generated and updated with `agents-cli` version `1.7.0`
+
+![Place UI](assets/ga_place.png)
 
 ## Project Structure
 
@@ -17,22 +17,29 @@ geo-agent/
 ├── app/                       # Core agent backend (FastAPI & Google ADK)
 │   ├── agent.py               # Main agent logic & MAUI bundle definition
 │   ├── agent_executor.py      # MAUI agent executor integration
-│   ├── fast_api_app.py        # FastAPI Backend server with A2A routes
+│   ├── fast_api_app.py        # FastAPI backend server with A2A & spatial routes
 │   ├── localization_service.py # Place localization & Pro-tier metadata service (Places API New)
 │   ├── spatial/               # Uber H3 hierarchical spatial indexing & caching
 │   │   ├── __init__.py
 │   │   └── h3_service.py      # H3 service (lat/lng to cell, k-ring, A2UI enrichment)
 │   └── app_utils/             # App utilities, A2A endpoints, and services
+│       ├── a2a.py             # A2A protocol utilities
+│       └── services.py        # Shared service helpers
 ├── client/                    # Client applications
-│   ├── web/react/             # React web client with A2UI renderer & language selector
+│   └── web/react/             # React web client with A2UI renderer & language selector
+├── artifacts/                 # Eval outputs (auto-generated)
+│   ├── traces/                # Raw agent traces (JSON)
+│   └── grade_results/         # Graded eval results (JSON + HTML)
+├── assets/                    # Screenshots and diagrams for documentation
 ├── deployment/                # Deployment infrastructure (Terraform)
 ├── tests/                     # Unit, integration, and evaluation datasets
+│   └── eval/datasets/         # Eval datasets (e.g., basic-dataset.json)
+├── agents-cli-manifest.yaml   # agents-cli project manifest
 ├── Dockerfile                 # Backend container definition for Cloud Run
 ├── GEMINI.md                  # AI-assisted development guide
 └── pyproject.toml             # Project dependencies and packaging
 ```
 
-> 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
 
 ## Requirements
 
@@ -81,6 +88,11 @@ Evaluate agent behavior:
 agents-cli eval run
 ```
 
+> **Test cases** are defined in [`tests/eval/datasets/basic-dataset.json`](tests/eval/datasets/basic-dataset.json).
+> **Evaluation results** (traces) are saved to [`artifacts/traces/`](artifacts/traces/).
+
+![Evaluation results UI](assets/etc_evaluation_report.png)
+
 ### Agent Configuration & Local Development
 
 #### 1. Configure the Default Agent (`.env`)
@@ -88,16 +100,8 @@ agents-cli eval run
 Set `A2UI_DEFAULT_AGENT` in `.env` to choose your default agent mode:
 
 ```bash
-# Option 1: Template Agent (Recommended for low-latency local search & directions)
 A2UI_DEFAULT_AGENT=TEMPLATE
-
-# Option 2: Base Agent (Dynamic A2UI component generation via Grounding Lite MCP)
-# A2UI_DEFAULT_AGENT=BASE
 ```
-
-> 💡 **Tip (Dynamic Overrides via Prompt):**
-> * `[LANG:ja] <query>` or `[LANG:en] <query>` ➔ Override language resolution dynamically (defaults to UI selector)
-> * `[RES:<0-15>] <query>` ➔ Override H3 spatial index resolution (0 to 15)
 
 #### 2. Start the MAUI Agent Backend
 
@@ -216,6 +220,22 @@ gcloud run deploy geo-agent-web \
 To add CI/CD and Terraform, run `agents-cli scaffold enhance`.
 To set up your production infrastructure, run `agents-cli infra cicd`.
 
+#### 3. Verify the Deployed API
+
+After deployment, the interactive API documentation (Swagger UI) is available at:
+
+```
+https://<your-cloud-run-service-url>/docs
+```
+
+**Example endpoint — Uber H3 Spatial Index (`/api/spatial/h3-info`):**
+
+This endpoint returns the [Uber H3](https://h3geo.org/) hexagonal grid cell information (cell index, neighbors, etc.) for a given latitude, longitude, and resolution. It is useful for verifying that the spatial indexing layer is functioning correctly after deployment.
+
+
+![Swagger UI](assets/etc_swagger.png)
+
+
 ## Observability
 
 Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
@@ -288,6 +308,13 @@ WHERE event_type = 'LLM_RESPONSE'
   AND JSON_VALUE(attributes, '$.usage_metadata.prompt') IS NOT NULL
 GROUP BY agent, model;
 ```
+
+### 3. Looker Studio Dashboard
+
+The BigQuery telemetry data can be visualized in [Looker Studio](https://lookerstudio.google.com/) by connecting it to the `agent_events` or `completions_view` tables in your project.
+
+![Admin Place UI](assets/gaa_place.png)
+![Admin Place h3 UI](assets/gaa_place_h3.png)
 
 ## A2A Inspector
 
