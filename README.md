@@ -91,7 +91,7 @@ agents-cli eval run
 > **Test cases** are defined in [`tests/eval/datasets/basic-dataset.json`](tests/eval/datasets/basic-dataset.json).
 > **Evaluation results** (traces) are saved to [`artifacts/traces/`](artifacts/traces/).
 
-![Evaluation results UI](assets/etc_evaluation_report.png)
+![Evaluation results UI](assets/evaluation_report.png)
 
 ### Agent Configuration & Local Development
 
@@ -233,7 +233,7 @@ https://<your-cloud-run-service-url>/docs
 This endpoint returns the [Uber H3](https://h3geo.org/) hexagonal grid cell information (cell index, neighbors, etc.) for a given latitude, longitude, and resolution. It is useful for verifying that the spatial indexing layer is functioning correctly after deployment.
 
 
-![Swagger UI](assets/etc_swagger.png)
+![Swagger UI](assets/swagger.png)
 
 
 ## Observability
