@@ -1,0 +1,169 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "新宿区の東京都庁周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "東京都庁周辺（西新宿エリア）には、観光やビジネスの合間に利用しやすいコーヒーショップやカフェが数多くあります。その中でも特におすすめの5軒をご紹介します。\n\n### 1. タリーズコーヒー 東京都庁第一本庁舎店\n都庁の建物内（第一本庁舎2階）にあるため、アクセスは抜群です。\n*   **特徴:** 都庁見学のついでに立ち寄りやすく、比較的落ち着いた雰囲気です。窓際の席からは新宿中央公園の緑が見えることもあり、休憩にぴったりです。\n*   **場所:** 東京都新宿区西新宿2-8-1 第一本庁舎 2F\n\n### 2. スターバックス コーヒー 新宿中央公園 SHUKUBA店\n都庁のすぐ目の前にある「新宿中央公園」内にある店舗です。\n*   **特徴:** 公園の緑に囲まれた開放的なロケーションが魅力です。テラス席があり、天気の良い日は都庁を見上げながらコーヒーを楽しめます。散歩の途中に寄るのにおすすめです。\n*   **場所:** 東京都新宿区西新宿2-11-5\n\n### 3. ポールバセット（Paul Bassett）新宿\n都庁から徒歩5分ほどの「新宿野村ビル」地下にある、バリスタの世界チャンピオンがプロデュースする有名店です。\n*   **特徴:** 本格的なエスプレッソやラテアートを楽しみたい方に最適です。コーヒーの質が非常に高く、併設された「ピッツァ サルヴァトーレ クオモ」のスイーツも一緒に楽しめます。\n*   **場所:** 東京都新宿区西新宿1-26-2 新宿野村ビル B1F\n\n### 4. むさしの森Diner 新宿中央公園店\n新宿中央公園内の「SHUKUBA」エリアにある、ゆったりとしたカフェレストランです。\n*   **特徴:** 「高原のリゾート」をイメージした店内で、非常にリラックスできます。コーヒーだけでなく、ふわふわのパンケーキも人気です。席が広く、打ち合わせや長めの休憩にも向いています。\n*   **場所:** 東京都新宿区西新宿2-11-5\n\n### 5. スターバックス コーヒー 新宿住友ビル店\n都庁の隣にある「新宿住友ビル（三角ビル）」の中にある店舗です。\n*   **特徴:** 住友ビルの大規模リニューアルに伴い、非常に綺麗で広々とした空間になっています。天井が高く開放的なアトリウムに面しており、雨の日でも快適に利用できます。\n*   **場所:** 東京都新宿区西新宿2-6-1 新宿住友ビル\n\n用途に合わせて（景色を楽しみたいなら公園、本格的な味ならポールバセットなど）選んでみてください。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_shinjuku_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "東京都庁周辺（西新宿エリア）には、観光やビジネスの合間に利用しやすいコーヒーショップやカフェが数多くあります。その中でも特におすすめの5軒をご紹介します。\n\n### 1. タリーズコーヒー 東京都庁第一本庁舎店\n都庁の建物内（第一本庁舎2階）にあるため、アクセスは抜群です。\n*   **特徴:** 都庁見学のついでに立ち寄りやすく、比較的落ち着いた雰囲気です。窓際の席からは新宿中央公園の緑が見えることもあり、休憩にぴったりです。\n*   **場所:** 東京都新宿区西新宿2-8-1 第一本庁舎 2F\n\n### 2. スターバックス コーヒー 新宿中央公園 SHUKUBA店\n都庁のすぐ目の前にある「新宿中央公園」内にある店舗です。\n*   **特徴:** 公園の緑に囲まれた開放的なロケーションが魅力です。テラス席があり、天気の良い日は都庁を見上げながらコーヒーを楽しめます。散歩の途中に寄るのにおすすめです。\n*   **場所:** 東京都新宿区西新宿2-11-5\n\n### 3. ポールバセット（Paul Bassett）新宿\n都庁から徒歩5分ほどの「新宿野村ビル」地下にある、バリスタの世界チャンピオンがプロデュースする有名店です。\n*   **特徴:** 本格的なエスプレッソやラテアートを楽しみたい方に最適です。コーヒーの質が非常に高く、併設された「ピッツァ サルヴァトーレ クオモ」のスイーツも一緒に楽しめます。\n*   **場所:** 東京都新宿区西新宿1-26-2 新宿野村ビル B1F\n\n### 4. むさしの森Diner 新宿中央公園店\n新宿中央公園内の「SHUKUBA」エリアにある、ゆったりとしたカフェレストランです。\n*   **特徴:** 「高原のリゾート」をイメージした店内で、非常にリラックスできます。コーヒーだけでなく、ふわふわのパンケーキも人気です。席が広く、打ち合わせや長めの休憩にも向いています。\n*   **場所:** 東京都新宿区西新宿2-11-5\n\n### 5. スターバックス コーヒー 新宿住友ビル店\n都庁の隣にある「新宿住友ビル（三角ビル）」の中にある店舗です。\n*   **特徴:** 住友ビルの大規模リニューアルに伴い、非常に綺麗で広々とした空間になっています。天井が高く開放的なアトリウムに面しており、雨の日でも快適に利用できます。\n*   **場所:** 東京都新宿区西新宿2-6-1 新宿住友ビル\n\n用途に合わせて（景色を楽しみたいなら公園、本格的な味ならポールバセットなど）選んでみてください。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:01:39.709949Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで移動すると、どれくらい時間がかかりますか？"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によって異なりますが、**おおよそ20分〜35分**を見ておくのが一般的です。\n\n主な移動手段ごとの詳細は以下の通りです。\n\n### 1. 電車（最も一般的で確実）\n*   **ルート:** JR山手線（外回り）で渋谷駅 → 新宿駅、その後徒歩または地下鉄。\n*   **所要時間:** **約20分〜25分**\n*   **詳細:**\n    *   JR山手線で渋谷から新宿まで約7分です。\n    *   新宿駅西口から都庁までは徒歩で約10〜15分かかります（動く歩道があります）。\n    *   新宿駅から都営大江戸線に乗り換えて「都庁前駅」まで行くことも可能ですが、乗り換え時間を考えると徒歩と大差ありません。\n*   **混雑状況:** 山手線は非常に混雑しますが、新宿までの乗車時間は短いです。\n\n### 2. バス（京王バス 宿51系統）\n*   **ルート:** 渋谷駅西口 → 新宿駅西口（または都庁近くのバス停）\n*   **所要時間:** **約25分〜40分**\n*   **詳細:** 乗り換えなしで座れる可能性もありますが、明治通りや甲州街道の渋滞に巻き込まれるため、時間は読みにくいです。雨の日はさらに時間がかかります。\n\n### 3. タクシー\n*   **所要時間:** **約20分〜35分**\n*   **料金:** 2,000円〜2,500円程度\n*   **詳細:** 最短距離（約4km）ですが、朝のラッシュ時は明治通りや山手通りが非常に混雑します。急いでいる場合は電車の方が確実です。\n\n### 結論としてのおすすめ\n時間に正確に移動したい場合は、**「JR山手線で新宿駅まで行き、そこから徒歩」**というルートが最も安定しており、**25分程度**で見積もっておけば安心です。\n\nもし「できるだけ歩きたくない」という場合は、渋谷駅から地下鉄副都心線で「新宿三丁目駅」へ行き、そこから丸ノ内線に乗り換えて「西新宿駅」で降りる方法もありますが、乗り換えの移動距離が長いため、あまりおすすめしません。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_go_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によって異なりますが、**おおよそ20分〜35分**を見ておくのが一般的です。\n\n主な移動手段ごとの詳細は以下の通りです。\n\n### 1. 電車（最も一般的で確実）\n*   **ルート:** JR山手線（外回り）で渋谷駅 → 新宿駅、その後徒歩または地下鉄。\n*   **所要時間:** **約20分〜25分**\n*   **詳細:**\n    *   JR山手線で渋谷から新宿まで約7分です。\n    *   新宿駅西口から都庁までは徒歩で約10〜15分かかります（動く歩道があります）。\n    *   新宿駅から都営大江戸線に乗り換えて「都庁前駅」まで行くことも可能ですが、乗り換え時間を考えると徒歩と大差ありません。\n*   **混雑状況:** 山手線は非常に混雑しますが、新宿までの乗車時間は短いです。\n\n### 2. バス（京王バス 宿51系統）\n*   **ルート:** 渋谷駅西口 → 新宿駅西口（または都庁近くのバス停）\n*   **所要時間:** **約25分〜40分**\n*   **詳細:** 乗り換えなしで座れる可能性もありますが、明治通りや甲州街道の渋滞に巻き込まれるため、時間は読みにくいです。雨の日はさらに時間がかかります。\n\n### 3. タクシー\n*   **所要時間:** **約20分〜35分**\n*   **料金:** 2,000円〜2,500円程度\n*   **詳細:** 最短距離（約4km）ですが、朝のラッシュ時は明治通りや山手通りが非常に混雑します。急いでいる場合は電車の方が確実です。\n\n### 結論としてのおすすめ\n時間に正確に移動したい場合は、**「JR山手線で新宿駅まで行き、そこから徒歩」**というルートが最も安定しており、**25分程度**で見積もっておけば安心です。\n\nもし「できるだけ歩きたくない」という場合は、渋谷駅から地下鉄副都心線で「新宿三丁目駅」へ行き、そこから丸ノ内線に乗り換えて「西新宿駅」で降りる方法もありますが、乗り換えの移動距離が長いため、あまりおすすめしません。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:01:39.894700Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "How long will it take to go to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "During the morning rush hour (roughly 7:30 AM to 9:30 AM), it will typically take you **25 to 35 minutes** to commute from Shibuya Station to the Tokyo Metropolitan Government Building (TMGB).\n\nWhile the two locations are geographically close, the size of Shinjuku Station and the morning crowds account for most of that time.\n\nHere is the breakdown of your best options:\n\n### 1. The Most Common Route (Train + Walk)\n*   **Total Time:** ~25–30 minutes\n*   **Route:** \n    1.  Take the **JR Yamanote Line** (Platform 2) or **JR Saikyo/Shonan-Shinjuku Line** from Shibuya to Shinjuku Station. (7 minutes)\n    2.  Exit through the **Shinjuku West Exit**.\n    3.  Walk to the TMGB. There is a dedicated underground passage with moving walkways (the \"Shinjuku Wall\") that leads directly toward the building. (15–20 minutes walking)\n*   **Rush Hour Factor:** Shinjuku Station is the busiest in the world. During rush hour, navigating the crowds at the West Exit can add 5 minutes to your trip just to get out of the station.\n\n### 2. The \"Less Walking\" Route (Train + Subway)\n*   **Total Time:** ~30 minutes\n*   **Route:**\n    1.  Take the **JR Yamanote Line** to Shinjuku Station.\n    2.  Transfer internally to the **Toei Oedo Line** (Subway).\n    3.  Take the Oedo Line one stop to **Tochomae Station**.\n    4.  The TMGB is located directly above Tochomae Station.\n*   **Rush Hour Factor:** While this saves you a long walk, the transfer from the JR platforms to the Oedo Line platform in Shinjuku is a long, deep descent. During rush hour, the escalators and stairs will be very congested.\n\n### 3. The Direct Bus (Keio Bus)\n*   **Total Time:** 25–40 minutes (Highly variable)\n*   **Route:** Take the **Shuku 51 (宿51)** bus from Shibuya Station West Exit.\n*   **Rush Hour Factor:** This bus drops you off very close to the building. However, road traffic in Shibuya and Shinjuku during the morning peak is heavy. This is the most comfortable option (if you get a seat), but the least predictable for timing.\n\n### geo_agent’s Pro-Tips for the Morning Rush:\n*   **The \"Moving Walkway\":** If you walk from Shinjuku Station, look for signs for the \"Metropolitan Government\" or \"Moving Walkway.\" It is entirely indoors, which is helpful if it’s raining or humid.\n*   **Avoid the front of the train:** On the JR Yamanote line heading from Shibuya to Shinjuku, the cars at the front of the train (closest to the Shinjuku direction) are usually the most packed because they are closest to the main exits. Try boarding near the middle or rear.\n*   **Suica/Pasmo:** Ensure your IC card is topped up. You do not want to be stuck in a ticket machine line during rush hour."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_go_en",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "During the morning rush hour (roughly 7:30 AM to 9:30 AM), it will typically take you **25 to 35 minutes** to commute from Shibuya Station to the Tokyo Metropolitan Government Building (TMGB).\n\nWhile the two locations are geographically close, the size of Shinjuku Station and the morning crowds account for most of that time.\n\nHere is the breakdown of your best options:\n\n### 1. The Most Common Route (Train + Walk)\n*   **Total Time:** ~25–30 minutes\n*   **Route:** \n    1.  Take the **JR Yamanote Line** (Platform 2) or **JR Saikyo/Shonan-Shinjuku Line** from Shibuya to Shinjuku Station. (7 minutes)\n    2.  Exit through the **Shinjuku West Exit**.\n    3.  Walk to the TMGB. There is a dedicated underground passage with moving walkways (the \"Shinjuku Wall\") that leads directly toward the building. (15–20 minutes walking)\n*   **Rush Hour Factor:** Shinjuku Station is the busiest in the world. During rush hour, navigating the crowds at the West Exit can add 5 minutes to your trip just to get out of the station.\n\n### 2. The \"Less Walking\" Route (Train + Subway)\n*   **Total Time:** ~30 minutes\n*   **Route:**\n    1.  Take the **JR Yamanote Line** to Shinjuku Station.\n    2.  Transfer internally to the **Toei Oedo Line** (Subway).\n    3.  Take the Oedo Line one stop to **Tochomae Station**.\n    4.  The TMGB is located directly above Tochomae Station.\n*   **Rush Hour Factor:** While this saves you a long walk, the transfer from the JR platforms to the Oedo Line platform in Shinjuku is a long, deep descent. During rush hour, the escalators and stairs will be very congested.\n\n### 3. The Direct Bus (Keio Bus)\n*   **Total Time:** 25–40 minutes (Highly variable)\n*   **Route:** Take the **Shuku 51 (宿51)** bus from Shibuya Station West Exit.\n*   **Rush Hour Factor:** This bus drops you off very close to the building. However, road traffic in Shibuya and Shinjuku during the morning peak is heavy. This is the most comfortable option (if you get a seat), but the least predictable for timing.\n\n### geo_agent’s Pro-Tips for the Morning Rush:\n*   **The \"Moving Walkway\":** If you walk from Shinjuku Station, look for signs for the \"Metropolitan Government\" or \"Moving Walkway.\" It is entirely indoors, which is helpful if it’s raining or humid.\n*   **Avoid the front of the train:** On the JR Yamanote line heading from Shibuya to Shinjuku, the cars at the front of the train (closest to the Shinjuku direction) are usually the most packed because they are closest to the main exits. Try boarding near the middle or rear.\n*   **Suica/Pasmo:** Ensure your IC card is topped up. You do not want to be stuck in a ticket machine line during rush hour."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:01:39.940337Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

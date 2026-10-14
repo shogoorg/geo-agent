@@ -1,0 +1,224 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "東京都庁周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "東京都庁周辺（西新宿エリア）には、ビジネス街や公園が隣接しているため、さまざまなタイプのカフェがあります。その中からおすすめの5軒をご紹介します。\n\n### 1. スターバックス コーヒー 東京都庁第一本庁舎店\n都庁の建物内（1階）にある店舗です。観光や手続きのついでに立ち寄りやすく、場所柄、落ち着いた雰囲気があります。\n*   **特徴:** 都庁内にあるためアクセスが抜群。天井が高く開放感があります。\n*   **場所:** 東京都庁第一本庁舎 1階\n\n### 2. むさしの森Diner 新宿中央公園店\n都庁の目の前にある「新宿中央公園」内にあるカフェです。緑に囲まれたテラス席があり、都会の喧騒を忘れてリラックスできます。\n*   **特徴:** パンケーキが有名で、朝食やランチにも最適。公園の景色を楽しめます。\n*   **場所:** 新宿中央公園内（SHUKU NOVA 1F）\n\n### 3. Paul Bassett（ポール・バセット）新宿\nバリスタの世界チャンピオンがプロデュースする本格派のコーヒーショップです。都庁から徒歩5分ほどの新宿野村ビル内にあります。\n*   **特徴:** 非常にクオリティの高いエスプレッソやラテアートが楽しめます。コーヒー好きの方には特におすすめです。\n*   **場所:** 新宿野村ビル B1F\n\n### 4. タリーズコーヒー 新宿NSビル店\n都庁のすぐ隣にある「新宿NSビル」の1階にあります。このビルは巨大な吹き抜けが特徴で、開放的な空間でコーヒーを飲むことができます。\n*   **特徴:** 席数が多く、打ち合わせや作業をしている人も多い落ち着いた店舗です。\n*   **場所:** 新宿NSビル 1F\n\n### 5. カフェ ラ ヴォワ（Cafe la Voie）\n都庁から新宿駅方面へ少し歩いたところにある、老舗ホテル（かどやホテル）の1階にあるカフェです。\n*   **特徴:** クラシックで落ち着いた雰囲気。「宮内庁御用達」のコーヒー豆を使用した贅沢なコーヒーが味わえます。\n*   **場所:** 東京都新宿区西新宿1-23-1（かどやホテル 1F）\n\n---\n\n**ワンポイントアドバイス:**\n都庁の**展望室**（北展望室・南展望室）にも軽食やコーヒーを楽しめる喫茶スペースがあります。地上202メートルの絶景を見ながら休憩したい場合は、そちらも検討してみてください。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_tokyo_gov_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "東京都庁周辺（西新宿エリア）には、ビジネス街や公園が隣接しているため、さまざまなタイプのカフェがあります。その中からおすすめの5軒をご紹介します。\n\n### 1. スターバックス コーヒー 東京都庁第一本庁舎店\n都庁の建物内（1階）にある店舗です。観光や手続きのついでに立ち寄りやすく、場所柄、落ち着いた雰囲気があります。\n*   **特徴:** 都庁内にあるためアクセスが抜群。天井が高く開放感があります。\n*   **場所:** 東京都庁第一本庁舎 1階\n\n### 2. むさしの森Diner 新宿中央公園店\n都庁の目の前にある「新宿中央公園」内にあるカフェです。緑に囲まれたテラス席があり、都会の喧騒を忘れてリラックスできます。\n*   **特徴:** パンケーキが有名で、朝食やランチにも最適。公園の景色を楽しめます。\n*   **場所:** 新宿中央公園内（SHUKU NOVA 1F）\n\n### 3. Paul Bassett（ポール・バセット）新宿\nバリスタの世界チャンピオンがプロデュースする本格派のコーヒーショップです。都庁から徒歩5分ほどの新宿野村ビル内にあります。\n*   **特徴:** 非常にクオリティの高いエスプレッソやラテアートが楽しめます。コーヒー好きの方には特におすすめです。\n*   **場所:** 新宿野村ビル B1F\n\n### 4. タリーズコーヒー 新宿NSビル店\n都庁のすぐ隣にある「新宿NSビル」の1階にあります。このビルは巨大な吹き抜けが特徴で、開放的な空間でコーヒーを飲むことができます。\n*   **特徴:** 席数が多く、打ち合わせや作業をしている人も多い落ち着いた店舗です。\n*   **場所:** 新宿NSビル 1F\n\n### 5. カフェ ラ ヴォワ（Cafe la Voie）\n都庁から新宿駅方面へ少し歩いたところにある、老舗ホテル（かどやホテル）の1階にあるカフェです。\n*   **特徴:** クラシックで落ち着いた雰囲気。「宮内庁御用達」のコーヒー豆を使用した贅沢なコーヒーが味わえます。\n*   **場所:** 東京都新宿区西新宿1-23-1（かどやホテル 1F）\n\n---\n\n**ワンポイントアドバイス:**\n都庁の**展望室**（北展望室・南展望室）にも軽食やコーヒーを楽しめる喫茶スペースがあります。地上202メートルの絶景を見ながら休憩したい場合は、そちらも検討してみてください。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:10:29.229876Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで移動すると、どれくらい時間がかかりますか？"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によって異なりますが、**おおよそ25分から40分**を見ておくのが現実的です。\n\n主な移動手段ごとの詳細は以下の通りです。\n\n### 1. 電車（最も確実な方法）：約25分〜30分\n最も一般的で時間が読めるルートです。\n\n*   **ルート:** JR山手線（外回り）で「新宿駅」へ行き、そこから徒歩または地下鉄。\n    *   **JR山手線（渋谷駅〜新宿駅）:** 約7分（ただしホームまでの移動と混雑で＋5分程度）\n    *   **新宿駅から都庁まで:**\n        *   **徒歩:** 新宿駅西口から「動く歩道」を利用して約10〜15分。\n        *   **都営大江戸線:** 新宿駅から「都庁前駅」まで1駅（約2分＋乗り換え時間）。\n*   **混雑状況:** 山手線は非常に混雑しますが、新宿駅で大量の乗客が降りるため、流れに乗って移動することになります。\n\n### 2. バス（京王バス 宿51系統）：約30分〜45分\n渋谷駅西口から「新宿駅西口（または都庁方面）」行きのバスが出ています。\n\n*   **メリット:** 乗り換えがなく、座れれば楽です。\n*   **デメリット:** 明治通りや代々木周辺の渋滞に巻き込まれる可能性が高く、予定より時間がかかることが多いです。ラッシュ時は40分以上かかることも珍しくありません。\n\n### 3. タクシー：約20分〜35分\n*   **ルート:** 主に山手通りや小田急線沿いの道路を通ります。\n*   **料金:** 2,000円〜2,500円程度。\n*   **注意点:** 渋滞の状況に大きく左右されます。特に新宿駅周辺の甲州街道や西口付近は朝の混雑が激しいため、電車よりも時間がかかる場合があります。\n\n### 4. 自転車（シェアサイクルなど）：約20分〜25分\n*   実は最も早い場合もあります。距離は約4km弱です。\n*   代々木公園の横を抜けるルートは比較的走りやすいですが、坂道がいくつかあります。\n\n---\n\n**結論としてのおすすめ:**\n時間に正確に到着したい場合は、**「JR山手線で新宿駅まで行き、そこから徒歩（または大江戸線）」**を利用するのがベストです。合計で**30分弱**見込んでおけば安心です。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_go_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によって異なりますが、**おおよそ25分から40分**を見ておくのが現実的です。\n\n主な移動手段ごとの詳細は以下の通りです。\n\n### 1. 電車（最も確実な方法）：約25分〜30分\n最も一般的で時間が読めるルートです。\n\n*   **ルート:** JR山手線（外回り）で「新宿駅」へ行き、そこから徒歩または地下鉄。\n    *   **JR山手線（渋谷駅〜新宿駅）:** 約7分（ただしホームまでの移動と混雑で＋5分程度）\n    *   **新宿駅から都庁まで:**\n        *   **徒歩:** 新宿駅西口から「動く歩道」を利用して約10〜15分。\n        *   **都営大江戸線:** 新宿駅から「都庁前駅」まで1駅（約2分＋乗り換え時間）。\n*   **混雑状況:** 山手線は非常に混雑しますが、新宿駅で大量の乗客が降りるため、流れに乗って移動することになります。\n\n### 2. バス（京王バス 宿51系統）：約30分〜45分\n渋谷駅西口から「新宿駅西口（または都庁方面）」行きのバスが出ています。\n\n*   **メリット:** 乗り換えがなく、座れれば楽です。\n*   **デメリット:** 明治通りや代々木周辺の渋滞に巻き込まれる可能性が高く、予定より時間がかかることが多いです。ラッシュ時は40分以上かかることも珍しくありません。\n\n### 3. タクシー：約20分〜35分\n*   **ルート:** 主に山手通りや小田急線沿いの道路を通ります。\n*   **料金:** 2,000円〜2,500円程度。\n*   **注意点:** 渋滞の状況に大きく左右されます。特に新宿駅周辺の甲州街道や西口付近は朝の混雑が激しいため、電車よりも時間がかかる場合があります。\n\n### 4. 自転車（シェアサイクルなど）：約20分〜25分\n*   実は最も早い場合もあります。距離は約4km弱です。\n*   代々木公園の横を抜けるルートは比較的走りやすいですが、坂道がいくつかあります。\n\n---\n\n**結論としてのおすすめ:**\n時間に正確に到着したい場合は、**「JR山手線で新宿駅まで行き、そこから徒歩（または大江戸線）」**を利用するのがベストです。合計で**30分弱**見込んでおけば安心です。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:10:29.338619Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 coffee shops near Tokyo Metropolitan Government Building"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Here are 5 coffee shops located within a short walking distance (under 10 minutes) of the Tokyo Metropolitan Government (TMG) Building in Shinjuku:\n\n### 1. Musashino Mori Coffee (Shinjuku Central Park)\nLocated right across the street in Shinjuku Central Park, this café offers a relaxing, airy atmosphere with views of the greenery. It is famous for its \"Specialty Soft Pancakes,\" but it also serves excellent forest-certified coffee.\n*   **Distance:** ~3 minutes walk\n*   **Best for:** A relaxing break with park views.\n\n### 2. Paul Bassett (Shinjuku Nomura Building)\nFor serious coffee enthusiasts, this is a must-visit. Operated by World Barista Champion Paul Bassett, this shop focuses on high-quality beans and expert extraction. The espresso and flat whites here are among the best in the city.\n*   **Distance:** ~7 minutes walk\n*   **Best for:** Specialty coffee and award-winning baristas.\n\n### 3. Starbucks Coffee (Shinjuku Sumitomo Building)\nThe Sumitomo Building is right next to the TMG Building. This particular Starbucks is located in the \"Sankaku Hiroba\" (Triangular Plaza), a massive glass-roofed atrium. It’s a great spot for people-watching in a modern architectural setting.\n*   **Distance:** ~3 minutes walk\n*   **Best for:** Reliability and a unique indoor-outdoor atmosphere.\n\n### 4. Tully’s Coffee (Shinjuku NS Building)\nLocated in the NS Building (home to the giant pendulum clock), this Tully’s is spacious and often quieter than the street-level shops. It is a popular spot for professionals working in the area.\n*   **Distance:** ~4 minutes walk\n*   **Best for:** Getting some work done or a quiet meeting.\n\n### 5. Doutor Coffee Shop (Shinjuku Mitsui Building)\nIf you want a classic Japanese coffee chain experience, Doutor is the go-to. It is affordable, efficient, and located in the basement level of the nearby Mitsui Building. It’s perfect for a quick caffeine fix before heading up to the TMG observation decks.\n*   **Distance:** ~5 minutes walk\n*   **Best for:** A quick, budget-friendly coffee.\n\n**Travel Tip:** If you are visiting the TMG Building, don't forget that there is a **Starbucks** located on the **32nd floor of the Main Building No. 1** (in the staff cafeteria area, but open to the public). It offers a great view, though it follows government office hours and is usually closed on weekends."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_tokyo_gov_en",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Here are 5 coffee shops located within a short walking distance (under 10 minutes) of the Tokyo Metropolitan Government (TMG) Building in Shinjuku:\n\n### 1. Musashino Mori Coffee (Shinjuku Central Park)\nLocated right across the street in Shinjuku Central Park, this café offers a relaxing, airy atmosphere with views of the greenery. It is famous for its \"Specialty Soft Pancakes,\" but it also serves excellent forest-certified coffee.\n*   **Distance:** ~3 minutes walk\n*   **Best for:** A relaxing break with park views.\n\n### 2. Paul Bassett (Shinjuku Nomura Building)\nFor serious coffee enthusiasts, this is a must-visit. Operated by World Barista Champion Paul Bassett, this shop focuses on high-quality beans and expert extraction. The espresso and flat whites here are among the best in the city.\n*   **Distance:** ~7 minutes walk\n*   **Best for:** Specialty coffee and award-winning baristas.\n\n### 3. Starbucks Coffee (Shinjuku Sumitomo Building)\nThe Sumitomo Building is right next to the TMG Building. This particular Starbucks is located in the \"Sankaku Hiroba\" (Triangular Plaza), a massive glass-roofed atrium. It’s a great spot for people-watching in a modern architectural setting.\n*   **Distance:** ~3 minutes walk\n*   **Best for:** Reliability and a unique indoor-outdoor atmosphere.\n\n### 4. Tully’s Coffee (Shinjuku NS Building)\nLocated in the NS Building (home to the giant pendulum clock), this Tully’s is spacious and often quieter than the street-level shops. It is a popular spot for professionals working in the area.\n*   **Distance:** ~4 minutes walk\n*   **Best for:** Getting some work done or a quiet meeting.\n\n### 5. Doutor Coffee Shop (Shinjuku Mitsui Building)\nIf you want a classic Japanese coffee chain experience, Doutor is the go-to. It is affordable, efficient, and located in the basement level of the nearby Mitsui Building. It’s perfect for a quick caffeine fix before heading up to the TMG observation decks.\n*   **Distance:** ~5 minutes walk\n*   **Best for:** A quick, budget-friendly coffee.\n\n**Travel Tip:** If you are visiting the TMG Building, don't forget that there is a **Starbucks** located on the **32nd floor of the Main Building No. 1** (in the staff cafeteria area, but open to the public). It offers a great view, though it follows government office hours and is usually closed on weekends."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:10:29.344715Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "How long will it take to go to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "During the morning rush hour (typically between 8:00 AM and 9:00 AM), it will take you approximately **20 to 30 minutes** to get from downtown Shibuya to the Tokyo Metropolitan Government Building (TMGB).\n\nHere is the breakdown of the best routes:\n\n### 1. The Most Common Route: JR Yamanote Line + Walking\nThis is generally the fastest and most reliable method.\n*   **Train:** Take the **JR Yamanote Line** (Outer Loop, Platform 2) from Shibuya Station to Shinjuku Station.\n    *   *Travel time:* ~7 minutes (4 stops).\n*   **The Walk:** From Shinjuku Station, head toward the **West Exit**. Follow the signs for the \"Tokyo Metropolitan Government\" or \"Moving Walkway.\"\n    *   *Walking time:* ~12–15 minutes. There is an underground passage (the \"One-Pass\") with moving walkways that leads almost directly to the building, which is helpful if it’s raining or hot.\n*   **Total Time:** ~22–25 minutes.\n\n### 2. The \"Less Walking\" Route: JR + Toei Oedo Line\nIf you want to minimize walking, you can switch to a subway line that drops you right under the building.\n*   **Train 1:** Take the **JR Yamanote Line** from Shibuya to **Yoyogi Station** (2 minutes).\n*   **Transfer:** Switch to the **Toei Oedo Line** (toward Tochomae/Hikarigaoka).\n*   **Train 2:** Get off at **Tochomae Station** (5 minutes). The station is located directly beneath the Tokyo Metropolitan Government Building.\n*   **Total Time:** ~25–30 minutes (depending on transfer timing).\n\n---\n\n### Important Rush Hour Tips:\n*   **Crowding:** The JR Yamanote Line between Shibuya and Shinjuku is one of the most crowded stretches in Tokyo. Be prepared for \"pack-in\" conditions where you may have to wait for a second train to fit.\n*   **Station Navigation:** Shinjuku Station is the busiest train station in the world. During rush hour, the sheer volume of people can slow your walking pace significantly. Budget an extra 5 minutes just to navigate the crowds within the station.\n*   **The \"Moving Walkway\":** If you take the walking route from Shinjuku Station, look for the **Keio Plaza Hotel** signs; the TMGB is right next to it.\n*   **Security:** If you are visiting the TMGB Observatories, keep in mind that there is a brief security/bag check at the ground floor which may have a small queue even in the morning.\n\n**Summary Recommendation:** Take the **JR Yamanote Line to Shinjuku Station** and walk through the **West Exit underground passage**. It is the most straightforward route and keeps you out of the elements."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_go_en",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "During the morning rush hour (typically between 8:00 AM and 9:00 AM), it will take you approximately **20 to 30 minutes** to get from downtown Shibuya to the Tokyo Metropolitan Government Building (TMGB).\n\nHere is the breakdown of the best routes:\n\n### 1. The Most Common Route: JR Yamanote Line + Walking\nThis is generally the fastest and most reliable method.\n*   **Train:** Take the **JR Yamanote Line** (Outer Loop, Platform 2) from Shibuya Station to Shinjuku Station.\n    *   *Travel time:* ~7 minutes (4 stops).\n*   **The Walk:** From Shinjuku Station, head toward the **West Exit**. Follow the signs for the \"Tokyo Metropolitan Government\" or \"Moving Walkway.\"\n    *   *Walking time:* ~12–15 minutes. There is an underground passage (the \"One-Pass\") with moving walkways that leads almost directly to the building, which is helpful if it’s raining or hot.\n*   **Total Time:** ~22–25 minutes.\n\n### 2. The \"Less Walking\" Route: JR + Toei Oedo Line\nIf you want to minimize walking, you can switch to a subway line that drops you right under the building.\n*   **Train 1:** Take the **JR Yamanote Line** from Shibuya to **Yoyogi Station** (2 minutes).\n*   **Transfer:** Switch to the **Toei Oedo Line** (toward Tochomae/Hikarigaoka).\n*   **Train 2:** Get off at **Tochomae Station** (5 minutes). The station is located directly beneath the Tokyo Metropolitan Government Building.\n*   **Total Time:** ~25–30 minutes (depending on transfer timing).\n\n---\n\n### Important Rush Hour Tips:\n*   **Crowding:** The JR Yamanote Line between Shibuya and Shinjuku is one of the most crowded stretches in Tokyo. Be prepared for \"pack-in\" conditions where you may have to wait for a second train to fit.\n*   **Station Navigation:** Shinjuku Station is the busiest train station in the world. During rush hour, the sheer volume of people can slow your walking pace significantly. Budget an extra 5 minutes just to navigate the crowds within the station.\n*   **The \"Moving Walkway\":** If you take the walking route from Shinjuku Station, look for the **Keio Plaza Hotel** signs; the TMGB is right next to it.\n*   **Security:** If you are visiting the TMGB Observatories, keep in mind that there is a brief security/bag check at the ground floor which may have a small queue even in the morning.\n\n**Summary Recommendation:** Take the **JR Yamanote Line to Shinjuku Station** and walk through the **West Exit underground passage**. It is the most straightforward route and keeps you out of the elements."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-11T11:10:29.352240Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
