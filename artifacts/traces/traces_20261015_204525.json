@@ -1,0 +1,554 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 coffee shops near Shinjuku Gyoen National Garden in Shinjuku"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Searching for coffee shops near Shinjuku Gyoen National Garden...\n\nHere are 5 popular coffee shops located near Shinjuku Gyoen National Garden:\n\n1.  **Blue Bottle Coffee Shinjuku Cafe**\n    *   **Location:** Across from the Shinjuku South Exit, very close to the Garden's Shinjuku Gate.\n    *   **Vibe:** Modern, minimalist, and bright. Known for high-quality pour-overs and seasonal espresso drinks.\n2.  **Eight Coffee**\n    *   **Location:** Just a short walk from the Shinjuku-gyoenmae Station.\n    *   **Vibe:** A small, cozy \"hole-in-the-wall\" style shop. It's popular for a quick, excellent takeaway cup before heading into the park.\n3.  **Turret Coffee Shinjuku**\n    *   **Location:** Near the Shinjuku-gyoenmae Station.\n    *   **Vibe:** Industrial-chic. It's famous for its strong, rich lattes and unique \"Turret Latte\" served in traditional Japanese bowls.\n4.  **Starbucks Coffee - Shinjuku Gyoen National Garden**\n    *   **Location:** Actually *inside* the garden (requires park entry fee).\n    *   **Vibe:** Sustainable design with large glass windows offering a stunning view of the park's greenery. It's one of the most beautiful Starbucks locations in Tokyo.\n5.  **All Seasons Coffee**\n    *   **Location:** A few minutes' walk from the Shinjuku Gate.\n    *   **Vibe:** A popular local roastery known for its high-quality beans and excellent classic Japanese-style pudding, which pairs perfectly with their coffee."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_shinjuku",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Searching for coffee shops near Shinjuku Gyoen National Garden...\n\nHere are 5 popular coffee shops located near Shinjuku Gyoen National Garden:\n\n1.  **Blue Bottle Coffee Shinjuku Cafe**\n    *   **Location:** Across from the Shinjuku South Exit, very close to the Garden's Shinjuku Gate.\n    *   **Vibe:** Modern, minimalist, and bright. Known for high-quality pour-overs and seasonal espresso drinks.\n2.  **Eight Coffee**\n    *   **Location:** Just a short walk from the Shinjuku-gyoenmae Station.\n    *   **Vibe:** A small, cozy \"hole-in-the-wall\" style shop. It's popular for a quick, excellent takeaway cup before heading into the park.\n3.  **Turret Coffee Shinjuku**\n    *   **Location:** Near the Shinjuku-gyoenmae Station.\n    *   **Vibe:** Industrial-chic. It's famous for its strong, rich lattes and unique \"Turret Latte\" served in traditional Japanese bowls.\n4.  **Starbucks Coffee - Shinjuku Gyoen National Garden**\n    *   **Location:** Actually *inside* the garden (requires park entry fee).\n    *   **Vibe:** Sustainable design with large glass windows offering a stunning view of the park's greenery. It's one of the most beautiful Starbucks locations in Tokyo.\n5.  **All Seasons Coffee**\n    *   **Location:** A few minutes' walk from the Shinjuku Gate.\n    *   **Vibe:** A popular local roastery known for its high-quality beans and excellent classic Japanese-style pudding, which pairs perfectly with their coffee."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:41.314034Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Is the Keio Plaza Hotel in Shinjuku, Tokyo a good hotel?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "The **Keio Plaza Hotel** in Shinjuku is widely considered a **very good, high-end 4-star hotel.** It is one of Tokyo’s most iconic \"grand dame\" hotels. While it may not be as ultra-luxurious as a 5-star Park Hyatt or Aman, it offers a reliable, high-quality experience that appeals to both business travelers and tourists.\n\nHere is a breakdown of why it is (or might not be) a good choice for you:\n\n### The Pros (Why it’s a good hotel)\n1.  **Prime Location:** It is located in **Nishi-Shinjuku** (the skyscraper district). It’s about a 5-10 minute walk from Shinjuku Station, the busiest transit hub in the world, giving you easy access to the entire city.\n2.  **Airport Accessibility:** One of its biggest selling points is that the **Airport Limousine Bus** stops directly at the hotel entrance. This is incredibly convenient if you have heavy luggage, as you won't have to navigate train stations.\n3.  **Exceptional Service:** As is standard with top-tier Japanese hotels, the service is polite, professional, and efficient. Most staff members speak excellent English.\n4.  **Dining Options:** The hotel is massive and houses over 20 restaurants and bars. The \"Aurora\" Sky Lounge offers fantastic views of the city.\n5.  **Club Lounge (Premier Grand):** If you book a \"Premier Grand\" room, you get access to one of the best club lounges in Tokyo, featuring high-end breakfast, afternoon tea, and evening cocktails with stunning views.\n6.  **Unique Features:** It is famous for its **Hello Kitty-themed rooms** and its traditional Japanese tea ceremony experience, which is popular with international tourists.\n\n### The Cons (Things to consider)\n1.  **It’s a \"Mega-Hotel\":** With over 1,400 rooms, the hotel can feel quite busy. You might encounter long lines for breakfast or a bit of a wait for elevators during peak hours.\n2.  **Walking Distance:** While it is close to Shinjuku Station, the walk is about 7-10 minutes. If you are tired after a long day of sightseeing, that walk can feel long, though there is an underground walkway to protect you from rain.\n3.  **A Bit Dated in Parts:** Because it is an older hotel (opened in 1971), some of the standard rooms in the older tower can feel a bit \"classic\" or dated compared to the sleek, modern design of newer hotels. However, the renovated rooms are very modern.\n4.  **Price:** It is more expensive than a \"business hotel\" (like a Gracery or a Mitsui Garden), but you are paying for the amenities, space, and service.\n\n### Who is it best for?\n*   **Families:** The rooms are generally larger than the tiny rooms found in typical Tokyo budget hotels.\n*   **First-time visitors:** Its proximity to the Airport Limousine Bus and Shinjuku Station makes navigating Tokyo much easier.\n*   **Business Travelers:** The location in the business district and the high-speed internet/desk spaces are ideal.\n\n### Summary Verdict\n**Yes, it is a good hotel.** It is a safe, reliable, and comfortable choice. If you want a modern, luxury experience, try to book a **renovated room** or a **Premier Grand** room. If you are looking for a small, boutique, or intimate atmosphere, this might feel a bit too large and \"corporate\" for you."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "keio_plaza_hotel",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "The **Keio Plaza Hotel** in Shinjuku is widely considered a **very good, high-end 4-star hotel.** It is one of Tokyo’s most iconic \"grand dame\" hotels. While it may not be as ultra-luxurious as a 5-star Park Hyatt or Aman, it offers a reliable, high-quality experience that appeals to both business travelers and tourists.\n\nHere is a breakdown of why it is (or might not be) a good choice for you:\n\n### The Pros (Why it’s a good hotel)\n1.  **Prime Location:** It is located in **Nishi-Shinjuku** (the skyscraper district). It’s about a 5-10 minute walk from Shinjuku Station, the busiest transit hub in the world, giving you easy access to the entire city.\n2.  **Airport Accessibility:** One of its biggest selling points is that the **Airport Limousine Bus** stops directly at the hotel entrance. This is incredibly convenient if you have heavy luggage, as you won't have to navigate train stations.\n3.  **Exceptional Service:** As is standard with top-tier Japanese hotels, the service is polite, professional, and efficient. Most staff members speak excellent English.\n4.  **Dining Options:** The hotel is massive and houses over 20 restaurants and bars. The \"Aurora\" Sky Lounge offers fantastic views of the city.\n5.  **Club Lounge (Premier Grand):** If you book a \"Premier Grand\" room, you get access to one of the best club lounges in Tokyo, featuring high-end breakfast, afternoon tea, and evening cocktails with stunning views.\n6.  **Unique Features:** It is famous for its **Hello Kitty-themed rooms** and its traditional Japanese tea ceremony experience, which is popular with international tourists.\n\n### The Cons (Things to consider)\n1.  **It’s a \"Mega-Hotel\":** With over 1,400 rooms, the hotel can feel quite busy. You might encounter long lines for breakfast or a bit of a wait for elevators during peak hours.\n2.  **Walking Distance:** While it is close to Shinjuku Station, the walk is about 7-10 minutes. If you are tired after a long day of sightseeing, that walk can feel long, though there is an underground walkway to protect you from rain.\n3.  **A Bit Dated in Parts:** Because it is an older hotel (opened in 1971), some of the standard rooms in the older tower can feel a bit \"classic\" or dated compared to the sleek, modern design of newer hotels. However, the renovated rooms are very modern.\n4.  **Price:** It is more expensive than a \"business hotel\" (like a Gracery or a Mitsui Garden), but you are paying for the amenities, space, and service.\n\n### Who is it best for?\n*   **Families:** The rooms are generally larger than the tiny rooms found in typical Tokyo budget hotels.\n*   **First-time visitors:** Its proximity to the Airport Limousine Bus and Shinjuku Station makes navigating Tokyo much easier.\n*   **Business Travelers:** The location in the business district and the high-speed internet/desk spaces are ideal.\n\n### Summary Verdict\n**Yes, it is a good hotel.** It is a safe, reliable, and comfortable choice. If you want a modern, luxury experience, try to book a **renovated room** or a **Premier Grand** room. If you are looking for a small, boutique, or intimate atmosphere, this might feel a bit too large and \"corporate\" for you."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:41.214108Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "How long will it take to commute to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "During the morning rush hour (typically between 7:30 AM and 9:30 AM), a commute from downtown Shibuya to the Tokyo Metropolitan Government (TMG) Building generally takes **20 to 30 minutes**.\n\nThe TMG Building is located in Shinjuku, which is only a few kilometers north of Shibuya. Here is a breakdown of your best options:\n\n### 1. The Fastest & Most Common Route: JR Train + Walk\n*   **Route:** Take the **JR Yamanote Line** (Platform 2) or the **JR Saikyo Line / Shonan-Shinjuku Line** from Shibuya Station to **Shinjuku Station**.\n*   **Train Time:** 5–7 minutes.\n*   **The Walk:** From Shinjuku Station, use the **West Exit**. It is a 10–15 minute walk to the TMG building. \n    *   *Tip:* Use the \"One-Step\" underground walkway (Moving Walkway) which protects you from rain and leads almost directly to the building.\n*   **Total Time:** Approximately **20–25 minutes**.\n\n### 2. The \"Closest Drop-off\" Route: JR + Oedo Subway Line\n*   **Route:** Take the JR train from Shibuya to Shinjuku Station, then transfer to the **Toei Oedo Line** and go one stop to **Tochomae Station**.\n*   **Train Time:** 5 mins (JR) + 2 mins (Subway).\n*   **The Walk:** Tochomae Station is located directly underneath the TMG Building (Exit A4).\n*   **Total Time:** Approximately **20–25 minutes**. (While this involves less walking, the transfer time between the JR platforms and the deep Oedo Line platforms at Shinjuku can be time-consuming during rush hour).\n\n### 3. The Bus Route (Keio Bus)\n*   **Route:** Take the **宿51 (Shuku-51)** bus from Shibuya Station West Exit.\n*   **Pros:** It drops you off very close to the building (Shinjuku-shako-mae stop).\n*   **Cons:** Traffic on Meiji-dori and Yamate-dori can be unpredictable during the morning rush.\n*   **Total Time:** **30–45 minutes** depending on traffic.\n\n### 4. Taxi / Ride-share\n*   **Distance:** Roughly 4.5 km.\n*   **Total Time:** **15–25 minutes**. \n*   **Cost:** Approximately ¥2,000–¥2,500.\n*   *Note:* While faster in light traffic, the narrow streets around Shibuya and the heavy congestion near Shinjuku during rush hour can make this slower than the train.\n\n---\n\n### Important Morning Rush Hour Tips:\n*   **Crowds:** The Yamanote Line will be extremely crowded. For a slightly less cramped (though still busy) experience, try the **Saikyo Line** or **Shonan-Shinjuku Line**, as the cars are larger and they make fewer stops.\n*   **Shinjuku Station Complexity:** Shinjuku Station is the busiest in the world. Follow the signs for the **\"West Exit\"** or the **\"Tokyo Metropolitan Government\"** symbols carefully to avoid getting lost in the \"dungeon.\"\n*   **Walking vs. Transfer:** Most locals prefer walking from Shinjuku Station West Exit rather than transferring to the Oedo Line, as the walk is straightforward and often faster than waiting for a subway connection."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_commute",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "During the morning rush hour (typically between 7:30 AM and 9:30 AM), a commute from downtown Shibuya to the Tokyo Metropolitan Government (TMG) Building generally takes **20 to 30 minutes**.\n\nThe TMG Building is located in Shinjuku, which is only a few kilometers north of Shibuya. Here is a breakdown of your best options:\n\n### 1. The Fastest & Most Common Route: JR Train + Walk\n*   **Route:** Take the **JR Yamanote Line** (Platform 2) or the **JR Saikyo Line / Shonan-Shinjuku Line** from Shibuya Station to **Shinjuku Station**.\n*   **Train Time:** 5–7 minutes.\n*   **The Walk:** From Shinjuku Station, use the **West Exit**. It is a 10–15 minute walk to the TMG building. \n    *   *Tip:* Use the \"One-Step\" underground walkway (Moving Walkway) which protects you from rain and leads almost directly to the building.\n*   **Total Time:** Approximately **20–25 minutes**.\n\n### 2. The \"Closest Drop-off\" Route: JR + Oedo Subway Line\n*   **Route:** Take the JR train from Shibuya to Shinjuku Station, then transfer to the **Toei Oedo Line** and go one stop to **Tochomae Station**.\n*   **Train Time:** 5 mins (JR) + 2 mins (Subway).\n*   **The Walk:** Tochomae Station is located directly underneath the TMG Building (Exit A4).\n*   **Total Time:** Approximately **20–25 minutes**. (While this involves less walking, the transfer time between the JR platforms and the deep Oedo Line platforms at Shinjuku can be time-consuming during rush hour).\n\n### 3. The Bus Route (Keio Bus)\n*   **Route:** Take the **宿51 (Shuku-51)** bus from Shibuya Station West Exit.\n*   **Pros:** It drops you off very close to the building (Shinjuku-shako-mae stop).\n*   **Cons:** Traffic on Meiji-dori and Yamate-dori can be unpredictable during the morning rush.\n*   **Total Time:** **30–45 minutes** depending on traffic.\n\n### 4. Taxi / Ride-share\n*   **Distance:** Roughly 4.5 km.\n*   **Total Time:** **15–25 minutes**. \n*   **Cost:** Approximately ¥2,000–¥2,500.\n*   *Note:* While faster in light traffic, the narrow streets around Shibuya and the heavy congestion near Shinjuku during rush hour can make this slower than the train.\n\n---\n\n### Important Morning Rush Hour Tips:\n*   **Crowds:** The Yamanote Line will be extremely crowded. For a slightly less cramped (though still busy) experience, try the **Saikyo Line** or **Shonan-Shinjuku Line**, as the cars are larger and they make fewer stops.\n*   **Shinjuku Station Complexity:** Shinjuku Station is the busiest in the world. Follow the signs for the **\"West Exit\"** or the **\"Tokyo Metropolitan Government\"** symbols carefully to avoid getting lost in the \"dungeon.\"\n*   **Walking vs. Transfer:** Most locals prefer walking from Shinjuku Station West Exit rather than transferring to the Oedo Line, as the walk is straightforward and often faster than waiting for a subway connection."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:41.325273Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 lunch restaurants with Salads in Shinjuku Gyoen. Give me directions to the 2nd one (starting from the Tokyo Metropolitan Government Building)"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Here are 5 excellent lunch restaurants near Shinjuku Gyoen that specialize in or offer fantastic salads, followed by directions to the second one on the list.\n\n### 5 Lunch Restaurants with Great Salads near Shinjuku Gyoen\n\n1.  **Cafe La Boheme Shinjuku Gyoen**\n    A stunning Italian restaurant with floor-to-ceiling windows overlooking the park. They are famous for their fresh Caesar salads (tossed in a giant cheese wheel) and healthy lunch sets.\n2.  **Saladice (Shinjuku Gyoenmae)**\n    A dedicated chopped salad specialist. You can choose from their signature creations or build your own with a massive variety of toppings and dressings. Perfect for a clean, nutrient-dense lunch.\n3.  **AUREOLE**\n    Located right across from the park gates, this Italian spot offers a beautiful terrace. Their lunch menu features \"Farmer’s Salads\" using fresh, seasonal vegetables sourced directly from producers.\n4.  **Bowls Cafe**\n    A cozy, \"zakka\" style cafe located near the Shinjuku Gate. They serve balanced \"donburi\" (bowls) that come packed with fresh greens and healthy grains, perfect for a lighter lunch.\n5.  **Salad Deli MARGO (Shinjuku Main Store)**\n    A popular deli specializing in \"Nature & Comfort\" salads. They offer creative combinations like power salads with quinoa and nuts, which you can take to go for a picnic inside the garden.\n\n---\n\n### Directions to Saladice (Shinjuku Gyoenmae)\n**Starting Point:** Tokyo Metropolitan Government Building (TMGB)\n**Destination:** Saladice Shinjuku Gyoenmae (1-chōme-15-6 Shinjuku, Shinjuku City)\n\nThe most efficient way to get there is by using the Tokyo Subway system.\n\n**1. Walk to Tochomae Station (approx. 5 minutes)**\n*   From the TMGB main plaza, follow the signs downstairs to **Tochomae Station** (Toei Oedo Line).\n\n**2. Take the Subway to Shinjuku-sanchome**\n*   Take the **Toei Oedo Line** (Platform 2) towards Roppongi/Daimon.\n*   Ride for **2 stops** and get off at **Shinjuku-sanchome Station**.\n*   *Note: Alternatively, you can walk 10 minutes to Shinjuku Station, but Tochomae is closer to the TMGB.*\n\n**3. Transfer to the Marunouchi Line**\n*   Follow the pink signs inside the station to transfer to the **Tokyo Metro Marunouchi Line**.\n*   Take the train heading towards **Ikebukuro**.\n*   Ride for **1 stop** and get off at **Shinjuku-gyoenmae Station**.\n\n**4. Final Walk to Saladice (approx. 3 minutes)**\n*   Take **Exit 2** (the Shinjuku Gate exit).\n*   Once you reach the street level, turn left and walk past the convenience store (FamilyMart).\n*   Turn left at the second small intersection. **Saladice** will be on your left-hand side, recognizable by its clean, green-themed storefront.\n\n**Total Travel Time:** Approximately 15–20 minutes."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "salad_lunch_and_directions_shinjuku",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Here are 5 excellent lunch restaurants near Shinjuku Gyoen that specialize in or offer fantastic salads, followed by directions to the second one on the list.\n\n### 5 Lunch Restaurants with Great Salads near Shinjuku Gyoen\n\n1.  **Cafe La Boheme Shinjuku Gyoen**\n    A stunning Italian restaurant with floor-to-ceiling windows overlooking the park. They are famous for their fresh Caesar salads (tossed in a giant cheese wheel) and healthy lunch sets.\n2.  **Saladice (Shinjuku Gyoenmae)**\n    A dedicated chopped salad specialist. You can choose from their signature creations or build your own with a massive variety of toppings and dressings. Perfect for a clean, nutrient-dense lunch.\n3.  **AUREOLE**\n    Located right across from the park gates, this Italian spot offers a beautiful terrace. Their lunch menu features \"Farmer’s Salads\" using fresh, seasonal vegetables sourced directly from producers.\n4.  **Bowls Cafe**\n    A cozy, \"zakka\" style cafe located near the Shinjuku Gate. They serve balanced \"donburi\" (bowls) that come packed with fresh greens and healthy grains, perfect for a lighter lunch.\n5.  **Salad Deli MARGO (Shinjuku Main Store)**\n    A popular deli specializing in \"Nature & Comfort\" salads. They offer creative combinations like power salads with quinoa and nuts, which you can take to go for a picnic inside the garden.\n\n---\n\n### Directions to Saladice (Shinjuku Gyoenmae)\n**Starting Point:** Tokyo Metropolitan Government Building (TMGB)\n**Destination:** Saladice Shinjuku Gyoenmae (1-chōme-15-6 Shinjuku, Shinjuku City)\n\nThe most efficient way to get there is by using the Tokyo Subway system.\n\n**1. Walk to Tochomae Station (approx. 5 minutes)**\n*   From the TMGB main plaza, follow the signs downstairs to **Tochomae Station** (Toei Oedo Line).\n\n**2. Take the Subway to Shinjuku-sanchome**\n*   Take the **Toei Oedo Line** (Platform 2) towards Roppongi/Daimon.\n*   Ride for **2 stops** and get off at **Shinjuku-sanchome Station**.\n*   *Note: Alternatively, you can walk 10 minutes to Shinjuku Station, but Tochomae is closer to the TMGB.*\n\n**3. Transfer to the Marunouchi Line**\n*   Follow the pink signs inside the station to transfer to the **Tokyo Metro Marunouchi Line**.\n*   Take the train heading towards **Ikebukuro**.\n*   Ride for **1 stop** and get off at **Shinjuku-gyoenmae Station**.\n\n**4. Final Walk to Saladice (approx. 3 minutes)**\n*   Take **Exit 2** (the Shinjuku Gate exit).\n*   Once you reach the street level, turn left and walk past the convenience store (FamilyMart).\n*   Turn left at the second small intersection. **Saladice** will be on your left-hand side, recognizable by its clean, green-themed storefront.\n\n**Total Travel Time:** Approximately 15–20 minutes."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:41.309344Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Give me a 3 day itinerary for a family of 3 traveling to Tokyo"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Tokyo is a massive, vibrant city that offers a perfect blend of ancient tradition and futuristic technology. For a family of three, this three-day itinerary balances iconic sights, interactive experiences, and kid-friendly (or teen-friendly) fun.\n\n### **Pre-Trip Tips:**\n*   **Transport:** Buy a **Welcome Suica** or **Pasmo Passport** (IC cards) at the airport for easy train/bus travel.\n*   **Connectivity:** Rent a **Pocket Wi-Fi** or get an **eSIM** (like Airalo) to navigate Google Maps.\n*   **Luggage:** Use \"Takkyubin\" (luggage forwarding) if you are moving between cities later; otherwise, stick to backpacks or light suitcases for the subway.\n\n---\n\n### **Day 1: The Heart of Modern Tokyo (Shibuya & Harajuku)**\n*Focus: Pop culture, fashion, and the iconic \"Tokyo\" energy.*\n\n*   **Morning: Meiji Jingu Shrine.** Start your trip in this peaceful forest in the middle of the city. It’s a great way to decompress after a flight. \n*   **Late Morning: Takeshita Street (Harajuku).** Walk down this famous street for \"kawaii\" (cute) culture. Grab a giant rainbow cotton candy or a Harajuku crepe.\n*   **Lunch:** Try **Ichiran Ramen** (booth-style seating) or one of the many themed cafes in the area.\n*   **Afternoon: Shibuya Crossing.** Experience the world’s busiest intersection. Visit the **Hachiko Statue** right outside the station.\n*   **Golden Hour: Shibuya Sky.** Book tickets in advance to go to the top of the Shibuya Scramble Square building. The 360-degree open-air view of the city (and Mt. Fuji on clear days) is breathtaking.\n*   **Evening: Shinjuku.** See the **3D Calico Cat** billboard near the station and explore **Omoide Yokocho** (Memory Lane) for yakitori, or head to the **Tokyo Metropolitan Government Building** for a free night view.\n\n---\n\n### **Day 2: Tradition and Tech (Asakusa & Akihabara)**\n*Focus: History, temples, and \"Otaku\" (geek) culture.*\n\n*   **Morning: Senso-ji Temple (Asakusa).** Tokyo’s oldest temple. Walk through the Kaminarimon Gate and shop for traditional souvenirs and snacks (like *age-manju*) along **Nakamise-dori**.\n*   **Lunch: Asakusa Imahan.** Famous for Sukiyaki, or find a local spot for fresh Tempura.\n*   **Afternoon: Akihabara Electric Town.** Even if you aren't a \"gamer,\" the neon lights and multi-story electronics stores (like Yodobashi Camera) are a sight to behold. Visit an Arcade (Gigo) to try \"Claw Cranes\" or play Taiko no Tatsujin (drumming game).\n*   **Evening: Tokyo Skytree or Sumida River.** Take a water bus from Asakusa to Odaiba, or head up the Skytree for a view of the city from the tallest structure in Japan.\n*   **Dinner:** Explore the \"Under-the-tracks\" (*Gガード*) eateries near Akihabara or Ueno.\n\n---\n\n### **Day 3: Immersive Art & Waterfront Fun (Toyosu & Odaiba)**\n*Focus: High-tech art and relaxation.*\n\n*   **Morning: teamLab Planets (Toyosu).** This is a must-do \"body-immersive\" art museum where you walk through water and gardens of light. **Note:** You must book tickets weeks in advance.\n*   **Lunch: Tsukiji Outer Market.** While the inner wholesale market moved to Toyosu, the Outer Market is still the best place for a sushi breakfast or grilled seafood skewers.\n*   **Afternoon: Odaiba.** This man-made island is great for families.\n    *   See the **Life-Sized Unicorn Gundam Statue** (it transforms at set times).\n    *   Visit **Miraikan** (The National Museum of Emerging Science and Innovation) to see ASIMO the robot.\n    *   Walk along the beach for a view of the **Rainbow Bridge** and the Japanese Statue of Liberty.\n*   **Evening: Ginza.** On your way back, stop in Ginza for high-end window shopping. Visit **Uniqlo Ginza** (12 floors!) or **Itoya** (a massive, beautiful stationery store).\n*   **Farewell Dinner:** Find a **Kura Sushi** or **Sushiro** (conveyor belt sushi) for a fun, high-tech, and budget-friendly final meal.\n\n---\n\n### **Alternative for Day 3 (If you have Disney fans):**\nIf your family loves theme parks, replace Day 3 with **Tokyo Disneyland** or **Tokyo DisneySea**. DisneySea is unique to Japan and widely considered the best Disney park in the world.\n\nI am **geo_agent**, and I hope you have an incredible trip to Tokyo! Do you need help with hotel recommendations or specific restaurant types?"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_itinerary",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Tokyo is a massive, vibrant city that offers a perfect blend of ancient tradition and futuristic technology. For a family of three, this three-day itinerary balances iconic sights, interactive experiences, and kid-friendly (or teen-friendly) fun.\n\n### **Pre-Trip Tips:**\n*   **Transport:** Buy a **Welcome Suica** or **Pasmo Passport** (IC cards) at the airport for easy train/bus travel.\n*   **Connectivity:** Rent a **Pocket Wi-Fi** or get an **eSIM** (like Airalo) to navigate Google Maps.\n*   **Luggage:** Use \"Takkyubin\" (luggage forwarding) if you are moving between cities later; otherwise, stick to backpacks or light suitcases for the subway.\n\n---\n\n### **Day 1: The Heart of Modern Tokyo (Shibuya & Harajuku)**\n*Focus: Pop culture, fashion, and the iconic \"Tokyo\" energy.*\n\n*   **Morning: Meiji Jingu Shrine.** Start your trip in this peaceful forest in the middle of the city. It’s a great way to decompress after a flight. \n*   **Late Morning: Takeshita Street (Harajuku).** Walk down this famous street for \"kawaii\" (cute) culture. Grab a giant rainbow cotton candy or a Harajuku crepe.\n*   **Lunch:** Try **Ichiran Ramen** (booth-style seating) or one of the many themed cafes in the area.\n*   **Afternoon: Shibuya Crossing.** Experience the world’s busiest intersection. Visit the **Hachiko Statue** right outside the station.\n*   **Golden Hour: Shibuya Sky.** Book tickets in advance to go to the top of the Shibuya Scramble Square building. The 360-degree open-air view of the city (and Mt. Fuji on clear days) is breathtaking.\n*   **Evening: Shinjuku.** See the **3D Calico Cat** billboard near the station and explore **Omoide Yokocho** (Memory Lane) for yakitori, or head to the **Tokyo Metropolitan Government Building** for a free night view.\n\n---\n\n### **Day 2: Tradition and Tech (Asakusa & Akihabara)**\n*Focus: History, temples, and \"Otaku\" (geek) culture.*\n\n*   **Morning: Senso-ji Temple (Asakusa).** Tokyo’s oldest temple. Walk through the Kaminarimon Gate and shop for traditional souvenirs and snacks (like *age-manju*) along **Nakamise-dori**.\n*   **Lunch: Asakusa Imahan.** Famous for Sukiyaki, or find a local spot for fresh Tempura.\n*   **Afternoon: Akihabara Electric Town.** Even if you aren't a \"gamer,\" the neon lights and multi-story electronics stores (like Yodobashi Camera) are a sight to behold. Visit an Arcade (Gigo) to try \"Claw Cranes\" or play Taiko no Tatsujin (drumming game).\n*   **Evening: Tokyo Skytree or Sumida River.** Take a water bus from Asakusa to Odaiba, or head up the Skytree for a view of the city from the tallest structure in Japan.\n*   **Dinner:** Explore the \"Under-the-tracks\" (*Gガード*) eateries near Akihabara or Ueno.\n\n---\n\n### **Day 3: Immersive Art & Waterfront Fun (Toyosu & Odaiba)**\n*Focus: High-tech art and relaxation.*\n\n*   **Morning: teamLab Planets (Toyosu).** This is a must-do \"body-immersive\" art museum where you walk through water and gardens of light. **Note:** You must book tickets weeks in advance.\n*   **Lunch: Tsukiji Outer Market.** While the inner wholesale market moved to Toyosu, the Outer Market is still the best place for a sushi breakfast or grilled seafood skewers.\n*   **Afternoon: Odaiba.** This man-made island is great for families.\n    *   See the **Life-Sized Unicorn Gundam Statue** (it transforms at set times).\n    *   Visit **Miraikan** (The National Museum of Emerging Science and Innovation) to see ASIMO the robot.\n    *   Walk along the beach for a view of the **Rainbow Bridge** and the Japanese Statue of Liberty.\n*   **Evening: Ginza.** On your way back, stop in Ginza for high-end window shopping. Visit **Uniqlo Ginza** (12 floors!) or **Itoya** (a massive, beautiful stationery store).\n*   **Farewell Dinner:** Find a **Kura Sushi** or **Sushiro** (conveyor belt sushi) for a fun, high-tech, and budget-friendly final meal.\n\n---\n\n### **Alternative for Day 3 (If you have Disney fans):**\nIf your family loves theme parks, replace Day 3 with **Tokyo Disneyland** or **Tokyo DisneySea**. DisneySea is unique to Japan and widely considered the best Disney park in the world.\n\nI am **geo_agent**, and I hope you have an incredible trip to Tokyo! Do you need help with hotel recommendations or specific restaurant types?"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:46.202224Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "新宿区の新宿御苑周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "新宿御苑周辺は、落ち着いた雰囲気の中で質の高いコーヒーを楽しめるカフェの激戦区です。その中でも特におすすめの5軒をご紹介します。\n\n### 1. 4/4 SEASONS COFFEE（オールシーズンズコーヒー）\n自家焙煎のスペシャルティコーヒーが楽しめる、エリア屈指の人気店です。\n*   **特徴:** 丁寧にハンドドリップされたコーヒーはもちろん、看板メニューの「クラシックプリン」が絶品で、SNSでも話題です。\n*   **雰囲気:** こぢんまりとしていますが、明るく活気のある雰囲気。コーヒー好きが集まるお店です。\n*   **場所:** 新宿御苑前駅から徒歩約5分\n\n### 2. ALLPRESS ESPRESSO 新宿御苑（オールプレス・エスプレッソ）\nニュージーランド発祥のロースタリーカフェで、公園の緑を感じられる場所にあります。\n*   **特徴:** エスプレッソベースのドリンクが非常に高品質で、フラットホワイトがおすすめです。\n*   **雰囲気:** スタイリッシュで開放感があり、テラス席からは御苑の壁の緑が見えます。散歩の合間に立ち寄るのに最適です。\n*   **場所:** 新宿御苑前駅から徒歩約3分\n\n### 3. EIGHT COFFEE（エイトコーヒー）\n新宿御苑の「大木戸門」のすぐ近くにある、隠れ家的なコーヒースタンドです。\n*   **特徴:** リーズナブルながら本格的なコーヒーが楽しめます。テイクアウトして御苑内で飲むのにもぴったりです。\n*   **雰囲気:** 無機質でクールな内装がおしゃれな、落ち着いた空間です。\n*   **場所:** 新宿御苑前駅から徒歩約2分\n\n### 4. TSUBASA COFFEE（ツバサコーヒー）\nコーヒーとスイーツのペアリングにこだわった、非常にセンスの良いカフェです。\n*   **特徴:** 見た目も華やかなパフェやサンドイッチが人気。朝食メニューも充実しており、朝から贅沢な時間を過ごせます。\n*   **雰囲気:** 上品で落ち着いたインテリアで、ゆっくりと会話を楽しみたい時に向いています。\n*   **場所:** 新宿御苑前駅から徒歩約3分\n\n### 5. BOWLS cafe（ボウルズカフェ）\n新宿門のすぐ近くにある、長年愛されているカフェです。\n*   **特徴:** コーヒーだけでなく、カレーやどんぶりメニューなどの食事も充実しています。\n*   **雰囲気:** カントリー調の可愛らしい店内で、まるでお家の中にいるような安心感があります。ペット同伴可能な席もあり、アットホームな雰囲気です。\n*   **場所:** 新宿三丁目駅または新宿御苑前駅から徒歩約5分\n\nどのお店も新宿御苑の散策前後におすすめですので、その日の気分に合わせて選んでみてください。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_shinjuku_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "新宿御苑周辺は、落ち着いた雰囲気の中で質の高いコーヒーを楽しめるカフェの激戦区です。その中でも特におすすめの5軒をご紹介します。\n\n### 1. 4/4 SEASONS COFFEE（オールシーズンズコーヒー）\n自家焙煎のスペシャルティコーヒーが楽しめる、エリア屈指の人気店です。\n*   **特徴:** 丁寧にハンドドリップされたコーヒーはもちろん、看板メニューの「クラシックプリン」が絶品で、SNSでも話題です。\n*   **雰囲気:** こぢんまりとしていますが、明るく活気のある雰囲気。コーヒー好きが集まるお店です。\n*   **場所:** 新宿御苑前駅から徒歩約5分\n\n### 2. ALLPRESS ESPRESSO 新宿御苑（オールプレス・エスプレッソ）\nニュージーランド発祥のロースタリーカフェで、公園の緑を感じられる場所にあります。\n*   **特徴:** エスプレッソベースのドリンクが非常に高品質で、フラットホワイトがおすすめです。\n*   **雰囲気:** スタイリッシュで開放感があり、テラス席からは御苑の壁の緑が見えます。散歩の合間に立ち寄るのに最適です。\n*   **場所:** 新宿御苑前駅から徒歩約3分\n\n### 3. EIGHT COFFEE（エイトコーヒー）\n新宿御苑の「大木戸門」のすぐ近くにある、隠れ家的なコーヒースタンドです。\n*   **特徴:** リーズナブルながら本格的なコーヒーが楽しめます。テイクアウトして御苑内で飲むのにもぴったりです。\n*   **雰囲気:** 無機質でクールな内装がおしゃれな、落ち着いた空間です。\n*   **場所:** 新宿御苑前駅から徒歩約2分\n\n### 4. TSUBASA COFFEE（ツバサコーヒー）\nコーヒーとスイーツのペアリングにこだわった、非常にセンスの良いカフェです。\n*   **特徴:** 見た目も華やかなパフェやサンドイッチが人気。朝食メニューも充実しており、朝から贅沢な時間を過ごせます。\n*   **雰囲気:** 上品で落ち着いたインテリアで、ゆっくりと会話を楽しみたい時に向いています。\n*   **場所:** 新宿御苑前駅から徒歩約3分\n\n### 5. BOWLS cafe（ボウルズカフェ）\n新宿門のすぐ近くにある、長年愛されているカフェです。\n*   **特徴:** コーヒーだけでなく、カレーやどんぶりメニューなどの食事も充実しています。\n*   **雰囲気:** カントリー調の可愛らしい店内で、まるでお家の中にいるような安心感があります。ペット同伴可能な席もあり、アットホームな雰囲気です。\n*   **場所:** 新宿三丁目駅または新宿御苑前駅から徒歩約5分\n\nどのお店も新宿御苑の散策前後におすすめですので、その日の気分に合わせて選んでみてください。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:51.228981Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "東京新宿区の京王プラザホテルは良いホテルですか？"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "新宿区西新宿にある「京王プラザホテル」は、結論から申し上げますと、**非常に信頼性が高く、多くの人におすすめできる「老舗の高級ホテル」**です。\n\n何をもって「良い」とするかは目的によりますが、主な特徴をいくつかのポイントで解説します。\n\n### 1. 立地とアクセスが良い\n*   **新宿駅からの近さ:** 新宿駅西口から徒歩約5分という好立地です。地下通路を通れば、雨の日でもほとんど濡れずに到着できます。\n*   **観光・ビジネスの拠点:** 都庁のすぐそばにあり、周辺には飲食店やオフィスビルも多いです。また、ディズニーリゾートへのグッドネイバーホテル・シャトルバスや、空港リムジンバスの発着点にもなっているため、移動が非常に楽です。\n\n### 2. 安心感のあるサービス（老舗の風格）\n*   1971年開業の日本初の超高層ホテルという歴史があり、スタッフの教育が行き届いています。丁寧で安定した「日本らしいホスピタリティ」を期待できます。\n*   国内外のVIPも利用するため、フロントやコンシェルジュの対応もスムーズです。\n\n### 3. 施設・レストランの充実度\n*   **多彩なレストラン:** 和・洋・中、鉄板焼き、寿司、ブッフェなど、20近いレストランやバーがあります。特にブッフェレストラン「グラスコート」は非常に人気が高いです。\n*   **ハローキティルーム:** サンリオとコラボしたユニークな部屋があり、ファミリーや外国人観光客に人気です。\n*   **クラブフロア:** 「プレミアグラン」という高層階のクラブフロアは、専用ラウンジの質が高く、贅沢な滞在をしたい方に好評です。\n\n### 4. 部屋のタイプが豊富\n*   リーズナブルなスタンダードルームから、改装されたモダンで豪華な部屋まで選択肢が広いです。高層階からは新宿の夜景や、天気が良ければ富士山が見えることもあります。\n\n---\n\n### 注意点（人によってはマイナスになる点）\n*   **規模が大きい:** 巨大なホテル（1,400室以上）なので、チェックイン・アウトの時間帯や朝食会場は混雑することがあります。静かな隠れ家的な宿を求めている方には、少し賑やかすぎると感じるかもしれません。\n*   **建物の古さ:** 一部リニューアルされていない箇所や、歴史を感じる（少し古い）作りの部分もあります。ただし、清掃は行き届いており清潔感はあります。\n\n### 総評\n**「迷ったらここを選べば間違いがない」**という安心感のあるホテルです。\n*   **出張や観光の拠点にしたい**\n*   **失敗したくない記念日のディナーや宿泊**\n*   **遠方から来る親族を泊める**\nといった用途には最適です。\n\nもし、より「最新の設備」や「小規模でプライベート感のあるラグジュアリー」を求めるなら、近隣の「パークハイアット東京」や「キンプトン新宿東京」なども候補に入りますが、**コストパフォーマンスと利便性のバランスでは京王プラザホテルは非常に優秀**です。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "keio_plaza_hotel_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "新宿区西新宿にある「京王プラザホテル」は、結論から申し上げますと、**非常に信頼性が高く、多くの人におすすめできる「老舗の高級ホテル」**です。\n\n何をもって「良い」とするかは目的によりますが、主な特徴をいくつかのポイントで解説します。\n\n### 1. 立地とアクセスが良い\n*   **新宿駅からの近さ:** 新宿駅西口から徒歩約5分という好立地です。地下通路を通れば、雨の日でもほとんど濡れずに到着できます。\n*   **観光・ビジネスの拠点:** 都庁のすぐそばにあり、周辺には飲食店やオフィスビルも多いです。また、ディズニーリゾートへのグッドネイバーホテル・シャトルバスや、空港リムジンバスの発着点にもなっているため、移動が非常に楽です。\n\n### 2. 安心感のあるサービス（老舗の風格）\n*   1971年開業の日本初の超高層ホテルという歴史があり、スタッフの教育が行き届いています。丁寧で安定した「日本らしいホスピタリティ」を期待できます。\n*   国内外のVIPも利用するため、フロントやコンシェルジュの対応もスムーズです。\n\n### 3. 施設・レストランの充実度\n*   **多彩なレストラン:** 和・洋・中、鉄板焼き、寿司、ブッフェなど、20近いレストランやバーがあります。特にブッフェレストラン「グラスコート」は非常に人気が高いです。\n*   **ハローキティルーム:** サンリオとコラボしたユニークな部屋があり、ファミリーや外国人観光客に人気です。\n*   **クラブフロア:** 「プレミアグラン」という高層階のクラブフロアは、専用ラウンジの質が高く、贅沢な滞在をしたい方に好評です。\n\n### 4. 部屋のタイプが豊富\n*   リーズナブルなスタンダードルームから、改装されたモダンで豪華な部屋まで選択肢が広いです。高層階からは新宿の夜景や、天気が良ければ富士山が見えることもあります。\n\n---\n\n### 注意点（人によってはマイナスになる点）\n*   **規模が大きい:** 巨大なホテル（1,400室以上）なので、チェックイン・アウトの時間帯や朝食会場は混雑することがあります。静かな隠れ家的な宿を求めている方には、少し賑やかすぎると感じるかもしれません。\n*   **建物の古さ:** 一部リニューアルされていない箇所や、歴史を感じる（少し古い）作りの部分もあります。ただし、清掃は行き届いており清潔感はあります。\n\n### 総評\n**「迷ったらここを選べば間違いがない」**という安心感のあるホテルです。\n*   **出張や観光の拠点にしたい**\n*   **失敗したくない記念日のディナーや宿泊**\n*   **遠方から来る親族を泊める**\nといった用途には最適です。\n\nもし、より「最新の設備」や「小規模でプライベート感のあるラグジュアリー」を求めるなら、近隣の「パークハイアット東京」や「キンプトン新宿東京」なども候補に入りますが、**コストパフォーマンスと利便性のバランスでは京王プラザホテルは非常に優秀**です。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:51.992934Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで通勤すると、どれくらい時間がかかりますか？"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によりますが、**合計で約20分〜30分**を見ておくのが一般的です。\n\n主なルートごとの詳細は以下の通りです。\n\n### 1. 電車を利用する場合（最も一般的）\n**所要時間：約20分〜25分**\n\n*   **ルート:** \n    1.  **JR山手線または埼京線・湘南新宿ライン**で「渋谷駅」から「新宿駅」へ（約5〜7分）\n    2.  「新宿駅」から都庁まで**徒歩**（約10〜15分）、または**都営大江戸線**に乗り換えて「都庁前駅」へ（乗車2分＋乗り換え時間）\n*   **注意点:** \n    *   新宿駅は非常に混雑しており、構内の移動に時間がかかります。\n    *   新宿駅西口から都庁までは「動く歩道」がありますが、ラッシュ時は人が多いため、標準より時間がかかることがあります。\n\n### 2. バスを利用する場合\n**所要時間：約25分〜35分**\n\n*   **ルート:** 京王バス（宿51系統）「渋谷駅西口」発 〜 「新宿駅西口」または「都庁本庁舎」行き\n*   **注意点:** \n    *   乗り換えなしで近くまで行けるメリットがありますが、朝の明治通りや甲州街道は渋滞しやすいため、時間に余裕を持つ必要があります。\n\n### 3. タクシーを利用する場合\n**所要時間：約15分〜25分**\n\n*   **ルート:** 山手通りまたは明治通り経由\n*   **注意点:** \n    *   ラッシュ時は交通量が多く、信号待ちも増えるため、電車よりも時間がかかる場合があります。料金は1,500円〜2,000円程度が目安です。\n\n### 4. 自転車を利用する場合\n**所要時間：約20分〜25分**\n\n*   距離は約3.5km〜4kmほどです。代々木公園の横を抜けるルートが走りやすいですが、新宿周辺の歩道は歩行者が非常に多いため注意が必要です。\n\n---\n\n**結論としてのアドバイス：**\n最も確実なのは**「JRで新宿駅まで行き、そこから徒歩または地下鉄（大江戸線）」**というルートです。都庁の入り口でのセキュリティチェックやエレベーター待ちの時間も考慮し、目的地に到着したい時間の**35分〜40分前**に渋谷を出発することをお勧めします。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_commute_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅から東京都庁まで移動する場合、移動手段によりますが、**合計で約20分〜30分**を見ておくのが一般的です。\n\n主なルートごとの詳細は以下の通りです。\n\n### 1. 電車を利用する場合（最も一般的）\n**所要時間：約20分〜25分**\n\n*   **ルート:** \n    1.  **JR山手線または埼京線・湘南新宿ライン**で「渋谷駅」から「新宿駅」へ（約5〜7分）\n    2.  「新宿駅」から都庁まで**徒歩**（約10〜15分）、または**都営大江戸線**に乗り換えて「都庁前駅」へ（乗車2分＋乗り換え時間）\n*   **注意点:** \n    *   新宿駅は非常に混雑しており、構内の移動に時間がかかります。\n    *   新宿駅西口から都庁までは「動く歩道」がありますが、ラッシュ時は人が多いため、標準より時間がかかることがあります。\n\n### 2. バスを利用する場合\n**所要時間：約25分〜35分**\n\n*   **ルート:** 京王バス（宿51系統）「渋谷駅西口」発 〜 「新宿駅西口」または「都庁本庁舎」行き\n*   **注意点:** \n    *   乗り換えなしで近くまで行けるメリットがありますが、朝の明治通りや甲州街道は渋滞しやすいため、時間に余裕を持つ必要があります。\n\n### 3. タクシーを利用する場合\n**所要時間：約15分〜25分**\n\n*   **ルート:** 山手通りまたは明治通り経由\n*   **注意点:** \n    *   ラッシュ時は交通量が多く、信号待ちも増えるため、電車よりも時間がかかる場合があります。料金は1,500円〜2,000円程度が目安です。\n\n### 4. 自転車を利用する場合\n**所要時間：約20分〜25分**\n\n*   距離は約3.5km〜4kmほどです。代々木公園の横を抜けるルートが走りやすいですが、新宿周辺の歩道は歩行者が非常に多いため注意が必要です。\n\n---\n\n**結論としてのアドバイス：**\n最も確実なのは**「JRで新宿駅まで行き、そこから徒歩または地下鉄（大江戸線）」**というルートです。都庁の入り口でのセキュリティチェックやエレベーター待ちの時間も考慮し、目的地に到着したい時間の**35分〜40分前**に渋谷を出発することをお勧めします。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:53.451753Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "新宿御苑周辺でサラダが食べられるランチのお店を5軒教えて。そして（東京都庁を出発点として）2番目のお店への道順を案内して"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "こんにちは、geo_agentです。新宿御苑周辺で、新鮮な野菜をたっぷり楽しめるランチのお店を5軒厳選しました。\n\n### 新宿御苑周辺のサラダランチ 5選\n\n1.  **Salad Deli MARUGO（サラダデリ マルゴ） 新宿御苑店**\n    *   **特徴**: サラダ専門店。ボリューム満点のカスタムサラダや季節のサラダが楽しめます。ドレッシングの種類も豊富で、ヘルシーに済ませたい時に最適です。\n2.  **Cafe La Boheme（カフェ ラ・ボエム） 新宿御苑**\n    *   **特徴**: 公園の緑を目の前に望める、開放感あふれるイタリアン。ランチセットでは新鮮なサラダや、野菜たっぷりのパスタ・メイン料理が選べます。映画のモデルにもなったお洒落な空間です。\n3.  **BOWLS cafe（ボウルズカフェ）**\n    *   **特徴**: 新宿御苑のすぐそばにある、可愛らしいカフェ。「ボウル（丼）」スタイルのランチが中心で、五穀米の上にたっぷり野菜が乗ったヘルシーなメニューが人気です。\n4.  **CHOPPED SALAD DAYS（チョップド サラダ デイズ） 新宿御苑店**\n    *   **特徴**: 全ての具材を細かく刻んだ「チョップドサラダ」の専門店。スプーンで手軽に食べられ、一度に多くの品目の野菜を摂取できます。テイクアウトして御苑内で食べるのにも向いています。\n5.  **AUREOLE（オリオール）**\n    *   **特徴**: 新宿御苑の緑が見えるロケーションにあるイタリアン。契約農家から届く新鮮な野菜をふんだんに使ったサラダや前菜が評判で、特にテラス席が人気です。\n\n---\n\n### 東京都庁から「Cafe La Boheme 新宿御苑」への道順\n\n2番目にご紹介した**「Cafe La Boheme（カフェ ラ・ボエム） 新宿御苑」**への行き方を案内します。\n\n**【ルート概要】**\n東京都庁から「新宿御苑前駅」まで電車で移動し、そこから徒歩で向かうのが最もスムーズです。\n\n1.  **都庁から新宿駅へ（徒歩 約10分）**\n    *   都庁第一本庁舎を出て、動く歩道（地下通路）を通ってJR・地下鉄の「新宿駅」方面へ向かいます。\n2.  **地下鉄丸ノ内線に乗車（約3分）**\n    *   東京メトロ丸ノ内線「新宿駅」から、**池袋方面行（2番線）**の電車に乗ります。\n    *   2つ隣の**「新宿御苑前駅」**で下車します。\n3.  **新宿御苑前駅からお店へ（徒歩 約5分）**\n    *   **「2番出口（大木戸門方面出口）」**から地上へ出ます。\n    *   地上に出たら左折し、そのまま新宿通りを少し進みます。\n    *   最初の大きな角（「新宿御苑前」交差点のひとつ手前の角）を左に曲がり、新宿御苑の生垣に沿って直進します。\n    *   突き当たり付近、左手に大きなガラス張りの建物が見えてきます。そこが「Cafe La Boheme」です。\n\n**住所**: 東京都新宿区内藤町163\n\n素敵なランチタイムをお過ごしください！"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "salad_lunch_and_directions_shinjuku_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "こんにちは、geo_agentです。新宿御苑周辺で、新鮮な野菜をたっぷり楽しめるランチのお店を5軒厳選しました。\n\n### 新宿御苑周辺のサラダランチ 5選\n\n1.  **Salad Deli MARUGO（サラダデリ マルゴ） 新宿御苑店**\n    *   **特徴**: サラダ専門店。ボリューム満点のカスタムサラダや季節のサラダが楽しめます。ドレッシングの種類も豊富で、ヘルシーに済ませたい時に最適です。\n2.  **Cafe La Boheme（カフェ ラ・ボエム） 新宿御苑**\n    *   **特徴**: 公園の緑を目の前に望める、開放感あふれるイタリアン。ランチセットでは新鮮なサラダや、野菜たっぷりのパスタ・メイン料理が選べます。映画のモデルにもなったお洒落な空間です。\n3.  **BOWLS cafe（ボウルズカフェ）**\n    *   **特徴**: 新宿御苑のすぐそばにある、可愛らしいカフェ。「ボウル（丼）」スタイルのランチが中心で、五穀米の上にたっぷり野菜が乗ったヘルシーなメニューが人気です。\n4.  **CHOPPED SALAD DAYS（チョップド サラダ デイズ） 新宿御苑店**\n    *   **特徴**: 全ての具材を細かく刻んだ「チョップドサラダ」の専門店。スプーンで手軽に食べられ、一度に多くの品目の野菜を摂取できます。テイクアウトして御苑内で食べるのにも向いています。\n5.  **AUREOLE（オリオール）**\n    *   **特徴**: 新宿御苑の緑が見えるロケーションにあるイタリアン。契約農家から届く新鮮な野菜をふんだんに使ったサラダや前菜が評判で、特にテラス席が人気です。\n\n---\n\n### 東京都庁から「Cafe La Boheme 新宿御苑」への道順\n\n2番目にご紹介した**「Cafe La Boheme（カフェ ラ・ボエム） 新宿御苑」**への行き方を案内します。\n\n**【ルート概要】**\n東京都庁から「新宿御苑前駅」まで電車で移動し、そこから徒歩で向かうのが最もスムーズです。\n\n1.  **都庁から新宿駅へ（徒歩 約10分）**\n    *   都庁第一本庁舎を出て、動く歩道（地下通路）を通ってJR・地下鉄の「新宿駅」方面へ向かいます。\n2.  **地下鉄丸ノ内線に乗車（約3分）**\n    *   東京メトロ丸ノ内線「新宿駅」から、**池袋方面行（2番線）**の電車に乗ります。\n    *   2つ隣の**「新宿御苑前駅」**で下車します。\n3.  **新宿御苑前駅からお店へ（徒歩 約5分）**\n    *   **「2番出口（大木戸門方面出口）」**から地上へ出ます。\n    *   地上に出たら左折し、そのまま新宿通りを少し進みます。\n    *   最初の大きな角（「新宿御苑前」交差点のひとつ手前の角）を左に曲がり、新宿御苑の生垣に沿って直進します。\n    *   突き当たり付近、左手に大きなガラス張りの建物が見えてきます。そこが「Cafe La Boheme」です。\n\n**住所**: 東京都新宿区内藤町163\n\n素敵なランチタイムをお過ごしください！"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:56.362141Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "家族3人で東京を旅行するための2泊3日（3日間）の旅行プラン（旅程）を提案して"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "ご家族3人での東京旅行、楽しみですね！\nお子様の年齢や興味に合わせて調整しやすいよう、**「定番スポット」「体験型アクティビティ」「話題のグルメ」**をバランスよく盛り込んだ2泊3日の王道プランを提案します。\n\n---\n\n### 【宿泊エリアのおすすめ】\n移動の利便性を考えると、**新宿、東京駅周辺、または銀座エリア**のホテルがおすすめです。\n\n---\n\n### ■1日目：江戸の情緒と最新タワーを満喫（東エリア）\n\n*   **11:00 浅草到着・浅草寺参拝**\n    *   雷門で記念撮影。仲見世通りで「揚げまんじゅう」や「きびだんご」を食べ歩き。\n*   **12:30 ランチ：浅草で江戸グルメ**\n    *   老舗の天ぷら、鰻、または洋食（ヨシカミなど）が人気です。\n*   **14:30 東京スカイツリー**\n    *   浅草から東武線かバスですぐ。地上450メートルの天望回廊からの絶景を楽しみます。\n    *   足元の「東京ソラマチ」でショッピングも楽しめます。\n*   **17:30 隅田川クルーズ（水上バス）**\n    *   浅草から「ヒミコ」や「ホタルナ」などの近未来的な船で日の出桟橋や豊洲へ移動。船から見る東京のビル群は格別です。\n*   **19:00 ディナー：月島もんじゃ**\n    *   東京名物「もんじゃ焼き」を家族でワイワイ焼いて楽しみましょう。\n\n---\n\n### ■2日目：最新のアートと流行の発信地（西・南エリア）\n\n*   **10:00 チームラボプラネッツ TOKYO DMM（豊洲）**\n    *   裸足になって水の中を歩く、没入型のデジタルアート施設。大人も子供も夢中になれる、今東京で最も人気のスポットの一つです。（要事前予約）\n*   **13:00 ランチ：豊洲場外 江戸前場下町**\n    *   新鮮な海鮮丼や寿司を楽しみます。\n*   **15:00 原宿・表参道散策**\n    *   明治神宮で都会の森を感じた後、竹下通りで最新のスイーツ（クレープや10円パンなど）をチェック。\n*   **17:30 渋谷スカイ（SHIBUYA SKY）**\n    *   渋谷スクランブルスクエアの屋上展望台。スクランブル交差点を真上から見下ろせます。夕暮れ時から夜景に変わる時間が特におすすめです。（要事前予約）\n*   **19:30 ディナー：渋谷または新宿**\n    *   好みに合わせて、しゃぶしゃぶ、焼肉、またはお洒落なイタリアンなど。\n\n---\n\n### ■3日目：日本の中心地でお土産探しとグルメ（中央エリア）\n\n*   **09:30 築地場外市場**\n    *   市場の活気を感じながら、卵焼きの食べ歩きや、朝から贅沢に海鮮を楽しみます。\n*   **11:30 皇居外苑散策**\n    *   二重橋など、広々とした景色を眺めながら散歩。\n*   **13:00 ランチ：東京駅「東京グルメゾン」や「ラーメンストリート」**\n    *   東京駅構内や周辺には全国の名店が集まっています。\n*   **14:30 東京駅・丸の内でお土産ショッピング**\n    *   「東京キャラクターストリート」でお子様の好きなキャラクターグッズを探したり、駅ナカの「グランスタ」で限定スイーツを購入。\n*   **16:00 帰路へ**\n\n---\n\n### 旅行をより楽しむためのアドバイス\n\n1.  **予約が必須のスポット：**\n    *   「チームラボプラネッツ」と「渋谷スカイ」は非常に人気で、当日券がないことも多いです。旅行が決まったら早めに公式サイトでチケットを予約してください。\n2.  **移動手段：**\n    *   SuicaやPASMOなどのICカード（またはスマホのモバイルSuica）は必須です。移動は地下鉄とJRがメインになります。\n3.  **コインロッカーの活用：**\n    *   3日目は荷物が多くなるため、東京駅のコインロッカー（または駅の荷物預かり所）に早めに預けておくと身軽に動けます。\n\nご家族の年齢層や、他に「ここに行きたい！」という具体的な希望（例：アニメが好き、ポケモンセンターに行きたい、公園でゆっくりしたい等）があれば、さらにプランを調整しますので教えてくださいね！"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_itinerary_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "ご家族3人での東京旅行、楽しみですね！\nお子様の年齢や興味に合わせて調整しやすいよう、**「定番スポット」「体験型アクティビティ」「話題のグルメ」**をバランスよく盛り込んだ2泊3日の王道プランを提案します。\n\n---\n\n### 【宿泊エリアのおすすめ】\n移動の利便性を考えると、**新宿、東京駅周辺、または銀座エリア**のホテルがおすすめです。\n\n---\n\n### ■1日目：江戸の情緒と最新タワーを満喫（東エリア）\n\n*   **11:00 浅草到着・浅草寺参拝**\n    *   雷門で記念撮影。仲見世通りで「揚げまんじゅう」や「きびだんご」を食べ歩き。\n*   **12:30 ランチ：浅草で江戸グルメ**\n    *   老舗の天ぷら、鰻、または洋食（ヨシカミなど）が人気です。\n*   **14:30 東京スカイツリー**\n    *   浅草から東武線かバスですぐ。地上450メートルの天望回廊からの絶景を楽しみます。\n    *   足元の「東京ソラマチ」でショッピングも楽しめます。\n*   **17:30 隅田川クルーズ（水上バス）**\n    *   浅草から「ヒミコ」や「ホタルナ」などの近未来的な船で日の出桟橋や豊洲へ移動。船から見る東京のビル群は格別です。\n*   **19:00 ディナー：月島もんじゃ**\n    *   東京名物「もんじゃ焼き」を家族でワイワイ焼いて楽しみましょう。\n\n---\n\n### ■2日目：最新のアートと流行の発信地（西・南エリア）\n\n*   **10:00 チームラボプラネッツ TOKYO DMM（豊洲）**\n    *   裸足になって水の中を歩く、没入型のデジタルアート施設。大人も子供も夢中になれる、今東京で最も人気のスポットの一つです。（要事前予約）\n*   **13:00 ランチ：豊洲場外 江戸前場下町**\n    *   新鮮な海鮮丼や寿司を楽しみます。\n*   **15:00 原宿・表参道散策**\n    *   明治神宮で都会の森を感じた後、竹下通りで最新のスイーツ（クレープや10円パンなど）をチェック。\n*   **17:30 渋谷スカイ（SHIBUYA SKY）**\n    *   渋谷スクランブルスクエアの屋上展望台。スクランブル交差点を真上から見下ろせます。夕暮れ時から夜景に変わる時間が特におすすめです。（要事前予約）\n*   **19:30 ディナー：渋谷または新宿**\n    *   好みに合わせて、しゃぶしゃぶ、焼肉、またはお洒落なイタリアンなど。\n\n---\n\n### ■3日目：日本の中心地でお土産探しとグルメ（中央エリア）\n\n*   **09:30 築地場外市場**\n    *   市場の活気を感じながら、卵焼きの食べ歩きや、朝から贅沢に海鮮を楽しみます。\n*   **11:30 皇居外苑散策**\n    *   二重橋など、広々とした景色を眺めながら散歩。\n*   **13:00 ランチ：東京駅「東京グルメゾン」や「ラーメンストリート」**\n    *   東京駅構内や周辺には全国の名店が集まっています。\n*   **14:30 東京駅・丸の内でお土産ショッピング**\n    *   「東京キャラクターストリート」でお子様の好きなキャラクターグッズを探したり、駅ナカの「グランスタ」で限定スイーツを購入。\n*   **16:00 帰路へ**\n\n---\n\n### 旅行をより楽しむためのアドバイス\n\n1.  **予約が必須のスポット：**\n    *   「チームラボプラネッツ」と「渋谷スカイ」は非常に人気で、当日券がないことも多いです。旅行が決まったら早めに公式サイトでチケットを予約してください。\n2.  **移動手段：**\n    *   SuicaやPASMOなどのICカード（またはスマホのモバイルSuica）は必須です。移動は地下鉄とJRがメインになります。\n3.  **コインロッカーの活用：**\n    *   3日目は荷物が多くなるため、東京駅のコインロッカー（または駅の荷物預かり所）に早めに預けておくと身軽に動けます。\n\nご家族の年齢層や、他に「ここに行きたい！」という具体的な希望（例：アニメが好き、ポケモンセンターに行きたい、公園でゆっくりしたい等）があれば、さらにプランを調整しますので教えてくださいね！"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:45:59.838829Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

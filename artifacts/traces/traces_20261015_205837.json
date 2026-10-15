@@ -1,0 +1,224 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "Show me 5 coffee shops near Shinjuku Gyoen National Garden in Shinjuku"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Shinjuku Gyoen National Garden is surrounded by several excellent coffee spots, ranging from modern specialty roasters to traditional Japanese \"kissaten.\" Here are 5 coffee shops located near the different gates of the park:\n\n### 1. Starbucks Coffee - Shinjuku Gyoen National Garden\n*   **Location:** Inside the park (near the Lower Pond)\n*   **Best For:** Incredible views and architecture.\n*   **Highlight:** This is one of the most beautiful Starbucks locations in Japan. Built with sustainable wood and featuring massive glass windows, it offers a panoramic view of the park’s greenery and ponds. Note that you must pay the park entrance fee to access it.\n\n### 2. 4/4 Seasons Coffee (All Seasons Coffee)\n*   **Location:** 2-minute walk from the Shinjuku Gate (North side)\n*   **Best For:** Specialty coffee and their famous \"Classic Pudding.\"\n*   **Highlight:** A favorite among locals and coffee enthusiasts, this small, trendy shop roasts its own beans. Their espresso is excellent, but most people come for the firm, Italian-style pudding topped with a cherry.\n\n### 3. Eight Coffee\n*   **Location:** Right outside the Okido Gate (East side)\n*   **Best For:** A quick takeaway before entering the park.\n*   **Highlight:** A cozy, \"hole-in-the-wall\" style shop that is perfect for grabbing a high-quality latte or americano to enjoy while you walk through the gardens. It has a relaxed, neighborhood vibe and very friendly service.\n\n### 4. Verve Coffee Roasters (NEWoMan Shinjuku)\n*   **Location:** Near the Shinjuku Gate (Inside the NEWoMan building at Shinjuku Station)\n*   **Best For:** California-style specialty coffee.\n*   **Highlight:** Originating from Santa Cruz, Verve offers a bright, modern space with excellent seasonal pour-overs and nitrogen cold brew. It’s located right by the Shinjuku Gate, making it a perfect starting point for your walk.\n\n### 5. Coffee Seibu\n*   **Location:** 5-minute walk from the Shinjuku Gate\n*   **Best For:** A retro Japanese \"Kissaten\" experience.\n*   **Highlight:** If you want to step back in time to the 1960s, this is the place. It features red velvet seats, stained glass ceilings, and large parfait desserts. It is a great spot to sit down for a long break and enjoy a traditional \"Master's\" blend coffee.\n\n**Quick Tip:** If you are visiting on a weekend, Shinjuku Gyoen often requires a QR-code reservation for entry during peak seasons (like Cherry Blossom or Autumn Leaves), so be sure to check the official website before you head to the coffee shop!"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_shinjuku",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Shinjuku Gyoen National Garden is surrounded by several excellent coffee spots, ranging from modern specialty roasters to traditional Japanese \"kissaten.\" Here are 5 coffee shops located near the different gates of the park:\n\n### 1. Starbucks Coffee - Shinjuku Gyoen National Garden\n*   **Location:** Inside the park (near the Lower Pond)\n*   **Best For:** Incredible views and architecture.\n*   **Highlight:** This is one of the most beautiful Starbucks locations in Japan. Built with sustainable wood and featuring massive glass windows, it offers a panoramic view of the park’s greenery and ponds. Note that you must pay the park entrance fee to access it.\n\n### 2. 4/4 Seasons Coffee (All Seasons Coffee)\n*   **Location:** 2-minute walk from the Shinjuku Gate (North side)\n*   **Best For:** Specialty coffee and their famous \"Classic Pudding.\"\n*   **Highlight:** A favorite among locals and coffee enthusiasts, this small, trendy shop roasts its own beans. Their espresso is excellent, but most people come for the firm, Italian-style pudding topped with a cherry.\n\n### 3. Eight Coffee\n*   **Location:** Right outside the Okido Gate (East side)\n*   **Best For:** A quick takeaway before entering the park.\n*   **Highlight:** A cozy, \"hole-in-the-wall\" style shop that is perfect for grabbing a high-quality latte or americano to enjoy while you walk through the gardens. It has a relaxed, neighborhood vibe and very friendly service.\n\n### 4. Verve Coffee Roasters (NEWoMan Shinjuku)\n*   **Location:** Near the Shinjuku Gate (Inside the NEWoMan building at Shinjuku Station)\n*   **Best For:** California-style specialty coffee.\n*   **Highlight:** Originating from Santa Cruz, Verve offers a bright, modern space with excellent seasonal pour-overs and nitrogen cold brew. It’s located right by the Shinjuku Gate, making it a perfect starting point for your walk.\n\n### 5. Coffee Seibu\n*   **Location:** 5-minute walk from the Shinjuku Gate\n*   **Best For:** A retro Japanese \"Kissaten\" experience.\n*   **Highlight:** If you want to step back in time to the 1960s, this is the place. It features red velvet seats, stained glass ceilings, and large parfait desserts. It is a great spot to sit down for a long break and enjoy a traditional \"Master's\" blend coffee.\n\n**Quick Tip:** If you are visiting on a weekend, Shinjuku Gyoen often requires a QR-code reservation for entry during peak seasons (like Cherry Blossom or Autumn Leaves), so be sure to check the official website before you head to the coffee shop!"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:58:49.555403Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "How long will it take to commute to Tokyo Metropolitan Government Building from downtown Shibuya during my morning rush hour commute?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "Commuting from downtown Shibuya to the Tokyo Metropolitan Government Building (TMG) during the morning rush hour (typically 7:30 AM to 9:30 AM) generally takes **20 to 30 minutes**.\n\nBecause Shibuya and Shinjuku are two of the world's busiest railway hubs, the total time depends heavily on how quickly you can navigate the crowds inside the stations.\n\nHere is a breakdown of the most common routes:\n\n### 1. The JR Train + Walking Route (Most Reliable)\n*   **Route:** Take the **JR Yamanote Line** (Platform 2) or the **JR Saikyo/Shonan-Shinjuku Line** from Shibuya Station to **Shinjuku Station**.\n*   **Train Time:** 5–7 minutes.\n*   **Walking Time:** 10–15 minutes from Shinjuku Station (West Exit). \n*   **Total:** **~20–25 minutes.**\n*   **Note:** There is an underground walkway (the \"Moving Walkway\" near the West Exit) that leads toward the TMG building, which is helpful if it is raining.\n\n### 2. The Train + Subway Route (Least Walking)\n*   **Route:** JR Yamanote Line from Shibuya to Shinjuku, then transfer to the **Toei Oedo Line** for one stop to **Tochomae Station**.\n*   **Train Time:** 7 minutes (JR) + 2 minutes (Oedo Line).\n*   **Transfer/Walk Time:** 10–12 minutes. \n*   **Total:** **~25 minutes.**\n*   **Note:** Tochomae Station is located directly beneath the Tokyo Metropolitan Government Building. However, the Oedo Line platform in Shinjuku is very deep underground, so the transfer from the JR lines takes a significant amount of time.\n\n### 3. Taxi or Bus\n*   **Total Time:** **25–40 minutes.**\n*   **Note:** While the distance is short (about 4–5 km), traffic around Shinjuku and Shibuya during morning rush hour is heavy and unpredictable. A taxi is less physically demanding but often slower than the train.\n\n---\n\n### Key Tips for the Morning Rush:\n*   **Station Crowds:** Shibuya Station is currently undergoing massive renovations. Allow an extra 5 minutes just to get from the street level to the JR platforms.\n*   **The \"West Exit\":** When you arrive at Shinjuku Station, follow signs specifically for the **West Exit (Nishi-guchi)**. If you end up at the East or South exits, your walk to the TMG building will increase by 10 minutes.\n*   **Tochomae Station:** If you want to avoid the elements entirely, taking the Oedo Line to Tochomae is your best bet, as the station exits lead directly into the TMG plaza."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_commute",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "Commuting from downtown Shibuya to the Tokyo Metropolitan Government Building (TMG) during the morning rush hour (typically 7:30 AM to 9:30 AM) generally takes **20 to 30 minutes**.\n\nBecause Shibuya and Shinjuku are two of the world's busiest railway hubs, the total time depends heavily on how quickly you can navigate the crowds inside the stations.\n\nHere is a breakdown of the most common routes:\n\n### 1. The JR Train + Walking Route (Most Reliable)\n*   **Route:** Take the **JR Yamanote Line** (Platform 2) or the **JR Saikyo/Shonan-Shinjuku Line** from Shibuya Station to **Shinjuku Station**.\n*   **Train Time:** 5–7 minutes.\n*   **Walking Time:** 10–15 minutes from Shinjuku Station (West Exit). \n*   **Total:** **~20–25 minutes.**\n*   **Note:** There is an underground walkway (the \"Moving Walkway\" near the West Exit) that leads toward the TMG building, which is helpful if it is raining.\n\n### 2. The Train + Subway Route (Least Walking)\n*   **Route:** JR Yamanote Line from Shibuya to Shinjuku, then transfer to the **Toei Oedo Line** for one stop to **Tochomae Station**.\n*   **Train Time:** 7 minutes (JR) + 2 minutes (Oedo Line).\n*   **Transfer/Walk Time:** 10–12 minutes. \n*   **Total:** **~25 minutes.**\n*   **Note:** Tochomae Station is located directly beneath the Tokyo Metropolitan Government Building. However, the Oedo Line platform in Shinjuku is very deep underground, so the transfer from the JR lines takes a significant amount of time.\n\n### 3. Taxi or Bus\n*   **Total Time:** **25–40 minutes.**\n*   **Note:** While the distance is short (about 4–5 km), traffic around Shinjuku and Shibuya during morning rush hour is heavy and unpredictable. A taxi is less physically demanding but often slower than the train.\n\n---\n\n### Key Tips for the Morning Rush:\n*   **Station Crowds:** Shibuya Station is currently undergoing massive renovations. Allow an extra 5 minutes just to get from the street level to the JR platforms.\n*   **The \"West Exit\":** When you arrive at Shinjuku Station, follow signs specifically for the **West Exit (Nishi-guchi)**. If you end up at the East or South exits, your walk to the TMG building will increase by 10 minutes.\n*   **Tochomae Station:** If you want to avoid the elements entirely, taking the Oedo Line to Tochomae is your best bet, as the station exits lead directly into the TMG plaza."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:58:49.636534Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "新宿区の新宿御苑周辺にあるコーヒーショップ（カフェ）を5軒教えて"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "新宿御苑周辺は、落ち着いた雰囲気の中で質の高いコーヒーを楽しめるカフェの激戦区です。その中でも特におすすめの5軒をご紹介します。\n\n### 1. 4/4 SEASONS COFFEE（オールシーズンズコーヒー）\n自家焙煎の本格的なコーヒーと、SNSでも大人気の「クラシックプリン」が名物のお店です。\n*   **特徴:** こぢんまりとしたスタイリッシュな空間で、丁寧に淹れられたハンドドリップコーヒーを楽しめます。固めのプリンはボリュームがあり、コーヒーとの相性が抜群です。\n*   **場所:** 新宿御苑前駅から徒歩数分。\n\n### 2. カフェ ラ・ボエム 新宿御苑\n映画『君の名は。』のモデルになったことでも有名な、公園に面したイタリアンカフェです。\n*   **特徴:** 天井が高く開放感のある店内で、大きな窓からは御苑の緑を一望できます。本格的なエスプレッソやカプチーノはもちろん、デザートメニューも充実しており、優雅な時間を過ごせます。\n*   **場所:** 大木戸門のすぐ近く。\n\n### 3. EIGHT COFFEE（エイトコーヒー）\n「美味しいコーヒーを日常に」をコンセプトにした、コーヒー通に愛される専門店です。\n*   **特徴:** 自家焙煎の豆を使用した香り高いコーヒーが特徴。テイクアウトして御苑を散歩するのにも最適です。店内はシンプルで落ち着いた雰囲気で、一人でも入りやすいです。\n*   **場所:** 新宿御苑前駅から徒歩約1分。\n\n### 4. BOWLS cafe（ボウルズカフェ）\n「公園のすぐそばの、小さなおうち」のような、温かみのあるカフェです。\n*   **特徴:** カントリー調のインテリアが可愛らしく、ゆったりとした時間が流れています。コーヒーだけでなく、どんぶりランチや手作りスイーツも人気。ペット連れで利用できるテラス席もあります。\n*   **場所:** 新宿門のすぐ近く。\n\n### 5. スターバックス コーヒー 新宿御苑内店\n日本で初めて国立公園の中にオープンした、特別なスターバックスです。\n*   **特徴:** 建物には国産の木材がふんだんに使われており、景色に溶け込むようなデザインです。窓の外には御苑の広大な芝生や池が広がり、四季折々の景色を眺めながらコーヒーを楽しめます。\n*   **注意点:** 新宿御苑の**入園料**が必要です。\n*   **場所:** 新宿御苑内（中の池付近）。\n\nどのお店もそれぞれ魅力が異なるので、その日の気分や、「公園の中に入って休むか、外でゆっくりするか」に合わせて選んでみてください。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "coffee_shops_shinjuku_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "新宿御苑周辺は、落ち着いた雰囲気の中で質の高いコーヒーを楽しめるカフェの激戦区です。その中でも特におすすめの5軒をご紹介します。\n\n### 1. 4/4 SEASONS COFFEE（オールシーズンズコーヒー）\n自家焙煎の本格的なコーヒーと、SNSでも大人気の「クラシックプリン」が名物のお店です。\n*   **特徴:** こぢんまりとしたスタイリッシュな空間で、丁寧に淹れられたハンドドリップコーヒーを楽しめます。固めのプリンはボリュームがあり、コーヒーとの相性が抜群です。\n*   **場所:** 新宿御苑前駅から徒歩数分。\n\n### 2. カフェ ラ・ボエム 新宿御苑\n映画『君の名は。』のモデルになったことでも有名な、公園に面したイタリアンカフェです。\n*   **特徴:** 天井が高く開放感のある店内で、大きな窓からは御苑の緑を一望できます。本格的なエスプレッソやカプチーノはもちろん、デザートメニューも充実しており、優雅な時間を過ごせます。\n*   **場所:** 大木戸門のすぐ近く。\n\n### 3. EIGHT COFFEE（エイトコーヒー）\n「美味しいコーヒーを日常に」をコンセプトにした、コーヒー通に愛される専門店です。\n*   **特徴:** 自家焙煎の豆を使用した香り高いコーヒーが特徴。テイクアウトして御苑を散歩するのにも最適です。店内はシンプルで落ち着いた雰囲気で、一人でも入りやすいです。\n*   **場所:** 新宿御苑前駅から徒歩約1分。\n\n### 4. BOWLS cafe（ボウルズカフェ）\n「公園のすぐそばの、小さなおうち」のような、温かみのあるカフェです。\n*   **特徴:** カントリー調のインテリアが可愛らしく、ゆったりとした時間が流れています。コーヒーだけでなく、どんぶりランチや手作りスイーツも人気。ペット連れで利用できるテラス席もあります。\n*   **場所:** 新宿門のすぐ近く。\n\n### 5. スターバックス コーヒー 新宿御苑内店\n日本で初めて国立公園の中にオープンした、特別なスターバックスです。\n*   **特徴:** 建物には国産の木材がふんだんに使われており、景色に溶け込むようなデザインです。窓の外には御苑の広大な芝生や池が広がり、四季折々の景色を眺めながらコーヒーを楽しめます。\n*   **注意点:** 新宿御苑の**入園料**が必要です。\n*   **場所:** 新宿御苑内（中の池付近）。\n\nどのお店もそれぞれ魅力が異なるので、その日の気分や、「公園の中に入って休むか、外でゆっくりするか」に合わせて選んでみてください。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:58:49.651039Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "朝の通勤ラッシュ時に渋谷のダウンタウンから東京都庁まで通勤すると、どれくらい時間がかかりますか？"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅周辺（ダウンタウン）から東京都庁まで移動する場合、移動手段によりますが、**おおよそ20分〜35分**を見ておくのが一般的です。\n\nルート別の詳細は以下の通りです。\n\n### 1. 電車を利用する場合（最も一般的）\n**所要時間：約25分〜30分**\n\n*   **ルート:**\n    1.  **JR山手線・埼京線・湘南新宿ライン**：渋谷駅 → 新宿駅（約5〜7分）\n    2.  **徒歩または乗り換え**:\n        *   **徒歩**: 新宿駅西口から都庁まで地下通路（ワンデーストリート）を通って徒歩約10〜15分。\n        *   **都営大江戸線**: 新宿駅から1駅「都庁前駅」まで（乗車2分＋乗り換え時間）。\n*   **ラッシュ時の注意点**:\n    *   新宿駅は非常に混雑しており、ホームから改札を出るまでに時間がかかります。\n    *   埼京線・湘南新宿ラインのホームは以前より山手線に近くなりましたが、それでも移動時間は余裕を持つ必要があります。\n\n### 2. バスを利用する場合\n**所要時間：約25分〜35分**\n\n*   **ルート**: **京王バス（宿51系統）**「渋谷駅」発 → 「新宿駅西口」または「都庁本庁舎」行き。\n*   **メリット**: 電車の乗り換えや新宿駅の混雑を避け、都庁のすぐ近くまで行ける場合があります。\n*   **ラッシュ時の注意点**: 明治通りや山手通りなどの渋滞により、予定より時間がかかるリスクがあります。\n\n### 3. タクシー・車を利用する場合\n**所要時間：約15分〜25分**\n\n*   **ルート**: 山手通りや小田急沿いの道を経由。\n*   **費用**: 約1,500円〜2,000円程度。\n*   **ラッシュ時の注意点**: 距離自体は4km弱と短いですが、新宿駅周辺の交差点は非常に混み合います。\n\n### 4. 自転車（シェアサイクルなど）を利用する場合\n**所要時間：約15分〜20分**\n\n*   **ルート**: 代々木公園の脇を抜けていくルートがスムーズです。\n*   **メリット**: ラッシュの影響を全く受けず、実は**最も時間が読みやすい**方法です。最近は「LUUP」などのシェアサイクルポートが都庁周辺にも多くあります。\n\n---\n\n**結論としての推測：**\nドア・ツー・ドア（渋谷のオフィスから都庁の受付まで）で考えるなら、**30分程度**を見込んでおけば、多少の混雑があっても遅刻せずに到着できるでしょう。"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "tokyo_gov_commute_ja",
+      "agent_data": {
+        "agents": {
+          "geo_agent": {
+            "agent_id": "geo_agent",
+            "agent_type": "LlmAgent",
+            "description": "",
+            "instruction": "You are a helpful AI assistant designed to provide accurate and useful information.",
+            "tools": [],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "geo_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "朝の通勤ラッシュ時（午前8時〜9時頃）に渋谷駅周辺（ダウンタウン）から東京都庁まで移動する場合、移動手段によりますが、**おおよそ20分〜35分**を見ておくのが一般的です。\n\nルート別の詳細は以下の通りです。\n\n### 1. 電車を利用する場合（最も一般的）\n**所要時間：約25分〜30分**\n\n*   **ルート:**\n    1.  **JR山手線・埼京線・湘南新宿ライン**：渋谷駅 → 新宿駅（約5〜7分）\n    2.  **徒歩または乗り換え**:\n        *   **徒歩**: 新宿駅西口から都庁まで地下通路（ワンデーストリート）を通って徒歩約10〜15分。\n        *   **都営大江戸線**: 新宿駅から1駅「都庁前駅」まで（乗車2分＋乗り換え時間）。\n*   **ラッシュ時の注意点**:\n    *   新宿駅は非常に混雑しており、ホームから改札を出るまでに時間がかかります。\n    *   埼京線・湘南新宿ラインのホームは以前より山手線に近くなりましたが、それでも移動時間は余裕を持つ必要があります。\n\n### 2. バスを利用する場合\n**所要時間：約25分〜35分**\n\n*   **ルート**: **京王バス（宿51系統）**「渋谷駅」発 → 「新宿駅西口」または「都庁本庁舎」行き。\n*   **メリット**: 電車の乗り換えや新宿駅の混雑を避け、都庁のすぐ近くまで行ける場合があります。\n*   **ラッシュ時の注意点**: 明治通りや山手通りなどの渋滞により、予定より時間がかかるリスクがあります。\n\n### 3. タクシー・車を利用する場合\n**所要時間：約15分〜25分**\n\n*   **ルート**: 山手通りや小田急沿いの道を経由。\n*   **費用**: 約1,500円〜2,000円程度。\n*   **ラッシュ時の注意点**: 距離自体は4km弱と短いですが、新宿駅周辺の交差点は非常に混み合います。\n\n### 4. 自転車（シェアサイクルなど）を利用する場合\n**所要時間：約15分〜20分**\n\n*   **ルート**: 代々木公園の脇を抜けていくルートがスムーズです。\n*   **メリット**: ラッシュの影響を全く受けず、実は**最も時間が読みやすい**方法です。最近は「LUUP」などのシェアサイクルポートが都庁周辺にも多くあります。\n\n---\n\n**結論としての推測：**\nドア・ツー・ドア（渋谷のオフィスから都庁の受付まで）で考えるなら、**30分程度**を見込んでおけば、多少の混雑があっても遅刻せずに到着できるでしょう。"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-10-15T11:58:49.644514Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
